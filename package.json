@@ -1,0 +1,27 @@
+{
+  "name": "trump-game",
+  "version": "0.1.0",
+  "description": "Trump money maker game investment game",
+  "main": "serve.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^1.5.3",
+    "gulp-watch": "^4.3.5",
+    "vinyl-transform": "^1.0.0",
+    "watchify": "^3.7.0"
+  }
+}
