@@ -14,6 +14,7 @@ module.exports = function(entry, artifact) {
           publicPath: 'js/',
           libraryTarget: 'umd',
         },
+
         resolve: {
           extensions: ['', '.js'],
           modulesDirectories: [
@@ -21,6 +22,8 @@ module.exports = function(entry, artifact) {
             'src'
           ],
         },
+
+
         debug: isDev,
         module: {
           loaders: [
@@ -30,9 +33,14 @@ module.exports = function(entry, artifact) {
               include: [
                 path.resolve(__dirname, "src")
               ]
-            }
+            },
+            {
+              test: /\.json$/,
+              loader: "json-loader"
+            },
           ]
         },
+
         plugins: [
           new webpack.DefinePlugin({
             "process.env": {

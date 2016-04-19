@@ -1,71 +1,112 @@
-var newsRoom = require('./newsManager');
-var mapZone = require('./mapCanvasUtility');
-var clickZone = require('./clickCanvasUtility');
+import Map from 'models/Map';
+import Store from 'store/Store';
+import Asset from 'models/Asset';
+import NewsNetwork from 'models/NewsNetwork';
+import funcLog from 'util/funcLog';
 
+const newsRoom = new NewsNetwork('news-queue');
+const myStore = new Store();
 
-var score = 0;
+const ONE_MINUTE = 1000 * 60;
+const TEN_MILLIS = 10;
 
-var assets = {
-  tenaments: 0,
-  hotels: 0,
-  golfCourses: 0,
-  casinos: 0,
-  towers: 0,
-  towns: 0,
-  cities: 0,
-  governs: 0,
-  isses: 0
+const money = {
+  total: 0,
+  current: 0,
+  perSecond: 0,
+
+  update: function(addedProfit) {
+    // This expects to be called every 10 milliseconds
+    this.total += addedProfit;
+    this.current += addedProfit;
+    this.perSecond = addedProfit*100;
+  }
 };
 
-var tenament = {
-  perSecond: 10,
-  cost: 100,
-  costIncrease: 5,
-  modify: 1,
-}
+const assets = {
+  tenements: new Asset('Tenement', 80, 50, 7),
+  hotels: new Asset('Hotel', 7, 150, 6),
+  golfCourses: new Asset('Golf Course', 50, 750, 7),
+  casinos: new Asset('Casino', 200, 2000, 8),
+  towers: new Asset('Trump Tower', 800, 5000, 9),
+  towns: new Asset('Trump Town', 2000, 20000, 10),
+  cities: new Asset('Trump City', 10000, 100000, 11),
+  governs: new Asset('Governership', 200000, 4000000, 12),
+  isses: new Asset('Trump ISS', 999999, 10000000, 13)
+};
 
 
-var buy = {
-  tenament: function() {
+const attemptBuy = function(asset) {
+  if (asset.price < money.current) {
+    money.current -= asset.price;
+    asset.buy();
+    myStore.updateAsset(asset);
+    // clickZone.update(money.current, money.perSecond);
+    
+    newsRoom.add("Trump bought a brand new "+asset.name+"!");
+  } else {
+    newsRoom.add("Trump can't even afford a "+asset.name+"!");
+  }
+};
 
+
+const storeManager = {
+  _tier: 0,
+  _temporaryStupidArrayOfAssets: ['tenements', 'hotels', 'golfCourses', 'casinos', 'towers', 'towns', 'cities', 'governs', 'isses'],
+  _next: undefined,
+
+  unlockNextAsset: function() {
+    const asset = this._next;
+    myStore.addAssetToDom(asset, function() {
+      attemptBuy(asset);
+    });
+
+    this._tier++;
+    this._next = assets[this._temporaryStupidArrayOfAssets[this._tier]];
+    funcLog('Next unlock amount is: ', this._next.unlockRequirement);
   },
 
-}
+  update: function() {
+    if (this._next.unlockRequirement && money.current >= this._next.unlockRequirement) {
+      this.unlockNextAsset();
+    }
+  },
 
-var buy = function() {
-  newsRoom.add("First button clicked.");
-}
+  init: function() {
+    this._next = assets[this._temporaryStupidArrayOfAssets[this._tier]];
+    this.unlockNextAsset();
+    this.unlockNextAsset();
+  }
+};
 
-var secondBtnAction = function() {
-  newsRoom.add("Second button clicked.");
-}
+var getTickProfit = function() {
+  var addedProfit = 0;
 
-document.getElementById("btn-1").addEventListener("click", firstBtnAction);
-document.getElementById("btn-2").addEventListener("click", secondBtnAction);
+  for (var key in assets) {
+    if (assets.hasOwnProperty(key)) {
+      addedProfit += assets[key].profitPer10Milli;
+    }
+  }
+  return addedProfit;
+};
 
-
-
-
-var handleClick = function() {
-  score++;
-  clickZone.shakeClickable();
-  clickZone.updateScore(score);
-}
-
-var tallyScore = function() {
-
-}
+// Tally every 10 milli - Sends update to everything
+var update = function() {
+  var addedProfit = getTickProfit();
+  money.update(addedProfit);
+  storeManager.update();
+  newsRoom.publish();
+//  Update the screen too
+};
 
 
 var init = function() {
-  createjs.Ticker.setFPS(60);
+  storeManager.init();
+  setInterval(update, TEN_MILLIS);
 
-  newsRoom.init();
-
-  mapZone.init();
-
-  clickZone.init();
-  clickZone.clickable.addEventListener("click", handleClick);
-}
+  setInterval(function() {
+    newsRoom.addRandomQuote();
+  }, ONE_MINUTE);
+};
 
 init();
