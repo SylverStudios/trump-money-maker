@@ -28,5 +28,4 @@ class Map {
     this._stage.update();
   }
 }
-
 export default Map;

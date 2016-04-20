@@ -3,12 +3,14 @@ import Store from 'store/Store';
 import Asset from 'models/Asset';
 import NewsNetwork from 'models/NewsNetwork';
 import funcLog from 'util/funcLog';
+import ClickZone from 'canvas/ClickZone';
 
 const newsRoom = new NewsNetwork('news-queue');
+const clickZone = new ClickZone('click-canvas');
 const myStore = new Store();
 
 const ONE_MINUTE = 1000 * 60;
-const TEN_MILLIS = 10;
+const FRAME_RATE = 20;
 
 const money = {
   total: 0,
@@ -96,17 +98,26 @@ var update = function() {
   money.update(addedProfit);
   storeManager.update();
   newsRoom.publish();
-//  Update the screen too
+  clickZone.update(money.current, money.perSecond);
 };
 
 
 var init = function() {
   storeManager.init();
-  setInterval(update, TEN_MILLIS);
+  setInterval(update, FRAME_RATE);
 
   setInterval(function() {
     newsRoom.addRandomQuote();
   }, ONE_MINUTE);
+
+
+  setInterval(function() {
+    money.current++;
+  }, ONE_MINUTE/10);
+
+  clickZone.testImage();
+
+
 };
 
 init();

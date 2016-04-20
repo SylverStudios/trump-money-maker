@@ -102,7 +102,7 @@ var buildTasks = {
         ;
   },
   'build-images': function () {
-    return gulp.src([srcDir + imagesDir + '/*.png'])
+    return gulp.src([srcDir + imagesDir + '/*'])
         .pipe(rename({dirname: ''}))
         .pipe(gulp.dest(buildDir + imagesDir));
   }
