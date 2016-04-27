@@ -2,17 +2,20 @@ import { fabric } from 'fabric-webpack';
 
 class ClickZone {
   constructor(canvasId) {
-    const x = 50, y = 50, clickX = 300, clickY = 150;
+    const x = 50;
+    const y = 50;
+    const clickX = 300;
+    const clickY = 150;
 
     this._canvas = new fabric.Canvas(canvasId);
     this._clickable = this._getDefaultClickable(clickX, clickY);
 
     // Label placement
     this._moneyLabel = this._getMoneyLabel(x, y);
-    this._mpsLabel = this._getMpsLabel(x, y+20);
+    this._mpsLabel = this._getMpsLabel(x, y + 20);
 
-    this._money = this._getDefaultMoney(x+15, y);
-    this._mps = this._getDefaultMps(x+115, y+20);
+    this._money = this._getDefaultMoney(x + 15, y);
+    this._mps = this._getDefaultMps(x + 115, y + 20);
 
     // Add it all to the canvas
     this._canvas.add(this._clickable);
@@ -27,17 +30,10 @@ class ClickZone {
     this._money.setText((Math.round(money)).toString());
     this._mps.setText((Math.round(mps)).toString());
   }
-  
-  testImage() {
-    this._canvas.setBackgroundImage("images/map.gif",
-        this._canvas.renderAll.bind(this._canvas), {
-          backgroundImageOpacity: 0.5,
-          backgroundImageStretch: false
-        });
 
-    this._canvas.renderAll();
+  getClickable() {
+    return this._clickable;
   }
-
 
   // Setup
   _getDefaultClickable() {
@@ -46,7 +42,7 @@ class ClickZone {
       fill: 'green',
       left: 100,
       top: 100,
-      selectable: false
+      selectable: false,
     });
   }
 
@@ -57,7 +53,7 @@ class ClickZone {
       fill: '#00b200',
       angle: 0,
       fontSize: 20,
-      selectable: false
+      selectable: false,
     });
   }
 
@@ -68,7 +64,7 @@ class ClickZone {
       fill: '#00b200',
       angle: 0,
       fontSize: 20,
-      selectable: false
+      selectable: false,
     });
   }
 
@@ -79,7 +75,7 @@ class ClickZone {
       fill: '#000',
       angle: 0,
       fontSize: 20,
-      selectable: false
+      selectable: false,
     });
   }
 
@@ -90,7 +86,7 @@ class ClickZone {
       fill: '#000',
       angle: 0,
       fontSize: 20,
-      selectable: false
+      selectable: false,
     });
   }
 }

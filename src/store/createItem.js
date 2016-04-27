@@ -1,8 +1,8 @@
 // name, price, owned
-const createItem = function(asset) {
+const createItem = function (asset) {
   const item = document.createElement('div');
   item.className = 'store-item panel panel-default';
-  item.id = 'item-'+asset.name;
+  item.id = 'item-' + asset.name;
 
   const panelBodyNode = document.createElement('div');
   panelBodyNode.className = 'panel-body';

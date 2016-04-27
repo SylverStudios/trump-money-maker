@@ -28,6 +28,7 @@ var styleFile = '';
 
 var mainEntry = '/main.js';
 var artifactName = 'bundle.js';
+var scssFileName = '';
 var webpackConfig = generateWebpackConfig(srcDir + mainEntry, artifactName);
 
 
@@ -36,13 +37,13 @@ function doWebpack(config) {
       .pipe(webpackStream(config))
       .pipe(environment === 'production' ? uglify() : util.noop())
       .pipe(gulp.dest(buildDir + jsDir))
-      .pipe(size({title: 'js'}))
+      .pipe(size({ title: 'js' }))
       ;
 }
 
 function fsExistsSync(filePath) {
   try {
-    var stats = fs.statSync(filePath);
+    fs.statSync(filePath);
     return true;
   } catch (err) {
     return false;
@@ -69,16 +70,16 @@ var utilTasks = {
         buildDir + jsDir
     );
   },
-  'clean': function() {
+  'clean': function () {
     rmIfExists(buildDir);
   },
-  'lint-js': function() {
+  'lint-js': function () {
     return gulp.src('src/**/*.js')
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
         ;
-  }
+  },
 };
 
 var buildTasks = {
@@ -93,19 +94,19 @@ var buildTasks = {
     return gulp.src(srcDir + scssFileName)
         .pipe(sass({
           includePaths: [
-            './node_modules/bootstrap-sass/assets/stylesheets'
-          ]
+            './node_modules/bootstrap-sass/assets/stylesheets',
+          ],
         }).on('error', sass.logError))
         .pipe(rename('browserAction.css'))
         .pipe(gulp.dest(buildDir))
-        .pipe(size({title: 'css'}))
+        .pipe(size({ title: 'css' }))
         ;
   },
   'build-images': function () {
     return gulp.src([srcDir + imagesDir + '/*'])
         .pipe(rename({dirname: ''}))
         .pipe(gulp.dest(buildDir + imagesDir));
-  }
+  },
 };
 
 var watchTasks = {
@@ -119,11 +120,11 @@ var watchTasks = {
         [srcDir + styleDir + styleFile],
         ['build-scss']
     );
-  }
+  },
 };
 
 gulp.task('setup-build', utilTasks['setup-build']);
-gulp.task('clean', utilTasks['clean']);
+gulp.task('clean', utilTasks.clean);
 
 // Build - NO SCSS FOR RIGHT NOW
 gulp.task('build-js', buildTasks['build-js']);

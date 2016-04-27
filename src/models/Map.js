@@ -1,31 +1,34 @@
-// Rebuild with fabric
+import { fabric } from 'fabric-webpack';
 
 class Map {
-  constructor(canvasName) {
-    console.log(createjs);
-    console.log(createjs)
-    this._stage = new createjs.Stage(canvasName);
+  constructor(canvasId) {
+    this._canvas = new fabric.Canvas(canvasId);
 
-    const mapImage = new createjs.Bitmap("images/map.gif");
-    mapImage.x = 150;
-    mapImage.y = 0;
-
-    this._stage.addChild(mapImage);
-    createjs.Ticker.addEventListener("tick", this._stage);
+    fabric.Image.fromURL('images/map.gif', img => {
+      img.scale(1.4).set({
+        left: 0,
+        top: 0,
+        selectable: false,
+      });
+      this._canvas.add(img);
+    });
   }
 
   addPin(x, y) {
-    const pin = new createjs.Shape();
-    pin.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 5);
-    pin.x = x;
-    pin.y = y;
+    const pin = this._getPin(x, y);
 
-    this._stage.addChild(pin);
-    this._stage.update();
+    this._canvas.add(pin).renderAll();
   }
 
-  update() {
-    this._stage.update();
+  _getPin(x, y) {
+    return new fabric.Circle({
+      radius: 5,
+      fill: 'blue',
+      left: x,
+      top: y,
+      selectable: false,
+    });
   }
 }
+
 export default Map;

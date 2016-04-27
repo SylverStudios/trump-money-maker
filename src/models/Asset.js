@@ -8,7 +8,7 @@ class Asset {
     this._costIncreasePercentage = costIncreasePercentage;
     this._multiplier = 1;
     this._owned = 0;
-    this._unlockCost = basePrice * .75;
+    this._unlockCost = basePrice * 0.75;
   }
 
   get basePrice() {
@@ -21,18 +21,18 @@ class Asset {
     return this._name;
   }
   get unlockRequirement() {
-    return this._unlockCost
+    return this._unlockCost;
   }
   get profitPer10Milli() {
-    return this._baseIncomePer10Milli * this._owned * this._multiplier/100
+    return this._baseIncomePer10Milli * this._owned * this._multiplier / 100;
   }
   get owned() {
-    return this._owned
+    return this._owned;
   }
 
   buy() {
     this._owned++;
-    this._currentPrice += (this._currentPrice * this._costIncreasePercentage/100);
+    this._currentPrice += (this._currentPrice * this._costIncreasePercentage / 100);
   }
 
   addMultiplier(additionalPercentage) {

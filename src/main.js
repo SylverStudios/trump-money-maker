@@ -4,26 +4,17 @@ import Asset from 'models/Asset';
 import NewsNetwork from 'models/NewsNetwork';
 import funcLog from 'util/funcLog';
 import ClickZone from 'canvas/ClickZone';
+import BankAccount from 'models/BankAccount';
 
 const newsRoom = new NewsNetwork('news-queue');
 const clickZone = new ClickZone('click-canvas');
+const myMap = new Map('map-canvas');
 const myStore = new Store();
 
 const ONE_MINUTE = 1000 * 60;
 const FRAME_RATE = 20;
 
-const money = {
-  total: 0,
-  current: 0,
-  perSecond: 0,
-
-  update: function(addedProfit) {
-    // This expects to be called every 10 milliseconds
-    this.total += addedProfit;
-    this.current += addedProfit;
-    this.perSecond = addedProfit*100;
-  }
-};
+const account = new BankAccount();
 
 const assets = {
   tenements: new Asset('Tenement', 80, 50, 7),
@@ -34,20 +25,20 @@ const assets = {
   towns: new Asset('Trump Town', 2000, 20000, 10),
   cities: new Asset('Trump City', 10000, 100000, 11),
   governs: new Asset('Governership', 200000, 4000000, 12),
-  isses: new Asset('Trump ISS', 999999, 10000000, 13)
+  isses: new Asset('Trump ISS', 999999, 10000000, 13),
 };
 
 
 const attemptBuy = function(asset) {
-  if (asset.price < money.current) {
-    money.current -= asset.price;
+  if (account.cash > asset.price) {
+    account.withdraw(asset.price);
     asset.buy();
     myStore.updateAsset(asset);
     // clickZone.update(money.current, money.perSecond);
-    
-    newsRoom.add("Trump bought a brand new "+asset.name+"!");
+
+    newsRoom.add('Trump bought a brand new ' + asset.name + '!');
   } else {
-    newsRoom.add("Trump can't even afford a "+asset.name+"!");
+    newsRoom.add('Trump can\'t even afford a ' + asset.name + '!');
   }
 };
 
@@ -69,7 +60,7 @@ const storeManager = {
   },
 
   update: function() {
-    if (this._next.unlockRequirement && money.current >= this._next.unlockRequirement) {
+    if (this._next.unlockRequirement && account.cash >= this._next.unlockRequirement) {
       this.unlockNextAsset();
     }
   },
@@ -95,10 +86,9 @@ var getTickProfit = function() {
 // Tally every 10 milli - Sends update to everything
 var update = function() {
   var addedProfit = getTickProfit();
-  money.update(addedProfit);
+  account.directDeposit(addedProfit);
   storeManager.update();
-  newsRoom.publish();
-  clickZone.update(money.current, money.perSecond);
+  clickZone.update(account.cash, account.income);
 };
 
 
@@ -106,18 +96,19 @@ var init = function() {
   storeManager.init();
   setInterval(update, FRAME_RATE);
 
+  const clickable = clickZone.getClickable();
+  clickable.on('mousedown', () => {
+    console.log('yay');
+  });
+
   setInterval(function() {
     newsRoom.addRandomQuote();
   }, ONE_MINUTE);
 
-
   setInterval(function() {
-    money.current++;
-  }, ONE_MINUTE/10);
-
-  clickZone.testImage();
-
-
+    account.deposit(1);
+    myMap.addPin(10, 12);
+  }, ONE_MINUTE / 10);
 };
 
 init();
