@@ -9,21 +9,21 @@ const tenament = new Asset('Tenement', 80, 50, 7);
 
 // Tests
 
-describe('Asset', function() {
+describe('Asset', function () {
 
-  describe('constructor', function() {
+  describe('constructor', function () {
 
-    it('should construct an asset', function() {
+    it('should construct an asset', function () {
       assert.equal('number', typeof tenament.basePrice);
       assert.equal('number', typeof tenament.price);
       assert.equal('string', typeof tenament.name);
       assert.equal('number', typeof tenament.unlockRequirement);
-      assert.equal('number', typeof tenament.profitPer10Milli);
+      assert.equal('number', typeof tenament.incomePerSecond);
       assert.equal('number', typeof tenament.owned);
       assert.equal('function', typeof tenament.buy);
       assert.equal('function', typeof tenament.addMultiplier);
     });
-    
+
   });
 
 });
