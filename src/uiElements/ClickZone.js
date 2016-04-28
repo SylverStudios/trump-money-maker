@@ -27,8 +27,9 @@ class ClickZone {
   }
 
   update(money, mps) {
-    this._money.setText((Math.round(money)).toString());
-    this._mps.setText((Math.round(mps)).toString());
+    this._money.setText((Math.floor(money)).toString());
+    this._mps.setText((Math.floor(mps)).toString());
+    this._canvas.renderAll();
   }
 
   getClickable() {

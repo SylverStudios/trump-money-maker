@@ -1,5 +1,3 @@
-import funcLog from '../util/funcLog';
-
 class NewsNetwork {
   constructor(elementId) {
     this._newsQueue = [];
@@ -16,7 +14,6 @@ class NewsNetwork {
       'China, China, China.',
     ];
     this._page = document.getElementById(elementId);
-    funcLog('we have this many quotes: ', this._quotes.length);
   }
 
   get news() {
@@ -29,6 +26,7 @@ class NewsNetwork {
     if (this._newsQueue.length > 10) {
       this._newsQueue.shift();
     }
+    this.publish();
   }
 
   addRandomQuote() {
@@ -36,18 +34,23 @@ class NewsNetwork {
     const max = this._quotes.length;
     const rand = Math.floor(Math.random() * (max - min + 1)) + min;
     this.add(this._quotes[rand]);
-    this.publish();
   }
-
 
   publish() {
     let html = '<ol>';
 
-    for (const article of this._newsQueue) {
+    // We want to print this in reverse order
+    for (let i = this._newsQueue.length - 1; i >= 0; i--) {
       html += '<li>';
-      html += article;
+      html += this._newsQueue[i];
       html += '</li>';
     }
+    //
+    // for (const article of this._newsQueue) {
+    //   html += '<li>';
+    //   html += article;
+    //   html += '</li>';
+    // }
 
     html += '</ol>';
 

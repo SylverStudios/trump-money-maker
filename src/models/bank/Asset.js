@@ -1,7 +1,7 @@
 class Asset {
-  constructor(name, baseIncomePer10Milli, basePrice, costIncreasePercentage) {
+  constructor(name, baseIncomePerSecond, basePrice, costIncreasePercentage) {
     this._name = name;
-    this._baseIncomePer10Milli = baseIncomePer10Milli;
+    this._baseIncomePerSecond = baseIncomePerSecond;
     this._basePrice = basePrice;
     this._currentPrice = basePrice;
 
@@ -23,8 +23,8 @@ class Asset {
   get unlockRequirement() {
     return this._unlockCost;
   }
-  get profitPer10Milli() {
-    return this._baseIncomePer10Milli * this._owned * this._multiplier / 100;
+  get incomePerSecond() {
+    return this._baseIncomePerSecond * this._owned * this._multiplier;
   }
   get owned() {
     return this._owned;

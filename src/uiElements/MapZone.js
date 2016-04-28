@@ -1,6 +1,6 @@
 import { fabric } from 'fabric-webpack';
 
-class Map {
+class MapZone {
   constructor(canvasId) {
     this._canvas = new fabric.Canvas(canvasId);
 
@@ -31,4 +31,4 @@ class Map {
   }
 }
 
-export default Map;
+export default MapZone;

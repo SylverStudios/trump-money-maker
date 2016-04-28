@@ -1,4 +1,4 @@
-import createItem from './createItem';
+import createItem from './../models/store/createItem';
 import funcLog from '../util/funcLog';
 
 class Store {
