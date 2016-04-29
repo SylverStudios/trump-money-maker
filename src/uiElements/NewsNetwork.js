@@ -29,10 +29,10 @@ class NewsNetwork {
     this.publish();
   }
 
+  // This is rand from 0 to length, inclusive lower bound, exclusive upper
   addRandomQuote() {
-    const min = 0;
     const max = this._quotes.length;
-    const rand = Math.floor(Math.random() * (max - min + 1)) + min;
+    const rand = Math.floor(Math.random() * max);
     this.add(this._quotes[rand]);
   }
 
@@ -45,12 +45,6 @@ class NewsNetwork {
       html += this._newsQueue[i];
       html += '</li>';
     }
-    //
-    // for (const article of this._newsQueue) {
-    //   html += '<li>';
-    //   html += article;
-    //   html += '</li>';
-    // }
 
     html += '</ol>';
 
