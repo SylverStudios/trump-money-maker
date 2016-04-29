@@ -97,7 +97,7 @@ var buildTasks = {
             './node_modules/bootstrap-sass/assets/stylesheets',
           ],
         }).on('error', sass.logError))
-        .pipe(rename('browserAction.css'))
+        .pipe(rename('main.css'))
         .pipe(gulp.dest(buildDir))
         .pipe(size({ title: 'css' }))
         ;
