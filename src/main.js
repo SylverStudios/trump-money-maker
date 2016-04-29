@@ -2,15 +2,15 @@ import MapZone from 'uiElements/MapZone';
 import ClickZone from 'uiElements/ClickZone';
 import NewsNetwork from 'uiElements/NewsNetwork';
 import Store from 'uiElements/Store';
-
-import Bank from 'models/Bank';
 import funcLog from 'util/funcLog';
 
-const newsRoom = new NewsNetwork('news-queue');
-const clickZone = new ClickZone('click-canvas');
-const myMap = new MapZone('map-canvas');
-const myStore = new Store();
+import Bank from 'models/Bank';
 const bank = new Bank();
+
+const newsRoom = new NewsNetwork('news-queue');
+const clickZone = new ClickZone('click-canvas', () => {bank.addClickIncome();});
+const myMap = new MapZone('map-canvas');
+const myStore = new Store('item-menu');
 
 // 1000ms / 60fps = 20mspf
 const FRAME_RATE = 20;
@@ -48,11 +48,6 @@ const init = function () {
   myMap.addPin(200, 220);
 
   setInterval(update, FRAME_RATE);
-
-  const clickable = clickZone.getClickable();
-  clickable.on('mousedown', () => {
-    bank.addClickIncome();
-  });
 
   setInterval(function () {
     newsRoom.addRandomQuote();
