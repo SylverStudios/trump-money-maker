@@ -9,7 +9,7 @@ const createItem = function (asset) {
 
   const imageNode = document.createElement('img');
   imageNode.className = 'col-md-2';
-  imageNode.src = 'images/SylverBar38.png';
+  imageNode.src = `images/${asset.name}.png`;
 
   const contentNode = document.createElement('div');
   contentNode.className = 'item-content col-md-8';
@@ -19,12 +19,12 @@ const createItem = function (asset) {
   titleNode.innerHTML = asset.name;
 
   const costNode = document.createElement('div');
-  costNode.id = asset.name + '-price';
+  costNode.id = `${asset.name}-price`;
   costNode.className = 'item-cost';
-  costNode.innerHTML = asset.price;
+  costNode.innerHTML = `$${asset.price}`;
 
   const numberNode = document.createElement('div');
-  numberNode.id = asset.name + '-owned';
+  numberNode.id = `${asset.name}-owned`;
   numberNode.className = 'item-number col-md-2';
   numberNode.innerHTML = asset.owned;
 
