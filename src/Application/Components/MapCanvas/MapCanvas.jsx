@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { fabric } from 'fabric-webpack';
 
 /**
@@ -49,7 +49,7 @@ const MapCanvas = React.createClass({
   render() {
     return (
       <div>
-        <canvas id="map-canvas" width="600" height="300"></canvas>
+        <canvas id="map-canvas" width="600" height="300"/>
       </div>
     );
   },

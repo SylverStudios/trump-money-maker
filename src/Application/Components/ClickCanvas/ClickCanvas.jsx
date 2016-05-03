@@ -5,9 +5,9 @@ import numeral from 'numeral';
 const ClickCanvas = React.createClass({
   propTypes: {
     cash: React.PropTypes.number.isRequired,
+    image: React.PropTypes.string.isRequired,
     income: React.PropTypes.number.isRequired,
     onClick: React.PropTypes.func.isRequired,
-    image: React.PropTypes.string.isRequired,
   },
 
   images: {
@@ -18,7 +18,7 @@ const ClickCanvas = React.createClass({
     return {
       cash: 0,
       income: 0,
-    }
+    };
   },
 
   _createText(x, y, color, text) {
@@ -81,7 +81,7 @@ const ClickCanvas = React.createClass({
     this.canvas.renderAll();
   },
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.image !== this.props.image) {
       this.setClickableImage();
     }

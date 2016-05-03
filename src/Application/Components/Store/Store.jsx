@@ -1,5 +1,5 @@
-import React from "react";
-import StoreItem from "./StoreItem";
+import React from 'react';
+import StoreItem from './StoreItem';
 
 const Store = React.createClass({
   propTypes: {
@@ -13,7 +13,7 @@ const Store = React.createClass({
   },
 
   render() {
-    let unlockedAssets = [];
+    const unlockedAssets = [];
     for (const asset of this.props.assets) {
       if (asset.unlocked) {
         unlockedAssets.push(asset);
