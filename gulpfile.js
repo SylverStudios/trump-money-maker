@@ -14,33 +14,25 @@ var rimraf = require('rimraf');
 var generateWebpackConfig = require('./generateWebpackConfig.js');
 var webpackStream = require('webpack-stream');
 
-
 // setup
 var environment = util.env.type || 'development';
 
-// New stuff
-var srcDir = './src';
-var buildDir = './build';
-var imagesDir = '/images';
+var srcDir = './src/';
+var buildDir = './build/';
+var imagesDir = 'images/';
 
 var htmlEntry = 'index.html';
 var htmlEntryFull = srcDir + htmlEntry;
 var htmlArtifact = 'index.html';
-var htmlArtifactFull = buildDir + htmlArtifact;
 
 var jsxEntry = 'entrypoint.jsx';
 var jsxEntryFull = srcDir + jsxEntry;
 var jsxArtifact = 'bundle.js';
-var jsxArtifactFull = buildDir + jsxArtifact;
-var jsxWebpackConfig = generateWebpackConfig(jsxEntryFull, jsxArtifactFull);
+var jsxWebpackConfig = generateWebpackConfig(jsxEntryFull, jsxArtifact);
 
 var scssEntry = 'entrypoint.scss';
 var scssEntryFull = srcDir + scssEntry;
 var scssArtifact = 'app.css';
-
-// SOon I won't need this
-var webpackConfig = generateWebpackConfig(srcDir + mainEntry, artifactName);
-
 
 function doWebpack(config) {
   return gulp.src(config.entry)
@@ -72,10 +64,10 @@ function rmIfExists() {
 }
 
 var utilTasks = {
-  'setup-build': function() {
+  'setup-build': function () {
     mkdirsIfMissing(
         buildDir,
-        buildDir + imagesDir,
+        buildDir + imagesDir
     );
   },
   'clean': function () {
@@ -98,7 +90,7 @@ var utilTasks = {
 var buildTasks = {
   'build-html': function () {
     return gulp.src(htmlEntryFull)
-        .pipe(gulp.dest(htmlArtifactFull));
+        .pipe(gulp.dest(buildDir));
   },
   'build-jsx': function () {
     return doWebpack(jsxWebpackConfig.getConfig(environment));
@@ -113,7 +105,7 @@ var buildTasks = {
   },
   'build-images': function () {
     return gulp.src([srcDir + imagesDir + '/*'])
-        .pipe(rename({dirname: ''}))
+        .pipe(rename({ dirname: '' }))
         .pipe(gulp.dest(buildDir + imagesDir));
   },
 };

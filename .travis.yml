@@ -9,12 +9,12 @@ script:
 
 after_success:
   - tar -zcvf build.tar.gz ./build
+  - echo 'log some interesting stuff cuz im interested in stuff.'
   - ls
   - pwd
 
 deploy:
   provider: releases
-  api_key: "4bdaf05ac20bfaa187ab9df97f2fa5a6f5217ed7"
   file: "build.tar.gz"
   overwrite: true
   skip_cleanup: true
