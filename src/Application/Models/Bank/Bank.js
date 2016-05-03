@@ -1,5 +1,5 @@
-import BankAccount from './bank/BankAccount';
-import RealEstateBroker from './bank/RealEstateBroker';
+import BankAccount from './BankAccount';
+import RealEstateBroker from './RealEstateBroker';
 
 class Bank {
   constructor() {
@@ -28,6 +28,10 @@ class Bank {
     return this._broker.currentSale;
   }
 
+  get assets() {
+    return this._broker.assets;
+  }
+
   deposit(money) {
     this._account.deposit(money);
   }
@@ -42,9 +46,10 @@ class Bank {
   }
 
   buy(asset) {
-    if (this._account.cash > asset.price) {
+    if (this._account.cash >= asset.price) {
       this._account.withdraw(asset.price);
       asset.buy();
+      asset.unlock();
       return true;
     }
     return false;

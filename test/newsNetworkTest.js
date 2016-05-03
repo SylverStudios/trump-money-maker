@@ -1,4 +1,4 @@
-import Asset from '../src/models/bank/Asset';
+import Asset from '../src/Application/Models/Bank/Asset';
 
 let assert = require('assert');
 let mocha = require('mocha');
