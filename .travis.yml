@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "4.2"
 
+before_install: gem install scss-lint
+
 script:
   - npm run lint
   - npm test
