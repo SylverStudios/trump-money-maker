@@ -8,14 +8,6 @@ const StoreItem = React.createClass({
     price: React.PropTypes.number.isRequired,
   },
 
-  getInitialState() {
-    return {
-      name: 'unknown',
-      price: 0,
-      owned: 0,
-    };
-  },
-
   render() {
     const imgSrc = `images/${this.props.name}.png`;
 

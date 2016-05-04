@@ -7,11 +7,6 @@ const Store = React.createClass({
     createOnClick: React.PropTypes.func.isRequired,
   },
 
-  componentDidMount() {
-    this.props.assets[0].unlock();
-    this.forceUpdate();
-  },
-
   render() {
     const unlockedAssets = [];
     for (const asset of this.props.assets) {

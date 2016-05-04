@@ -1,5 +1,4 @@
 import React from 'react';
-// import StoreItem from './Components/StoreItem/StoreItem';
 import Bank from './Models/Bank/Bank';
 
 import ClickCanvas from './Components/ClickCanvas/ClickCanvas';
@@ -8,7 +7,7 @@ import NewsRoom from './Components/NewsRoom/NewsRoom';
 import Store from './Components/Store/Store';
 
 /**
- * This is should handle the top level components.
+ * This should handle the top level components.
  * NavBar
  * ClickZone
  * MapZone

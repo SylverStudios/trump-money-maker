@@ -2,6 +2,9 @@ import React from 'react';
 import { fabric } from 'fabric-webpack';
 import numeral from 'numeral';
 
+const GREEN = '#00b200';
+const BLACK = '#000';
+
 const ClickCanvas = React.createClass({
   propTypes: {
     cash: React.PropTypes.number.isRequired,
@@ -35,8 +38,8 @@ const ClickCanvas = React.createClass({
   setClickableImage() {
     fabric.Image.fromURL(this.images[this.props.image], img => {
       img.set({
-        left: this.imgX,
-        top: this.imgY,
+        left: this.imgPosX,
+        top: this.imgPosY,
         selectable: false,
       });
       if (this.clickable) {
@@ -50,22 +53,22 @@ const ClickCanvas = React.createClass({
   },
 
   setupDefaults() {
-    this.imgX = 250;
-    this.imgY = 50;
+    this.imgPosX = 250;
+    this.imgPosY = 50;
     this.clickable = undefined;
 
-    const x = 50;
-    const y = 50;
+    const textPosX = 50;
+    const textPosY = 50;
 
-    this.moneyLabel = this._createText(x, y, '#000', 'Cash: ');
-    this.mpsLabel = this._createText(x, y + 20, '#000', 'Income: ');
+    this.moneyLabel = this._createText(textPosX, textPosY, BLACK, 'Cash: ');
+    this.incomeLabel = this._createText(textPosX, textPosY + 20, BLACK, 'Income: ');
 
-    this.money = this._createText(x + 50, y, '#00b200', '$ 0.00');
-    this.mps = this._createText(x + 70, y + 20, '#00b200', '$ 0.00');
+    this.money = this._createText(textPosX + 50, textPosY, GREEN, '$ 0.00');
+    this.mps = this._createText(textPosX + 70, textPosY + 20, GREEN, '$ 0.00');
 
     // Add it all to the canvas
     this.canvas.add(this.moneyLabel);
-    this.canvas.add(this.mpsLabel);
+    this.canvas.add(this.incomeLabel);
     this.canvas.add(this.money);
     this.canvas.add(this.mps);
 
@@ -97,9 +100,7 @@ const ClickCanvas = React.createClass({
 
   render() {
     return (
-        <div>
-          <canvas id="click-canvas" width="600" height="300"></canvas>
-        </div>
+          <canvas id="click-canvas" width="600" height="300" />
     );
   },
 });

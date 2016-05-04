@@ -11,9 +11,6 @@ script:
 
 after_success:
   - tar -zcvf build.tar.gz ./build
-  - echo 'log some interesting stuff cuz im interested in stuff.'
-  - ls
-  - pwd
 
 deploy:
   provider: releases

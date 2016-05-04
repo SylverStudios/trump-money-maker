@@ -73,7 +73,7 @@ var utilTasks = {
   'clean': function () {
     rmIfExists(buildDir);
   },
-  'lint-jsx': function () {
+  'lint-js': function () {
     return gulp.src(['src/**/*.{js,jsx}', '!node_modules/**'])
         .pipe(eslint())
         .pipe(eslint.format())
@@ -92,7 +92,7 @@ var buildTasks = {
     return gulp.src(htmlEntryFull)
         .pipe(gulp.dest(buildDir));
   },
-  'build-jsx': function () {
+  'build-js': function () {
     return doWebpack(jsxWebpackConfig.getConfig(environment));
   },
   'build-scss': function () {
@@ -114,7 +114,7 @@ var watchTasks = {
   'watch-html': function () {
     return gulp.watch([srcDir + '**/*.html'], ['build-html']);
   },
-  'watch-jsx': function () {
+  'watch-js': function () {
     var config = jsxWebpackConfig.getConfig(environment);
     config.watch = true;
     return doWebpack(config);
@@ -130,23 +130,23 @@ var watchTasks = {
 gulp.task('setup-build', utilTasks['setup-build']);
 
 // Build
-gulp.task('build-jsx', buildTasks['build-jsx']);
+gulp.task('build-js', buildTasks['build-js']);
 gulp.task('build-html', buildTasks['build-html']);
 gulp.task('build-scss', buildTasks['build-scss']);
 gulp.task('build-images', buildTasks['build-images']);
 
 // Watch
-gulp.task('watch-jsx', watchTasks['watch-jsx']);
+gulp.task('watch-js', watchTasks['watch-js']);
 gulp.task('watch-scss', watchTasks['watch-js']);
 gulp.task('watch-html', watchTasks['watch-html']);
 gulp.task('watch-images', watchTasks['watch-images']);
 
 // Lint
-gulp.task('lint-jsx', utilTasks['lint-jsx']);
+gulp.task('lint-js', utilTasks['lint-js']);
 gulp.task('lint-scss', utilTasks['lint-scss']);
 
 // USE THESE!!
 gulp.task('clean', utilTasks.clean);
-gulp.task('lint', ['lint-jsx', 'lint-scss']);
-gulp.task('build', ['setup-build', 'build-jsx', 'build-html', 'build-scss', 'build-images']);
-gulp.task('watch', ['setup-build', 'watch-jsx', 'watch-scss', 'watch-html', 'watch-images']);
+gulp.task('lint', ['lint-js', 'lint-scss']);
+gulp.task('build', ['setup-build', 'build-js', 'build-html', 'build-scss', 'build-images']);
+gulp.task('watch', ['setup-build', 'watch-js', 'watch-scss', 'watch-html', 'watch-images']);

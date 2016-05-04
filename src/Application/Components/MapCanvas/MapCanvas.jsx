@@ -1,6 +1,8 @@
 import React from 'react';
 import { fabric } from 'fabric-webpack';
 
+const MAP_IMAGE_ADDRESS = 'images/map.gif';
+const MAP_CANVAS_DOM_ID = 'map-canvas';
 /**
  * No Pin functionality yet.
  */
@@ -10,7 +12,7 @@ const MapCanvas = React.createClass({
   },
 
   setMap() {
-    fabric.Image.fromURL('images/map.gif', img => {
+    fabric.Image.fromURL(MAP_IMAGE_ADDRESS, img => {
       img.scale(1.4).set({
         left: 0,
         top: 0,
@@ -35,22 +37,14 @@ const MapCanvas = React.createClass({
     this.canvas.add(canvasPin).renderAll();
   },
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.pins !== this.props.pins) {
-  //     this.dropPins();
-  //   }
-  // },
-
   componentDidMount() {
-    this.canvas = new fabric.Canvas('map-canvas');
+    this.canvas = new fabric.Canvas(MAP_CANVAS_DOM_ID);
     this.setMap();
   },
 
   render() {
     return (
-      <div>
         <canvas id="map-canvas" width="600" height="300"/>
-      </div>
     );
   },
 });
