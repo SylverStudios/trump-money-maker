@@ -5,19 +5,21 @@ const NewsRoom = React.createClass({
     articles: React.PropTypes.array.isRequired,
   },
 
+  renderNewsQueue() {
+    return (
+      <div id="news-queue">
+        <ul>
+          {this.props.articles.map((article, index) => <li key={index}>{article}</li>)}
+        </ul>
+      </div>
+    );
+  },
+
   render() {
-    let count = 0;
     return (
       <div id="news-zone">
         <h3>News Room</h3>
-        <div id="news-queue">
-          <ul>
-            {this.props.articles.map(function (article) {
-              count++;
-              return <li key={count}>{article}</li>;
-            })}
-          </ul>
-        </div>
+        {this.renderNewsQueue()}
       </div>
     );
   },

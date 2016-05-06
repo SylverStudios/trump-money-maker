@@ -6,6 +6,9 @@ import MapCanvas from './Components/MapCanvas/MapCanvas';
 import NewsRoom from './Components/NewsRoom/NewsRoom';
 import Store from './Components/Store/Store';
 
+import OrderedPair from './Components/MapCanvas/OrderedPair';
+import { List } from 'immutable';
+
 /**
  * This should handle the top level components.
  * NavBar
@@ -32,7 +35,8 @@ const Application = React.createClass({
     'I\'m gunna be Yuge!',
     'China, China, China.',
   ],
-  pins: {},
+  pins: new List(),
+
   // 1000ms / 60fps = 20mspf
   FRAME_RATE: 20,
 
@@ -91,6 +95,8 @@ const Application = React.createClass({
   },
 
   render() {
+    this.pins = this.pins.push(new OrderedPair(50, 50));
+
     return (
         <div>
           <div className="col-md-3">
@@ -98,7 +104,13 @@ const Application = React.createClass({
           </div>
 
           <div className="col-md-6">
-            <ClickCanvas cash={this.bank.cash} income={this.bank.income} canvasId="canvas" onClick={this.handleMoneyClick} image="penny"/>
+            <ClickCanvas
+              cash={this.bank.cash}
+              income={this.bank.income}
+              canvasId="canvas"
+              onClick={this.handleMoneyClick}
+              image="penny"
+            />
             <MapCanvas pins={this.pins} />
           </div>
 

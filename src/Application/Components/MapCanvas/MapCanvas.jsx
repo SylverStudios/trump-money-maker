@@ -1,5 +1,8 @@
 import React from 'react';
 import { fabric } from 'fabric-webpack';
+import OrderedPair from './OrderedPair';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const MAP_IMAGE_ADDRESS = 'images/map.gif';
 const MAP_CANVAS_DOM_ID = 'map-canvas';
@@ -7,9 +10,12 @@ const MAP_CANVAS_DOM_ID = 'map-canvas';
  * No Pin functionality yet.
  */
 const MapCanvas = React.createClass({
+  mixins: [PureRenderMixin],
+
   propTypes: {
-    pins: React.PropTypes.object,
+    pins: ImmutablePropTypes.listOf(React.PropTypes.instanceOf(OrderedPair)),
   },
+
 
   setMap() {
     fabric.Image.fromURL(MAP_IMAGE_ADDRESS, img => {
