@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "4.2"
 
+before_install: gem install scss-lint
+
 script:
   - npm run lint
   - npm test
@@ -9,12 +11,9 @@ script:
 
 after_success:
   - tar -zcvf build.tar.gz ./build
-  - ls
-  - pwd
 
 deploy:
   provider: releases
-  api_key: "4bdaf05ac20bfaa187ab9df97f2fa5a6f5217ed7"
   file: "build.tar.gz"
   overwrite: true
   skip_cleanup: true

@@ -16,7 +16,7 @@ module.exports = function(entry, artifact) {
         },
 
         resolve: {
-          extensions: ['', '.js'],
+          extensions: ['', '.js', '.jsx'],
           modulesDirectories: [
             'node_modules',
             'src'
@@ -28,7 +28,7 @@ module.exports = function(entry, artifact) {
         module: {
           loaders: [
             {
-              test: /\.js?$/,
+              test: /\.jsx?$/,
               loader: 'babel',
               include: [
                 path.resolve(__dirname, "src")

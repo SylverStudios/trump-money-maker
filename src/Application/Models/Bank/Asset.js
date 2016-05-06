@@ -4,6 +4,7 @@ class Asset {
     this._baseIncomePerSecond = baseIncomePerSecond;
     this._basePrice = basePrice;
     this._currentPrice = basePrice;
+    this._isUnlocked = false;
 
     this._costIncreasePercentage = costIncreasePercentage;
     this._multiplier = 1;
@@ -37,6 +38,14 @@ class Asset {
 
   addMultiplier(additionalPercentage) {
     this._multiplier += additionalPercentage;
+  }
+
+  unlock() {
+    this._isUnlocked = true;
+  }
+
+  get unlocked() {
+    return this._isUnlocked;
   }
 
 }

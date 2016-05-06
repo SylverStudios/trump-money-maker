@@ -4,9 +4,9 @@ class RealEstateBroker {
   constructor() {
     this._tier = 0;
     this._assets = [
-      new Asset('Tenement', 5, 50, 7),
-      new Asset('Hotel', 7, 150, 6),
-      new Asset('Golf Course', 50, 750, 7),
+      new Asset('Tenement', 0.1, 50, 7),
+      new Asset('Hotel', 1, 150, 6),
+      new Asset('Golf Course', 9, 750, 7),
       new Asset('Casino', 200, 2000, 8),
       new Asset('Trump Tower', 800, 5000, 9),
       new Asset('Trump Town', 2000, 20000, 10),
@@ -34,6 +34,10 @@ class RealEstateBroker {
 
   upgrade() {
     this._tier++;
+  }
+
+  get assets() {
+    return this._assets;
   }
 }
 

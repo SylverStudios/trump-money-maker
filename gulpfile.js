@@ -14,29 +14,31 @@ var rimraf = require('rimraf');
 var generateWebpackConfig = require('./generateWebpackConfig.js');
 var webpackStream = require('webpack-stream');
 
-
 // setup
 var environment = util.env.type || 'development';
 
-var srcDir = './src';
-var buildDir = './build';
-var jsDir = '/js';
-var styleDir = '/style';
-var imagesDir = '/images';
+var srcDir = './src/';
+var buildDir = './build/';
+var imagesDir = 'images/';
 
-var styleFile = '';
+var htmlEntry = 'index.html';
+var htmlEntryFull = srcDir + htmlEntry;
+var htmlArtifact = 'index.html';
 
-var mainEntry = '/main.js';
-var artifactName = 'bundle.js';
-var scssFileName = '';
-var webpackConfig = generateWebpackConfig(srcDir + mainEntry, artifactName);
+var jsxEntry = 'entrypoint.jsx';
+var jsxEntryFull = srcDir + jsxEntry;
+var jsxArtifact = 'bundle.js';
+var jsxWebpackConfig = generateWebpackConfig(jsxEntryFull, jsxArtifact);
 
+var scssEntry = 'entrypoint.scss';
+var scssEntryFull = srcDir + scssEntry;
+var scssArtifact = 'app.css';
 
 function doWebpack(config) {
   return gulp.src(config.entry)
       .pipe(webpackStream(config))
       .pipe(environment === 'production' ? uglify() : util.noop())
-      .pipe(gulp.dest(buildDir + jsDir))
+      .pipe(gulp.dest(buildDir))
       .pipe(size({ title: 'js' }))
       ;
 }
@@ -62,82 +64,89 @@ function rmIfExists() {
 }
 
 var utilTasks = {
-  'setup-build': function() {
+  'setup-build': function () {
     mkdirsIfMissing(
         buildDir,
-        buildDir + imagesDir,
-        buildDir + styleDir,
-        buildDir + jsDir
+        buildDir + imagesDir
     );
   },
   'clean': function () {
     rmIfExists(buildDir);
   },
   'lint-js': function () {
-    return gulp.src('src/**/*.js')
+    return gulp.src(['src/**/*.{js,jsx}', '!node_modules/**'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
         ;
   },
+  'lint-scss': function() {
+    return gulp.src(['src/**/*.scss'])
+        .pipe(scsslint())
+        ;
+  },
 };
 
 var buildTasks = {
-  'build-js': function () {
-    return doWebpack(webpackConfig.getConfig(environment));
-  },
   'build-html': function () {
-    return gulp.src(srcDir + '/index.html')
+    return gulp.src(htmlEntryFull)
         .pipe(gulp.dest(buildDir));
   },
+  'build-js': function () {
+    return doWebpack(jsxWebpackConfig.getConfig(environment));
+  },
   'build-scss': function () {
-    return gulp.src(srcDir + scssFileName)
-        .pipe(sass({
-          includePaths: [
-            './node_modules/bootstrap-sass/assets/stylesheets',
-          ],
-        }).on('error', sass.logError))
-        .pipe(rename('main.css'))
+    return gulp.src(scssEntryFull)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(rename(scssArtifact))
         .pipe(gulp.dest(buildDir))
-        .pipe(size({ title: 'css' }))
+        .pipe(size({title: 'css'}))
         ;
   },
   'build-images': function () {
     return gulp.src([srcDir + imagesDir + '/*'])
-        .pipe(rename({dirname: ''}))
+        .pipe(rename({ dirname: '' }))
         .pipe(gulp.dest(buildDir + imagesDir));
   },
 };
 
 var watchTasks = {
+  'watch-html': function () {
+    return gulp.watch([srcDir + '**/*.html'], ['build-html']);
+  },
   'watch-js': function () {
-    var config = webpackConfig.getConfig(environment);
+    var config = jsxWebpackConfig.getConfig(environment);
     config.watch = true;
     return doWebpack(config);
   },
   'watch-scss': function () {
-    return gulp.watch(
-        [srcDir + styleDir + styleFile],
-        ['build-scss']
-    );
+    return gulp.watch([srcDir + '**/*.scss'], ['build-scss']);
+  },
+  'watch-images': function () {
+    return gulp.watch([srcDir + imagesDir + '/*'], ['build-images']);
   },
 };
 
 gulp.task('setup-build', utilTasks['setup-build']);
-gulp.task('clean', utilTasks.clean);
 
-// Build - NO SCSS FOR RIGHT NOW
+// Build
 gulp.task('build-js', buildTasks['build-js']);
 gulp.task('build-html', buildTasks['build-html']);
 gulp.task('build-scss', buildTasks['build-scss']);
 gulp.task('build-images', buildTasks['build-images']);
-gulp.task('build', ['setup-build', 'build-js', 'build-html', 'build-images']);
 
 // Watch
 gulp.task('watch-js', watchTasks['watch-js']);
 gulp.task('watch-scss', watchTasks['watch-js']);
-gulp.task('watch', ['setup-build', 'watch-js', 'watch-scss']);
+gulp.task('watch-html', watchTasks['watch-html']);
+gulp.task('watch-images', watchTasks['watch-images']);
 
-// NO SCSS LINTING YET
+// Lint
 gulp.task('lint-js', utilTasks['lint-js']);
-gulp.task('lint', ['lint-js']);
+gulp.task('lint-scss', utilTasks['lint-scss']);
+
+// USE THESE!!
+gulp.task('clean', utilTasks.clean);
+gulp.task('lint', ['lint-js', 'lint-scss']);
+gulp.task('build', ['setup-build', 'build-js', 'build-html', 'build-scss', 'build-images']);
+gulp.task('watch', ['setup-build', 'watch-js', 'watch-scss', 'watch-html', 'watch-images']);
