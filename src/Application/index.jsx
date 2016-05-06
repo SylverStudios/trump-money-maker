@@ -92,11 +92,10 @@ const Application = React.createClass({
 
   componentDidMount() {
     setInterval(this.update, this.FRAME_RATE);
+    this.pins = this.pins.push(new OrderedPair(50, 50));
   },
 
   render() {
-    this.pins = this.pins.push(new OrderedPair(50, 50));
-
     return (
         <div>
           <div className="col-md-3">

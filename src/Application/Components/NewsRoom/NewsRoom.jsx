@@ -9,7 +9,8 @@ const NewsRoom = React.createClass({
     return (
       <div id="news-queue">
         <ul>
-          {this.props.articles.map((article, index) => <li key={index}>{article}</li>)}
+          {this.props.articles.map((article, index) =>
+              <li key={index}>{article}</li>)}
         </ul>
       </div>
     );
