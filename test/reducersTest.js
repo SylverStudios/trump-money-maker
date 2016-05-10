@@ -1,4 +1,4 @@
-import trumpMM from '../src/Application/fsm';
+import trumpMM from '../src/Application/reducers';
 import StateUtils from '../src/Application/StateUtils';
 import createAction from '../src/Application/actions';
 
@@ -21,7 +21,7 @@ modifiedState.assets = StateUtils.createAssetsAfterBuy(modifiedState.assets, 2);
 
 describe('fsm', function () {
 
-  describe('trumpMM()', function () {
+  describe('general', function () {
 
     it('should return the initial state given no input state and no action', function () {
       const initialState = StateUtils.initialState();
@@ -29,28 +29,41 @@ describe('fsm', function () {
       expect(returnedState).to.deep.equal(initialState);
     });
 
-    it('should return a state with 1 more money after a CLICK_MONEY action', function () {
+  });
+
+  describe('Action: CLICK_MONEY', function () {
+
+    it('should leave the original state unmodified', function () {
       const initialState = StateUtils.initialState();
-      const returnedState = trumpMM(initialState, createAction.clickMoney());
+      const copyOfOriginalState = Object.assign({}, initialState);
 
-      initialState.money.cash++;
-      initialState.money.total++;
+      trumpMM(initialState, createAction.clickMoney());
 
-      expect(returnedState).to.deep.equal(initialState);
+      expect(initialState).to.deep.equal(copyOfOriginalState);
+      expect(initialState).to.have.deep.property('money.cash').that.equals(0);
     });
 
-    it('should return a state updated lastUpdate field after a COLLECT_INCOME', function () {
+    it('should return a state with 1 more money after a CLICK_MONEY action', function () {
       const initialState = StateUtils.initialState();
 
-      const returnedState = trumpMM(initialState, createAction.collectIncome());
+      const returnedState = trumpMM(initialState, createAction.clickMoney());
 
-      expect(returnedState).to.have.deep.property('money.cash', 0);
-      expect(returnedState).to.have.property('lastUpdate').that.not.equals(1462641080306);
+      expect(returnedState).to.have.deep.property('money.cash').that.equals(1);
     });
 
   });
 
   describe('Action: COLLECT_INCOME', function () {
+
+    it('should leave the original state unmodified', function () {
+      const initialState = StateUtils.initialState();
+      const copyOfOriginalState = Object.assign({}, initialState);
+
+      trumpMM(initialState, createAction.collectIncome());
+
+      expect(initialState).to.deep.equal(copyOfOriginalState);
+      expect(initialState).to.have.deep.property('money.cash', 0);
+    });
 
     it('should return a state updated lastUpdate field', function () {
       const initialState = StateUtils.initialState();
@@ -67,13 +80,34 @@ describe('fsm', function () {
       const collectAction = createAction.collectIncome();
       collectAction.currentTime = modifiedState.lastUpdate + 1000;
 
-      // 1 second of asset 2, this is based on the modified state above...should make this most resistant to change
       const expectedMoney = modifiedState.money.cash + StateUtils.calculateIncome(modifiedState);
 
       const returnedState = trumpMM(modifiedState, collectAction);
 
       expect(returnedState).to.have.deep.property('money.cash', expectedMoney);
       expect(returnedState).to.have.deep.property('money.total', expectedMoney);
+    });
+
+  });
+
+  describe('Action: BUY_ASSET', function () {
+
+    it('should leave the original state unmodified', function () {
+      const initialState = StateUtils.initialState();
+      const copyOfOriginalState = Object.assign({}, initialState);
+
+      trumpMM(initialState, createAction.buyAsset(2));
+
+      expect(initialState).to.deep.equal(copyOfOriginalState);
+      expect(initialState).to.have.deep.property('assets[2].owned').that.equals(0);
+    });
+
+    it('should return a new state with updated asset list', function () {
+      const initialState = StateUtils.initialState();
+
+      const returnedState = trumpMM(initialState, createAction.buyAsset(2));
+
+      expect(returnedState).to.have.deep.property('assets[2].owned').that.equals(1);
     });
 
   });

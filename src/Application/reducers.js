@@ -1,4 +1,4 @@
-import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY} from './actions';
+import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, UNLOCK_ASSET } from './actions';
 import StateUtils from './StateUtils';
 
 function trumpMM(state = StateUtils.initialState(), action) {
@@ -13,21 +13,26 @@ function trumpMM(state = StateUtils.initialState(), action) {
       );
     
     case COLLECT_INCOME:
-      const income = StateUtils.calculateIncomeSinceLastUpdate(state, action.currentTime);
-
       return Object.assign({},
           state,
           {
             lastUpdate: action.currentTime,
-            money: StateUtils.createMoneyState(state.money, income),
+            money: StateUtils.createMoneyAfterIncome(state, action.currentTime),
           },
       );
+
+    case UNLOCK_ASSET:
+      const newAssets = StateUtils.createAssetsAfterUnlock(state.assets, action.id);
+
+      return Object.assign({}, state, { assets: newAssets } );
+
       
     case BUY_ASSET:
-      const newAssets = StateUtils.createAssetsAfterBuy(state.assets, action.assetId);
+      const newAssets = StateUtils.createAssetsAfterBuy(state.assets, action.id);
 
       return Object.assign({}, state, { assets: newAssets });
 
+    // TODO: Actually make this work
     case UPGRADE_CURRENCY:
       // Same as above for currency
       return Object.assign({}, state);

@@ -1,6 +1,5 @@
 import ImmutableAsset from './Models/ImmutableAsset';
 
-
 const StateUtils = {
   PRICE_INCREASE_PERCENTAGE: 7,
   BASE_CLICK_INCOME: 1,
@@ -22,60 +21,74 @@ const StateUtils = {
         new ImmutableAsset('Governership', 200000, 400000, 1, 0),
         new ImmutableAsset('Trump ISS', 999999, 9999999, 1, 0),
       ],
-      news: {
-        allOfIt: ['a', 'news', 'item'],
-      },
-      mint: {
-        upgrades: [],
-      },
-      map: {
-        pins: {},
-      },
+      news: [
+        'a',
+        'news',
+        'item',
+      ],
+      mint: [],
+      map: [],
       lastUpdate: 1462641080306
     };
   },
+  
+  createMoneyAfterIncome: function(state, currentTime) {
+    const income = calculateIncomeSinceLastUpdate(state, currentTime);
 
-  calculateIncome: function(state) {
-    return state.assets
-        .map(function(ImmutableAsset) { return ImmutableAsset.baseIncome * ImmutableAsset.owned })
-        .reduce(function(previous, current) { return previous + current; });
-  },
-
-  calculateIncomeSinceLastUpdate: function(state, currentTime) {
-    const secondDiff = (currentTime - state.lastUpdate) / 1000;
-
-    return this.calculateIncome(state) * secondDiff;
-  },
-
-  createMoneyState: function(prevMoneyState, moneyDelta) {
-    return {
-      cash: prevMoneyState.cash + moneyDelta,
-      total: prevMoneyState.total + moneyDelta,
-    }
+    return updateMoney(state.money, income);
   },
   
   // TODO: Include the mint affect
   createMoneyAfterClick: function(state) {
     const moneyDelta = this.BASE_CLICK_INCOME;
     
-    return this.createMoneyState(state.money, moneyDelta);
-  },
-  
-  buyAsset: function(immutableAsset) {
-    const fieldsToChange = {
-      price: immutableAsset.price * this.PRICE_INCREASE_PERCENTAGE,
-      owned: immutableAsset.owned + 1
-    };
-
-    return Object.assign({}, immutableAsset, fieldsToChange);
+    return updateMoney(state.money, moneyDelta);
   },
 
   createAssetsAfterBuy(assets, assetId) {
     const copyOfAssets = assets.slice();
-    copyOfAssets[assetId] = this.buyAsset(assets[assetId]);
+    copyOfAssets[assetId] = buyAsset(assets[assetId]);
+    return copyOfAssets;
+  },
+
+  createAssetsAfterUnlock(assets, assetId) {
+    const copyOfAssets = assets.slice();
+    copyOfAssets[assetId] = unlockAsset(assets[assetId]);
     return copyOfAssets;
   }
+};
 
+function unlockAsset (asset) {
+  const fieldsToChange = { unlocked: true };
+  return Object.assign({}, asset, fieldsToChange);
+};
+
+function buyAsset (asset) {
+  const fieldsToChange = {
+    price: asset.price * this.PRICE_INCREASE_PERCENTAGE,
+    owned: asset.owned + 1
+  };
+
+  return Object.assign({}, asset, fieldsToChange);
+};
+
+function updateMoney (prevMoneyState, moneyDelta) {
+  return {
+    cash: prevMoneyState.cash + moneyDelta,
+    total: prevMoneyState.total + moneyDelta,
+  }
+};
+
+function calculateIncome (state) {
+  return state.assets
+      .map(function(asset) { return asset.baseIncome * asset.owned })
+      .reduce(function(previous, current) { return previous + current; });
+};
+
+function calculateIncomeSinceLastUpdate (state, currentTime) {
+  const secondDiff = (currentTime - state.lastUpdate) / 1000;
+
+  return calculateIncome(state) * secondDiff;
 };
 
 export default StateUtils;
