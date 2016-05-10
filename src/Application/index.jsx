@@ -106,7 +106,6 @@ const Application = React.createClass({
             <ClickCanvas
               cash={this.bank.cash}
               income={this.bank.income}
-              canvasId="canvas"
               onClick={this.handleMoneyClick}
               image="penny"
             />
