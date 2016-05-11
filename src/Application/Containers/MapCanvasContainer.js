@@ -1,22 +1,14 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import MapCanvas from '../Components/MapCanvas/MapCanvas';
-
 
 const mapStateToProps = (state) => {
   return {
-    pins: state.map
-  }
+    pins: state.map,
+  };
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {}
-};
-
 
 const MapCanvasContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(MapCanvas);
 
 export default MapCanvasContainer;
-

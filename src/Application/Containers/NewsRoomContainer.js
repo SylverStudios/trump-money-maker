@@ -1,21 +1,14 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import NewsRoom from '../Components/NewsRoom/NewsRoom';
 
 const mapStateToProps = (state) => {
   return {
-    articles: state.news
-  }
+    articles: state.news,
+  };
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {}
-};
-
 
 const NewsRoomContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(NewsRoom);
 
-export default NewsRoomContainer
-
+export default NewsRoomContainer;
