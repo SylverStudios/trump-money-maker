@@ -113,7 +113,7 @@ const Application = React.createClass({
           </div>
 
           <div className="col-md-3">
-            <Store assets={this.bank.assets} createOnClick={this.createStoreClick} />
+            <Store assets={this.bank.assets} onItemClick={this.createStoreClick} />
           </div>
         </div>
     );

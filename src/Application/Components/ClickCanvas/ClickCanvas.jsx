@@ -17,13 +17,6 @@ const ClickCanvas = React.createClass({
     penny: 'images/penny.gif',
   },
 
-  getInitialState() {
-    return {
-      cash: 0,
-      income: 0,
-    };
-  },
-
   _createText(x, y, color, text) {
     return new fabric.Text(text, {
       left: x,
