@@ -1,4 +1,4 @@
-import ImmutableAsset from './../Models/ImmutableAsset';
+import ImmutableAsset from './../Models/Asset';
 import { List } from 'immutable';
 import _ from 'underscore';
 
@@ -46,7 +46,7 @@ const calculateIncomeSinceLastUpdate = (income, lastUpdate, currentTime) => {
 const StateUtils = {
 
   // TODO: fix this structure
-  initialState: function () {
+  getInitialState: function () {
     return {
       money: {
         cash: 44,

@@ -1,4 +1,4 @@
-class ImmutableAsset {
+class Asset {
   constructor(id, name, baseIncome, price, multiplier, owned, unlocked) {
     this.id = id;
     this.name = name;
@@ -10,4 +10,4 @@ class ImmutableAsset {
   }
 }
 
-export default ImmutableAsset;
+export default Asset;

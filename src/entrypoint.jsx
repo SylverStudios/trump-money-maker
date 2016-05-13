@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import trumpMM from './Application/reducers';
-import createActions from './Application/actions';
+import trumpMM from './Application/Redux/reducers';
+import createActions from './Application/Redux/actions';
 import _ from 'underscore';
 
 import App from './Application/app';
