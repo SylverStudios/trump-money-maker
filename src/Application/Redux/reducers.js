@@ -1,5 +1,5 @@
 import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, BROADCAST_NEWS } from './actions';
-import StateUtils from './StateUtils';
+import StateUtils from './../StateUtils';
 
 function trumpMM(state = StateUtils.initialState(), action) {
   switch (action.type) {

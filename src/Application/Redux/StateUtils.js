@@ -1,4 +1,4 @@
-import ImmutableAsset from './Models/ImmutableAsset';
+import ImmutableAsset from './../Models/ImmutableAsset';
 import { List } from 'immutable';
 import _ from 'underscore';
 

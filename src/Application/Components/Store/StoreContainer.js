@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Store from '../Components/Store/Store';
-import createActions from '../actions';
+import Store from 'Store';
+import createActions from '../../Redux/actions';
 
 const visibleFilter = (assets) => {
   return assets.filter((asset) => { return asset.unlocked; });

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import ClickCanvas from '../Components/ClickCanvas/ClickCanvas';
-import createAction from '../actions';
+import ClickCanvas from 'ClickCanvas';
+import createAction from '../../Redux/actions';
 
 // TODO: Make the image change
 const mapStateToProps = (state) => {

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import MapCanvas from '../Components/MapCanvas/MapCanvas';
+import MapCanvas from 'MapCanvas';
 
 const mapStateToProps = (state) => {
   return {
