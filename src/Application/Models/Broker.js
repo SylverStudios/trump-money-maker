@@ -11,8 +11,8 @@ class Broker {
 
   get netIncome() {
     return this._assets
-        .map((asset) => { return asset.baseIncome * asset.owned; })
-        .reduce((previous, current) => { return previous + current; });
+        .map((asset) => asset.baseIncome * asset.owned)
+        .reduce((previous, current) => previous + current);
   }
 
   get unlockGoal() {
@@ -20,7 +20,7 @@ class Broker {
   }
 
   get nextAssetToUnlock() {
-    const lockedAssets = this._assets.filter((asset) => { return !asset.unlocked; });
+    const lockedAssets = this._assets.filter((asset) => !asset.unlocked);
     const sortedById = _.sortBy(lockedAssets, 'id');
     return sortedById[0];
   }
@@ -39,7 +39,7 @@ class Broker {
   }
 
   get unlockedAssets() {
-    return this._assets.filter((asset) => { return asset.unlocked; });
+    return this._assets.filter((asset) => asset.unlocked);
   }
 
   makeBuy(assetId) {
