@@ -137,7 +137,7 @@ gulp.task('build-images', buildTasks['build-images']);
 
 // Watch
 gulp.task('watch-js', watchTasks['watch-js']);
-gulp.task('watch-scss', watchTasks['watch-js']);
+gulp.task('watch-scss', watchTasks['watch-scss']);
 gulp.task('watch-html', watchTasks['watch-html']);
 gulp.task('watch-images', watchTasks['watch-images']);
 

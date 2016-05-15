@@ -6,11 +6,23 @@ const NewsRoom = React.createClass({
   },
 
   renderNewsQueue() {
+
+    const maxSize = 20;
+    const increment = 1;
+    const articlesByAge = this.props.articles.slice();
+    articlesByAge.reverse();
+
     return (
       <div id="news-queue">
         <ul>
-          {this.props.articles.map((article, index) =>
-              <li key={index}>{article}</li>)}
+          {articlesByAge.map((article, index) => {
+              const style = {
+                fontSize: maxSize - increment*index
+              };
+              return (
+                <li className="news-text" style={style} key={index}>{article} <hr/></li>
+              )
+          })}
         </ul>
       </div>
     );
@@ -18,9 +30,13 @@ const NewsRoom = React.createClass({
 
   render() {
     return (
-      <div id="news-zone">
-        <h3>News Room</h3>
-        {this.renderNewsQueue()}
+      <div id="news-zone" className="panel panel-primary">
+        <div className="panel-heading">
+          <h3 className="panel-title news-title text-center">Breaking News</h3>
+        </div>
+        <div className="panel-body">
+          {this.renderNewsQueue()}
+        </div>
       </div>
     );
   },

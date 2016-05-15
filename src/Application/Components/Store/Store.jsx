@@ -10,9 +10,13 @@ const Store = React.createClass({
 
   render() {
     return (
-        <div id="store-zone">
-          <h3>Broker</h3>
-          <div id="item-menu">
+        <div id="store-zone" className="panel panel-primary">
+
+          <div className="panel-heading">
+            <h3 className="panel-title">Broker</h3>
+          </div>
+
+          <div id="item-menu" className="panel-body">
             {this.props.assets.map((asset) => {
               return (
                 <StoreItem
