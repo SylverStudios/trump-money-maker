@@ -74,7 +74,7 @@ var utilTasks = {
     rmIfExists(buildDir);
   },
   'lint-js': function () {
-    return gulp.src(['src/**/*.{js,jsx}', '!node_modules/**'])
+    return gulp.src(['src/**/*.{js,jsx}', '!node_modules/**', 'test/**/*'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
