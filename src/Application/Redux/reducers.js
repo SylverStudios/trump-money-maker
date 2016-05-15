@@ -1,69 +1,59 @@
 import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, BROADCAST_NEWS } from './actions';
 import StateUtils from './StateUtils';
 
+const BASE_CLICK_INCOME = 1;
+
 function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
 
     case CLICK_MONEY:
-      return Object.assign({},
-        state,
-        {
-          money: StateUtils.createMoneyAfterClick(state),
-        }
+      return Object.assign({}, state,
+        { bank: state.bank.makeClick(BASE_CLICK_INCOME) }
       );
 
-    // Decide if you should unlock anything
     case COLLECT_INCOME:
-      const newMoney = StateUtils.createMoneyAfterIncome(state, action.currentTime);
+      const newBank = state.bank.makeRent(action.currentTime);
 
-      if (newMoney.cash >= state.nextUnlockAmount) {
-        const idToUnlock = StateUtils.nextAssetIdToUnlock(state);
-        const newUnlockAmount = state.assets[idToUnlock + 1].price * 0.77;
+      // Unlock if you can
+      if (newBank.cash >= state.broker.unlockGoal) {
+        const assetToUnlock = state.broker.nextAssetToUnlock;
+        const newBroker = state.broker.makeUnlock(assetToUnlock.id);
+        const unlockArticle = `Trump rumored to be interested in the ${assetToUnlock.name} market.`;
 
-        return Object.assign({},
-          state,
+        return Object.assign({}, state,
           {
-            lastUpdate: action.currentTime,
-            money: StateUtils.createMoneyAfterIncome(state, action.currentTime),
-            news: StateUtils.createNewsAfterUnlock(state, idToUnlock),
-            assets: StateUtils.createAssetsAfterUnlock(state.assets, idToUnlock),
-            nextUnlockAmount: newUnlockAmount,
+            bank: newBank,
+            news: state.news.makeWithArticle(unlockArticle),
+            broker: newBroker,
           },
         );
       }
-      return Object.assign({},
-        state,
-        {
-          lastUpdate: action.currentTime,
-          money: newMoney,
-        },
-      );
+
+      // Else just update money and time
+      return Object.assign({}, state, { bank: newBank });
 
     case BROADCAST_NEWS:
-      return Object.assign({},
-        state,
-        {
-          news: StateUtils.createNewsAfterBroadcast(state.news, action.article),
-        }
-      );
+      return Object.assign({}, state, { news: state.news.makeWithArticle(action.article) });
 
     case BUY_ASSET:
-      if (StateUtils.canBuy(state, action.id)) {
-        return Object.assign({},
-          state,
+      const assetToBuy = state.broker.getAssetById(action.id);
+
+      if (state.bank.cash >= assetToBuy.price) {
+        const buyArticle = `Trump bought a ${assetToBuy.name} today.`;
+        const newBroker = state.broker.makeBuy(action.id);
+        const bankAfterBuy = state.bank.makeBuy(assetToBuy.price, newBroker.netIncome);
+
+        return Object.assign({}, state,
           {
-            assets: StateUtils.createAssetsAfterBuy(state.assets, action.id),
-            money: StateUtils.createMoneyAfterBuy(state, action.id),
-            news: StateUtils.createNewsAfterBuy(state, action.id),
+            broker: newBroker,
+            bank: bankAfterBuy,
+            news: state.news.makeWithArticle(buyArticle),
           }
         );
       }
-      return Object.assign({},
-        state,
-        {
-          news: StateUtils.createNewsAfterFailedBuy(state, action.id),
-        }
-      );
+
+      const bounceArticle = `Trump bounced a check for a ${assetToBuy.name} today.`;
+      return Object.assign({}, state, { news: state.news.makeWithArticle(bounceArticle) });
 
     // TODO: Actually make this work
     case UPGRADE_CURRENCY:

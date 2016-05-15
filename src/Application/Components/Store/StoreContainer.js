@@ -1,14 +1,10 @@
 import { connect } from 'react-redux';
-import Store from 'Store';
+import Store from './Store';
 import createActions from '../../Redux/actions';
-
-const visibleFilter = (assets) => {
-  return assets.filter((asset) => { return asset.unlocked; });
-};
 
 const mapStateToProps = (state) => {
   return {
-    assets: visibleFilter(state.assets),
+    assets: state.broker.unlockedAssets,
   };
 };
 
