@@ -1,5 +1,6 @@
 import React from 'react';
 import StoreItem from './StoreItem';
+import _ from 'underscore';
 
 const Store = React.createClass({
   propTypes: {
@@ -12,17 +13,14 @@ const Store = React.createClass({
         <div id="store-zone">
           <h3>Broker</h3>
           <div id="item-menu">
-            {this.props.assets.map((asset, index) => {
-              const onClick = () => {
-                this.props.onItemClick(index);
-              };
+            {this.props.assets.map((asset) => {
               return (
                 <StoreItem
                   key={asset.name}
                   name={asset.name}
                   price={asset.price}
                   owned={asset.owned}
-                  onClick={onClick}
+                  onClick={_.partial(this.props.onItemClick, asset.id)}
                 />
               );
             })}
