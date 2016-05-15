@@ -8,7 +8,7 @@ class News {
   }
 
   makeWithArticle(article) {
-    let copyOfArticles = this.articles.slice();
+    const copyOfArticles = this.articles.slice();
     copyOfArticles.unshift(article);
 
     if (copyOfArticles.length > 10) {

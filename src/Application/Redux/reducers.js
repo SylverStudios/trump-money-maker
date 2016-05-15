@@ -20,7 +20,6 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
 
       // Unlock if you can
       if (newBank.cash >= state.broker.unlockGoal) {
-
         const assetToUnlock = state.broker.nextAssetToUnlock;
         const newBroker = state.broker.makeUnlock(assetToUnlock.id);
 
@@ -55,14 +54,13 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
 
       if (StateUtils.canBuy(state, action.id)) {
         const newBroker = state.broker.makeBuy(action.id);
-        const newBank = state.bank.makeBuy(assetToBuy.price, newBroker.netIncome);
-
+        const bankAfterBuy = state.bank.makeBuy(assetToBuy.price, newBroker.netIncome);
 
         return Object.assign({},
           state,
           {
             broker: newBroker,
-            bank: newBank,
+            bank: bankAfterBuy,
             news: StateUtils.createNewsAfterBuy(state.news, assetToBuy),
           }
         );

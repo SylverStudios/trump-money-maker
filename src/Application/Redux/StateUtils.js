@@ -6,10 +6,7 @@ import Bank from './../Models/Bank';
 import { List } from 'immutable';
 
 const StateUtils = {
-
-  // TODO: fix this structure
   getInitialState: function () {
-
     return {
       bank: new Bank(44, 0, 44, 1462641080306),
       broker: new Broker([
@@ -34,7 +31,6 @@ const StateUtils = {
     return state.bank.cash >= assetToBuy.price;
   },
 
-  
 // TODO: Make the news stuff simple, because it should be
   createNewsAfterBuy: function (news, asset) {
     const article = `Trump bought a ${asset.name} today.`;

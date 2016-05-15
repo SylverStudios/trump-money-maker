@@ -8,7 +8,7 @@ class Broker {
     this._assets = assets;
     this._unlockGoal = this._calculateUnlock();
   }
-  
+
   get netIncome() {
     return this._assets
         .map((asset) => { return asset.baseIncome * asset.owned; })
@@ -24,7 +24,7 @@ class Broker {
     const sortedById = _.sortBy(lockedAssets, 'id');
     return sortedById[0];
   }
-  
+
   _calculateUnlock() {
     return this.nextAssetToUnlock.price * UNLOCK_RATIO;
   }
@@ -39,7 +39,7 @@ class Broker {
   }
 
   get unlockedAssets() {
-    return this._assets.filter((asset) => { return asset.unlocked });
+    return this._assets.filter((asset) => { return asset.unlocked; });
   }
 
   makeBuy(assetId) {

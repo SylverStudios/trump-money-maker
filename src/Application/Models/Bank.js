@@ -3,20 +3,20 @@ class Bank {
     this._cash = cash;
     this._income = income;
     this._total = total;
-    this._lastRentTime= lastRentTime;
+    this._lastRentTime = lastRentTime;
   }
 
   get cash() {
-    return this._cash ;
+    return this._cash;
   }
   get income() {
-    return this._income ;
+    return this._income;
   }
   get total() {
-    return this._total ;
+    return this._total;
   }
   get lastRent() {
-    return this._lastRentTime ;
+    return this._lastRentTime;
   }
 
   makeClick(moneyDelta) {
