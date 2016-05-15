@@ -25,31 +25,6 @@ const StateUtils = {
       map: new List(),
     };
   },
-
-  canBuy: function (state, assetId) {
-    const assetToBuy = state.broker.getAssetById(assetId);
-    return state.bank.cash >= assetToBuy.price;
-  },
-
-// TODO: Make the news stuff simple, because it should be
-  createNewsAfterBuy: function (news, asset) {
-    const article = `Trump bought a ${asset.name} today.`;
-    return news.makeWithArticle(article);
-  },
-
-  createNewsAfterFailedBuy: function (news, asset) {
-    const article = `Trump bounced a check for a ${asset.name} today.`;
-    return news.makeWithArticle(article);
-  },
-
-  createNewsAfterUnlock: function (news, asset) {
-    const article = `Trump rumored to be interested in the ${asset.name} market.`;
-    return news.makeWithArticle(article);
-  },
-
-  createNewsAfterBroadcast: function (news, article) {
-    return news.makeWithArticle(article);
-  },
 };
 
 export default StateUtils;

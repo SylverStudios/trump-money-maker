@@ -7,14 +7,10 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
 
     case CLICK_MONEY:
-      return Object.assign({},
-        state,
-        {
-          bank: state.bank.makeClick(BASE_CLICK_INCOME),
-        }
+      return Object.assign({}, state,
+        { bank: state.bank.makeClick(BASE_CLICK_INCOME) }
       );
 
-    // Decide if you should unlock anything
     case COLLECT_INCOME:
       const newBank = state.bank.makeRent(action.currentTime);
 
@@ -22,55 +18,42 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       if (newBank.cash >= state.broker.unlockGoal) {
         const assetToUnlock = state.broker.nextAssetToUnlock;
         const newBroker = state.broker.makeUnlock(assetToUnlock.id);
+        const unlockArticle = `Trump rumored to be interested in the ${assetToUnlock.name} market.`;
 
-        return Object.assign({},
-          state,
+        return Object.assign({}, state,
           {
             bank: newBank,
-            news: StateUtils.createNewsAfterUnlock(state.news, assetToUnlock),
+            news: state.news.makeWithArticle(unlockArticle),
             broker: newBroker,
           },
         );
       }
 
       // Else just update money and time
-      return Object.assign({},
-        state,
-        {
-          bank: newBank,
-        },
-      );
+      return Object.assign({}, state, { bank: newBank });
 
     case BROADCAST_NEWS:
-      return Object.assign({},
-        state,
-        {
-          news: StateUtils.createNewsAfterBroadcast(state.news, action.article),
-        }
-      );
+      return Object.assign({}, state, { news: state.news.makeWithArticle(action.article) });
 
     case BUY_ASSET:
       const assetToBuy = state.broker.getAssetById(action.id);
 
-      if (StateUtils.canBuy(state, action.id)) {
+      if (state.bank.cash >= assetToBuy.price) {
+        const buyArticle = `Trump bought a ${assetToBuy.name} today.`;
         const newBroker = state.broker.makeBuy(action.id);
         const bankAfterBuy = state.bank.makeBuy(assetToBuy.price, newBroker.netIncome);
 
-        return Object.assign({},
-          state,
+        return Object.assign({}, state,
           {
             broker: newBroker,
             bank: bankAfterBuy,
-            news: StateUtils.createNewsAfterBuy(state.news, assetToBuy),
+            news: state.news.makeWithArticle(buyArticle),
           }
         );
       }
-      return Object.assign({},
-        state,
-        {
-          news: StateUtils.createNewsAfterFailedBuy(state.news, assetToBuy),
-        }
-      );
+
+      const bounceArticle = `Trump bounced a check for a ${assetToBuy.name} today.`;
+      return Object.assign({}, state, { news: state.news.makeWithArticle(bounceArticle) });
 
     // TODO: Actually make this work
     case UPGRADE_CURRENCY:
