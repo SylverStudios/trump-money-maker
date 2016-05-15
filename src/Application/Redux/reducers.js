@@ -1,6 +1,8 @@
 import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, BROADCAST_NEWS } from './actions';
 import StateUtils from './StateUtils';
 
+const BASE_CLICK_INCOME = 1;
+
 function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
 
@@ -8,34 +10,35 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({},
         state,
         {
-          money: StateUtils.createMoneyAfterClick(state),
+          bank: state.bank.makeClick(BASE_CLICK_INCOME),
         }
       );
 
     // Decide if you should unlock anything
     case COLLECT_INCOME:
-      const newMoney = StateUtils.createMoneyAfterIncome(state, action.currentTime);
+      const newBank = state.bank.makeRent(action.currentTime);
 
-      if (newMoney.cash >= state.nextUnlockAmount) {
-        const idToUnlock = StateUtils.nextAssetIdToUnlock(state);
-        const newUnlockAmount = state.assets[idToUnlock + 1].price * 0.77;
+      // Unlock if you can
+      if (newBank.cash >= state.broker.unlockGoal) {
+
+        const assetToUnlock = state.broker.nextAssetToUnlock;
+        const newBroker = state.broker.makeUnlock(assetToUnlock.id);
 
         return Object.assign({},
           state,
           {
-            lastUpdate: action.currentTime,
-            money: StateUtils.createMoneyAfterIncome(state, action.currentTime),
-            news: StateUtils.createNewsAfterUnlock(state, idToUnlock),
-            assets: StateUtils.createAssetsAfterUnlock(state.assets, idToUnlock),
-            nextUnlockAmount: newUnlockAmount,
+            bank: newBank,
+            news: StateUtils.createNewsAfterUnlock(state.news, assetToUnlock),
+            broker: newBroker,
           },
         );
       }
+
+      // Else just update money and time
       return Object.assign({},
         state,
         {
-          lastUpdate: action.currentTime,
-          money: newMoney,
+          bank: newBank,
         },
       );
 
@@ -49,19 +52,24 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
 
     case BUY_ASSET:
       if (StateUtils.canBuy(state, action.id)) {
+        const assetToBuy = state.broker.getAssetById(action.id);
+        const newBroker = state.broker.makeBuy(action.id);
+        const newBank = state.bank.makeBuy(assetToBuy.price, newBroker.netIncome);
+
+
         return Object.assign({},
           state,
           {
-            assets: StateUtils.createAssetsAfterBuy(state.assets, action.id),
-            money: StateUtils.createMoneyAfterBuy(state, action.id),
-            news: StateUtils.createNewsAfterBuy(state, action.id),
+            broker: newBroker,
+            bank: newBank,
+            news: StateUtils.createNewsAfterBuy(state.news, action.id),
           }
         );
       }
       return Object.assign({},
         state,
         {
-          news: StateUtils.createNewsAfterFailedBuy(state, action.id),
+          news: StateUtils.createNewsAfterFailedBuy(state.news, action.id),
         }
       );
 
