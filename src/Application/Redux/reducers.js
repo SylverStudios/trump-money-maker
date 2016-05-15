@@ -51,8 +51,9 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       );
 
     case BUY_ASSET:
+      const assetToBuy = state.broker.getAssetById(action.id);
+
       if (StateUtils.canBuy(state, action.id)) {
-        const assetToBuy = state.broker.getAssetById(action.id);
         const newBroker = state.broker.makeBuy(action.id);
         const newBank = state.bank.makeBuy(assetToBuy.price, newBroker.netIncome);
 
@@ -62,14 +63,14 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
           {
             broker: newBroker,
             bank: newBank,
-            news: StateUtils.createNewsAfterBuy(state.news, action.id),
+            news: StateUtils.createNewsAfterBuy(state.news, assetToBuy),
           }
         );
       }
       return Object.assign({},
         state,
         {
-          news: StateUtils.createNewsAfterFailedBuy(state.news, action.id),
+          news: StateUtils.createNewsAfterFailedBuy(state.news, assetToBuy),
         }
       );
 

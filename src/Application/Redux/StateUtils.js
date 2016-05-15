@@ -1,7 +1,7 @@
 import Asset from './../Models/Asset';
-import Broker from '../Models/Broker';
-import News from '../Models/News';
-import Bank from '../Models/Bank';
+import Broker from './../Models/Broker';
+import News from './../Models/News';
+import Bank from './../Models/Bank';
 
 import { List } from 'immutable';
 
