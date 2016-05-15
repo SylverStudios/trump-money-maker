@@ -1,7 +1,5 @@
 import Bank from '../src/Application/Models/Bank';
-
-import chai from 'chai';
-const expect = chai.expect;
+import { expect } from 'chai';
 
 describe('Bank', function () {
 

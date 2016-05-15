@@ -1,10 +1,6 @@
 import Asset from '../src/Application/Models/Asset';
 import Broker from '../src/Application/Models/Broker';
-
-import chai from 'chai';
-
-const expect = chai.expect;
-const assert = chai.assert;
+import { expect, assert } from 'chai';
 
 const assets = [
   new Asset(0, 'Tenement', 0.1, 50, 1, 0, false),

@@ -1,7 +1,5 @@
 import News from '../src/Application/Models/News';
-
-import chai from 'chai';
-const assert = chai.assert;
+import { assert } from 'chai';
 
 describe('News', function () {
 

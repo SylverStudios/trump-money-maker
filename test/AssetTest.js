@@ -1,7 +1,5 @@
 import Asset from '../src/Application/Models/Asset';
-import chai from 'chai';
-
-const expect = chai.expect;
+import { expect } from 'chai';
 
 const INCREASE_RATIO = 1.07;
 
