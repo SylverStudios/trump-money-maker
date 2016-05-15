@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
-import ClickCanvas from 'ClickCanvas';
+import ClickCanvas from './ClickCanvas';
 import createAction from '../../Redux/actions';
 
 // TODO: Make the image change
 const mapStateToProps = (state) => {
   return {
-    cash: state.money.cash,
+    cash: state.bank.cash,
     image: 'penny',
-    income: state.money.income,
+    income: state.bank.income,
   };
 };
 

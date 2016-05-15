@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import NewsRoom from 'NewsRoom';
+import NewsRoom from './NewsRoom';
 
 const mapStateToProps = (state) => {
   return {
-    articles: state.news,
+    articles: state.news.articles,
   };
 };
 
