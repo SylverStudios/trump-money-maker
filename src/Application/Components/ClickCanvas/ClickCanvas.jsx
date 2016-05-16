@@ -14,7 +14,7 @@ const ClickCanvas = React.createClass({
   },
 
   images: {
-    penny: 'images/penny.gif',
+    penny: 'images/penny.png',
   },
 
   _createText(x, y, color, text) {
@@ -34,6 +34,8 @@ const ClickCanvas = React.createClass({
         left: this.imgPosX,
         top: this.imgPosY,
         selectable: false,
+        scaleX: 0.20,
+        scaleY: 0.20,
       });
       if (this.clickable) {
         this.canvas.remove(this.clickable);

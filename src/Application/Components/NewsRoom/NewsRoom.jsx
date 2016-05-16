@@ -1,4 +1,5 @@
 import React from 'react';
+import Headline from './Headline';
 
 const NewsRoom = React.createClass({
   propTypes: {
@@ -6,23 +7,18 @@ const NewsRoom = React.createClass({
   },
 
   renderNewsQueue() {
-
-    const maxSize = 20;
-    const increment = 1;
-    const articlesByAge = this.props.articles.slice();
-    articlesByAge.reverse();
+    let oldNews = this.props.articles.slice(1);
 
     return (
       <div id="news-queue">
         <ul>
-          {articlesByAge.map((article, index) => {
-              const style = {
-                fontSize: maxSize - increment*index
-              };
+          <Headline content={this.props.articles[0]}/>
+          {oldNews.map((article, index) => {
               return (
-                <li className="news-text" style={style} key={index}>{article} <hr/></li>
+                <li className="news-text" key={index}>{article}<hr/></li>
               )
-          })}
+            })
+          }
         </ul>
       </div>
     );

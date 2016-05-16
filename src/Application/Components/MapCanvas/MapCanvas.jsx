@@ -4,7 +4,7 @@ import OrderedPair from './OrderedPair';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-const MAP_IMAGE_ADDRESS = 'images/map.gif';
+const MAP_IMAGE_ADDRESS = 'images/map.png';
 const MAP_CANVAS_DOM_ID = 'map-canvas';
 /**
  * No Pin functionality yet.
@@ -20,9 +20,11 @@ const MapCanvas = React.createClass({
   setMap() {
     fabric.Image.fromURL(MAP_IMAGE_ADDRESS, img => {
       img.scale(1.4).set({
-        left: 0,
+        left: 50,
         top: 0,
         selectable: false,
+        scaleX: 0.25,
+        scaleY: 0.25,
       });
       this.canvas.add(img).renderAll();
     });

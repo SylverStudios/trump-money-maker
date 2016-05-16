@@ -1,2 +1,19 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap';
 @import 'Application/app';
+
+// This adds the background
+html::after {
+  content: "";
+  background: url(images/rwb.svg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
