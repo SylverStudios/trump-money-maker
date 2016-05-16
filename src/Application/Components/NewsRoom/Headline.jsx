@@ -13,7 +13,7 @@ class Headline extends React.Component {
   render() {
     return (
         <TypeWriter minDelay={20} maxDelay={50} ref="typewriter" typing={1}>
-          <li className="news-headline">{this.props.content}<hr/></li>
+          <li className="news-headline">{this.props.content}</li>
         </TypeWriter>
     );
   }

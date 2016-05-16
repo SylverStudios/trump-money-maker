@@ -15,7 +15,7 @@ const NewsRoom = React.createClass({
           <Headline content={this.props.articles[0]}/>
           {oldNews.map((article, index) => {
             return (
-              <li className="news-text" key={index}>{article}<hr/></li>
+              <li className="news-text" key={index}><hr/>{article}</li>
             );
           })}
         </ul>
