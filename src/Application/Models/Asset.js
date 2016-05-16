@@ -31,7 +31,7 @@ class Asset {
     return this._unlocked;
   }
 
-  makeBuy(increaseRatio) {
+  buy(increaseRatio) {
     return new Asset(
         this.id,
         this.name,
@@ -43,7 +43,7 @@ class Asset {
     );
   }
 
-  makeUnlock() {
+  unlock() {
     return new Asset(
         this.id,
         this.name,

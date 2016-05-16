@@ -7,7 +7,7 @@ class News {
     return this._articles;
   }
 
-  makeWithArticle(article) {
+  addArticle(article) {
     const copyOfArticles = this.articles.slice();
     copyOfArticles.unshift(article);
 

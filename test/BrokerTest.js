@@ -91,9 +91,9 @@ describe('Broker', function () {
     });
   });
 
-  describe('makeBuy()', function () {
+  describe('buyAsset()', function () {
     it('should return a new Broker with updated Asset, original is unmodifed', function () {
-      const newBroker = broker.makeBuy(0);
+      const newBroker = broker.buyAsset(0);
 
       expect(broker).to.deep.equal(brokerCopy);
       expect(broker.getAssetById(0)).to.have.deep.property('owned').that.equals(0);
@@ -101,9 +101,9 @@ describe('Broker', function () {
     });
   });
 
-  describe('makeUnlock()', function () {
+  describe('unlockAsset()', function () {
     it('should return a new Broker with updated Asset, original is unmodifed', function () {
-      const newBroker = broker.makeUnlock(0);
+      const newBroker = broker.unlockAsset(0);
 
       expect(broker).to.deep.equal(brokerCopy);
       expect(broker.getAssetById(0)).to.have.deep.property('unlocked').that.equals(false);

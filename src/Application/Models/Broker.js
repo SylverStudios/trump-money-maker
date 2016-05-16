@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-const PRICE_INCREASE_PERCENTAGE = 1.07;
+const PRICE_INCREASE_RATIO = 1.07;
 const UNLOCK_RATIO = 0.77;
 
 class Broker {
@@ -42,36 +42,36 @@ class Broker {
     return this._assets.filter((asset) => asset.unlocked);
   }
 
-  makeBuy(assetId) {
+  buyAsset(assetId) {
     const asset = _.findWhere(this._assets, { id: assetId });
-    const newAsset = asset.makeBuy(PRICE_INCREASE_PERCENTAGE);
+    const newAsset = asset.buy(PRICE_INCREASE_RATIO);
 
     const arrayCopy = this._assets.slice();
     arrayCopy[asset.id] = newAsset;
     return new Broker(arrayCopy);
   }
 
-  makeBuyName(name) {
+  buyAssetByName(name) {
     const asset = _.findWhere(this._assets, { name: name });
-    const newAsset = asset.makeBuy(PRICE_INCREASE_PERCENTAGE);
+    const newAsset = asset.buy(PRICE_INCREASE_RATIO);
 
     const arrayCopy = this._assets.slice();
     arrayCopy[asset.id] = newAsset;
     return new Broker(arrayCopy);
   }
 
-  makeUnlock(assetId) {
+  unlockAsset(assetId) {
     const asset = _.findWhere(this._assets, { id: assetId });
-    const newAsset = asset.makeUnlock();
+    const newAsset = asset.unlock();
 
     const arrayCopy = this._assets.slice();
     arrayCopy[asset.id] = newAsset;
     return new Broker(arrayCopy);
   }
 
-  makeUnlockName(name) {
+  unlockAssetByName(name) {
     const asset = _.findWhere(this._assets, { name: name });
-    const newAsset = asset.makeUnlock();
+    const newAsset = asset.unlock();
 
     const arrayCopy = this._assets.slice();
     arrayCopy[asset.id] = newAsset;

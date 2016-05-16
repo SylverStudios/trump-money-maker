@@ -11,9 +11,9 @@ describe('Bank', function () {
     bankCopy = new Bank(50, 1, 50, defaultTime);
   });
 
-  describe('makeClick()', function () {
+  describe('deposit()', function () {
     it('should return a new Bank (updated cash and total) and leave the original unmodified', function () {
-      const newBank = bank.makeClick(3);
+      const newBank = bank.deposit(3);
 
       expect(bank).to.deep.equal(bankCopy);
 
@@ -24,10 +24,10 @@ describe('Bank', function () {
     });
   });
 
-  describe('makeRent()', function () {
+  describe('collectRent()', function () {
     it('should return a new Bank (updated cash and total and lastRent) and leave the original unmodified', function () {
       const oneSecondLater = defaultTime + 1000;
-      const newBank = bank.makeRent(oneSecondLater);
+      const newBank = bank.collectIncome(oneSecondLater);
 
       expect(bank).to.deep.equal(bankCopy);
 
@@ -38,9 +38,9 @@ describe('Bank', function () {
     });
   });
 
-  describe('makeIncomeUpdate()', function () {
+  describe('updateIncome()', function () {
     it('should return a new Bank (updated income only) and leave the original unmodified', function () {
-      const newBank = bank.makeIncomeUpdate(2);
+      const newBank = bank.updateIncome(2);
 
       expect(bank).to.deep.equal(bankCopy);
 
@@ -51,9 +51,9 @@ describe('Bank', function () {
     });
   });
 
-  describe('makeBuy()', function () {
+  describe('buy()', function () {
     it('should return a new Bank (updated cash and income only) and leave the original unmodified', function () {
-      const newBank = bank.makeBuy(10, 4);
+      const newBank = bank.withdraw(10, 4);
 
       expect(bank).to.deep.equal(bankCopy);
 

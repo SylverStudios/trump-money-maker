@@ -13,7 +13,7 @@ describe('Asset', function () {
 
   describe('makeBuy()', function () {
     it('should return a new Asset with increased price and owned, and leave the original unmodified', function () {
-      const newAsset = asset.makeBuy(INCREASE_RATIO);
+      const newAsset = asset.buy(INCREASE_RATIO);
 
       expect(asset).to.deep.equal(identicalAsset);
       expect(newAsset).to.have.property('price').that.equals(asset.price * INCREASE_RATIO);
@@ -23,7 +23,7 @@ describe('Asset', function () {
 
   describe('makeUnlock()', function () {
     it('should return a new Asset with unlocked = true, and leave the original unmodified', function () {
-      const newAsset = asset.makeUnlock();
+      const newAsset = asset.unlock();
 
       expect(asset).to.deep.equal(identicalAsset);
       expect(asset).to.have.property('unlocked').that.equals(false);

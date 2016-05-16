@@ -7,18 +7,17 @@ const NewsRoom = React.createClass({
   },
 
   renderNewsQueue() {
-    let oldNews = this.props.articles.slice(1);
+    const oldNews = this.props.articles.slice(1);
 
     return (
       <div id="news-queue">
         <ul>
           <Headline content={this.props.articles[0]}/>
           {oldNews.map((article, index) => {
-              return (
-                <li className="news-text" key={index}>{article}<hr/></li>
-              )
-            })
-          }
+            return (
+              <li className="news-text" key={index}>{article}<hr/></li>
+            );
+          })}
         </ul>
       </div>
     );

@@ -19,7 +19,7 @@ class Bank {
     return this._lastRentTime;
   }
 
-  makeClick(moneyDelta) {
+  deposit(moneyDelta) {
     return new Bank(
       this._cash + moneyDelta,
         this._income,
@@ -28,7 +28,16 @@ class Bank {
     );
   }
 
-  makeRent(currentTime) {
+  withdraw(cost, newIncome) {
+    return new Bank(
+        this._cash - cost,
+        newIncome,
+        this._total,
+        this._lastRentTime
+    );
+  }
+
+  collectIncome(currentTime) {
     const secondDiff = (currentTime - this._lastRentTime) / 1000;
 
     const moneyDelta = this._income * secondDiff;
@@ -41,19 +50,10 @@ class Bank {
     );
   }
 
-  makeIncomeUpdate(income) {
+  updateIncome(income) {
     return new Bank(
         this._cash,
         income,
-        this._total,
-        this._lastRentTime
-    );
-  }
-
-  makeBuy(cost, newIncome) {
-    return new Bank(
-        this._cash - cost,
-        newIncome,
         this._total,
         this._lastRentTime
     );
