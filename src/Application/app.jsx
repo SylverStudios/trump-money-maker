@@ -1,5 +1,5 @@
 import React from 'react';
-import StoreContainer from './Components/Store/StoreContainer';
+import StoreContainer from './Components/Shop/ShopContainer';
 import NewsRoomContainer from './Components/NewsRoom/NewsRoomContainer';
 import MapCanvasContainer from './Components/MapCanvas/MapCanvasContainer';
 import ClickCanvasContainer from './Components/ClickCanvas/ClickCanvasContainer';

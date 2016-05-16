@@ -1,5 +1,5 @@
 import React from 'react';
-import StoreItem from './StoreItem';
+import StoreItem from './ShopItem';
 import _ from 'underscore';
 
 const Store = React.createClass({
