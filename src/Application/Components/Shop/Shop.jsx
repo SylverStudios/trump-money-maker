@@ -1,8 +1,8 @@
 import React from 'react';
-import StoreItem from './ShopItem';
+import KeyBoundShopItem from './KeyBoundShopItem';
 import _ from 'underscore';
 
-const Store = React.createClass({
+const Shop = React.createClass({
   propTypes: {
     assets: React.PropTypes.array.isRequired,
     onItemClick: React.PropTypes.func.isRequired,
@@ -19,7 +19,7 @@ const Store = React.createClass({
           <div id="item-menu" className="panel-body">
             {this.props.assets.map((asset) => {
               return (
-                <StoreItem
+                <KeyBoundShopItem
                   key={asset.name}
                   name={asset.name}
                   price={asset.price}
@@ -34,4 +34,4 @@ const Store = React.createClass({
   },
 });
 
-export default Store;
+export default Shop;
