@@ -1,6 +1,5 @@
 import _ from 'underscore';
 
-const PRICE_INCREASE_RATIO = 1.07;
 const UNLOCK_RATIO = 0.77;
 
 class Broker {
@@ -42,21 +41,22 @@ class Broker {
     return this._assets.filter((asset) => asset.unlocked);
   }
 
+  // TODO: Change this to find index where
   buyAsset(assetId) {
     const asset = _.findWhere(this._assets, { id: assetId });
-    const newAsset = asset.buy(PRICE_INCREASE_RATIO);
+    const newAsset = asset.buy();
 
     const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id] = newAsset;
+    arrayCopy[asset.id - 1] = newAsset;
     return new Broker(arrayCopy);
   }
 
   buyAssetByName(name) {
     const asset = _.findWhere(this._assets, { name: name });
-    const newAsset = asset.buy(PRICE_INCREASE_RATIO);
+    const newAsset = asset.buy();
 
     const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id] = newAsset;
+    arrayCopy[asset.id - 1] = newAsset;
     return new Broker(arrayCopy);
   }
 
@@ -65,7 +65,7 @@ class Broker {
     const newAsset = asset.unlock();
 
     const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id] = newAsset;
+    arrayCopy[asset.id - 1] = newAsset;
     return new Broker(arrayCopy);
   }
 
@@ -74,7 +74,7 @@ class Broker {
     const newAsset = asset.unlock();
 
     const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id] = newAsset;
+    arrayCopy[asset.id - 1] = newAsset;
     return new Broker(arrayCopy);
   }
 }

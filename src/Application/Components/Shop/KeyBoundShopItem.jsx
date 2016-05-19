@@ -6,7 +6,7 @@ import { assetDefaults } from './../../../util/constants';
 class KeyBoundShopItem extends React.Component {
   constructor(props) {
     super(props);
-    this.keyCode = assetDefaults[this.props.name].keyCode
+    this.keyCode = assetDefaults[this.props.name].keyCode;
   }
 
   componentDidMount() {

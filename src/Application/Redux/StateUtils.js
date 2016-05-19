@@ -2,24 +2,29 @@ import Asset from './../Models/Asset';
 import Broker from './../Models/Broker';
 import News from './../Models/News';
 import Bank from './../Models/Bank';
+import { TENEMENT, HOTEL, GOLF_COURSE, CASINO, TOWER, TOWN, CITY, GOV, ISS, assetDefaults } from './../../util/constants';
 
 import { List } from 'immutable';
 
 const StateUtils = {
+  getBaseAssets: function () {
+    return [
+      new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false),
+      new Asset(HOTEL, assetDefaults[HOTEL].basePrice, 1, 0, false),
+      new Asset(GOLF_COURSE, assetDefaults[GOLF_COURSE].basePrice, 1, 0, false),
+      new Asset(CASINO, assetDefaults[CASINO].basePrice, 1, 0, false),
+      new Asset(TOWER, assetDefaults[TOWER].basePrice, 1, 0, false),
+      new Asset(TOWN, assetDefaults[TOWN].basePrice, 1, 0, false),
+      new Asset(CITY, assetDefaults[CITY].basePrice, 1, 0, false),
+      new Asset(GOV, assetDefaults[GOV].basePrice, 1, 0, false),
+      new Asset(ISS, assetDefaults[ISS].basePrice, 1, 0, false),
+    ];
+  },
+
   getInitialState: function () {
     return {
       bank: new Bank(44, 0, 44, 1462641080306),
-      broker: new Broker([
-        new Asset(0, 'Tenement', 0.1, 50, 1, 0, false),
-        new Asset(1, 'Hotel', 1, 150, 1, 0, false),
-        new Asset(2, 'Golf Course', 9, 750, 1, 0, false),
-        new Asset(3, 'Casino', 200, 2000, 1, 0, false),
-        new Asset(4, 'Trump Tower', 800, 5000, 1, 0, false),
-        new Asset(5, 'Trump Town', 2000, 20000, 1, 0, false),
-        new Asset(6, 'Trump City', 10000, 100000, 1, 0, false),
-        new Asset(7, 'Governership', 200000, 400000, 1, 0, false),
-        new Asset(8, 'Trump ISS', 999999, 9999999, 1, 0, false),
-      ]),
+      broker: new Broker(this.getBaseAssets()),
       news: new News([]),
       mint: [],
       map: new List(),
