@@ -1,0 +1,26 @@
+.news-text {
+  line-height: normal;
+}
+
+#news-queue ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.news-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  padding-bottom: 1em;
+  border-top: 1px solid #ccc;
+  margin-bottom: 1px;
+  width: 50%;
+  vertical-align: middle;
+}

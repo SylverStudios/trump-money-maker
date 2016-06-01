@@ -1,19 +1,24 @@
 import Asset from '../src/Application/Models/Asset';
+import { assetDefaults, TENEMENT } from './../src/util/constants';
 import { expect } from 'chai';
 
-const INCREASE_RATIO = 1.07;
-let asset = new Asset(0, 'Tenement', 0.1, 50, 1, 0, false);
-let identicalAsset = new Asset(0, 'Tenement', 0.1, 50, 1, 0, false);
+const INCREASE_RATIO = assetDefaults[TENEMENT].increaseRatio;
+let asset;
+let identicalAsset;
 
 describe('Asset', function () {
   beforeEach(function () {
-    asset = new Asset(0, 'Tenement', 0.1, 50, 1, 0, false);
-    identicalAsset = new Asset(0, 'Tenement', 0.1, 50, 1, 0, false);
+    asset = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false);
+    identicalAsset = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false);
+  });
+
+  it('should be constructed and fill in default values', function () {
+    expect(asset.id).to.equal(assetDefaults[TENEMENT].id);
   });
 
   describe('makeBuy()', function () {
     it('should return a new Asset with increased price and owned, and leave the original unmodified', function () {
-      const newAsset = asset.makeBuy(INCREASE_RATIO);
+      const newAsset = asset.buy();
 
       expect(asset).to.deep.equal(identicalAsset);
       expect(newAsset).to.have.property('price').that.equals(asset.price * INCREASE_RATIO);
@@ -23,7 +28,7 @@ describe('Asset', function () {
 
   describe('makeUnlock()', function () {
     it('should return a new Asset with unlocked = true, and leave the original unmodified', function () {
-      const newAsset = asset.makeUnlock();
+      const newAsset = asset.unlock();
 
       expect(asset).to.deep.equal(identicalAsset);
       expect(asset).to.have.property('unlocked').that.equals(false);

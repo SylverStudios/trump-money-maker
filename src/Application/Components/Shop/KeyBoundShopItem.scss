@@ -1,16 +1,17 @@
-.store-item:hover {
-  cursor: pointer;
-}
-.store-item {
+.shop-item {
   margin-bottom: 5px;
 }
 
-.item-content {
+.shop-item:hover {
+  cursor: pointer;
+}
+
+.shop-item-content {
   font-family: "Times New Roman", Times, serif;
   font-size: 16px;
 }
 
-.item-number {
+.shop-item-number {
   font-family: "Arial", Sans-serif;
   font-size: 30px;
 }

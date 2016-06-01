@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Store from './Store';
+import Store from './Shop';
 import createActions from '../../Redux/actions';
 
 const mapStateToProps = (state) => {

@@ -14,7 +14,7 @@ describe('News', function () {
   describe('makeWithArticle()', function () {
     it('should return a new News and leave the original unmodified', function () {
       const newArticle = 'An article about cats';
-      const newNews = news.makeWithArticle(newArticle);
+      const newNews = news.addArticle(newArticle);
 
       assert.equal(news.articles[0], NewsCopy.articles[0]);
       assert.equal(news.articles.length, 2);
@@ -23,7 +23,7 @@ describe('News', function () {
 
     it('should add new articles to the start of the array', function () {
       const newArticle = 'This should come first';
-      const newNews = news.makeWithArticle(newArticle);
+      const newNews = news.addArticle(newArticle);
 
       assert.equal(newNews.articles[0], newArticle);
       assert.equal(newNews.articles.length, 3);
@@ -34,7 +34,7 @@ describe('News', function () {
       const newArticle = 'eleven';
 
       news = new News(myArticles);
-      const newNews = news.makeWithArticle(newArticle);
+      const newNews = news.addArticle(newArticle);
 
       assert.equal(newNews.articles[0], newArticle);
       assert.equal(newNews.articles.length, 10);

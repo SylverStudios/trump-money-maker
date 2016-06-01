@@ -1,4 +1,5 @@
 import React from 'react';
+import Headline from './Headline';
 
 const NewsRoom = React.createClass({
   propTypes: {
@@ -6,11 +7,17 @@ const NewsRoom = React.createClass({
   },
 
   renderNewsQueue() {
+    const oldNews = this.props.articles.slice(1);
+
     return (
       <div id="news-queue">
         <ul>
-          {this.props.articles.map((article, index) =>
-              <li key={index}>{article}</li>)}
+          <Headline content={this.props.articles[0]}/>
+          {oldNews.map((article, index) => {
+            return (
+              <li className="news-text" key={index}><hr/>{article}</li>
+            );
+          })}
         </ul>
       </div>
     );
@@ -18,9 +25,13 @@ const NewsRoom = React.createClass({
 
   render() {
     return (
-      <div id="news-zone">
-        <h3>News Room</h3>
-        {this.renderNewsQueue()}
+      <div id="news-zone" className="panel panel-primary">
+        <div className="panel-heading">
+          <h3 className="panel-title news-title text-center">Breaking News</h3>
+        </div>
+        <div className="panel-body">
+          {this.renderNewsQueue()}
+        </div>
       </div>
     );
   },
