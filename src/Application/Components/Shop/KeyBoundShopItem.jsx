@@ -1,20 +1,17 @@
 import React from 'react';
 import Mousetrap from 'mousetrap';
-import { assetDefaults } from './../../../util/constants';
-
 
 class KeyBoundShopItem extends React.Component {
   constructor(props) {
     super(props);
-    this.keyCode = assetDefaults[this.props.name].keyCode;
   }
 
   componentDidMount() {
-    Mousetrap.bind([this.keyCode], this.props.onClick);
+    Mousetrap.bind([this.props.keyCode], this.props.onClick);
   }
 
   componentWillUnmount() {
-    Mousetrap.unbind(this.keyCode);
+    Mousetrap.unbind(this.props.keyCode);
   }
 
   render() {
@@ -36,6 +33,7 @@ class KeyBoundShopItem extends React.Component {
 }
 
 KeyBoundShopItem.propTypes = {
+  keyCode: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
   onClick: React.PropTypes.func.isRequired,
   owned: React.PropTypes.number.isRequired,

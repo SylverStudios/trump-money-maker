@@ -1,6 +1,7 @@
 import React from 'react';
 import KeyBoundShopItem from './KeyBoundShopItem';
 import _ from 'underscore';
+import { assetDefaults } from './../../../util/constants';
 
 const Shop = React.createClass({
   propTypes: {
@@ -24,6 +25,7 @@ const Shop = React.createClass({
                   name={asset.name}
                   price={asset.price}
                   owned={asset.owned}
+                  keyCode={assetDefaults[asset.name].keyCode}
                   onClick={_.partial(this.props.onItemClick, asset.id)}
                 />
               );
