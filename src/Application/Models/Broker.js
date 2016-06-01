@@ -41,41 +41,54 @@ class Broker {
     return this._assets.filter((asset) => asset.unlocked);
   }
 
-  // TODO: Change this to find index where
-  buyAsset(assetId) {
-    const asset = _.findWhere(this._assets, { id: assetId });
-    const newAsset = asset.buy();
-
+  _insertIntoNewBroker(newAsset, index) {
     const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id - 1] = newAsset;
+    arrayCopy[index] = newAsset;
     return new Broker(arrayCopy);
+  }
+
+  buyAsset(assetId) {
+    const index = _.findIndex(this._assets, { id: assetId });
+    if (index === -1) {
+      // Return the original broker, but this is not good.
+      return new Broker(this._assets);
+    }
+    const newAsset = this._assets[index].buy();
+
+    return this._insertIntoNewBroker(newAsset, index);
   }
 
   buyAssetByName(name) {
-    const asset = _.findWhere(this._assets, { name: name });
-    const newAsset = asset.buy();
+    const index = _.findIndex(this._assets, { name: name });
+    if (index === -1) {
+      // Return the original broker, but this is not good.
+      return new Broker(this._assets);
+    }
+    const newAsset = this._assets[index].buy();
 
-    const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id - 1] = newAsset;
-    return new Broker(arrayCopy);
+    return this._insertIntoNewBroker(newAsset, index);
   }
 
   unlockAsset(assetId) {
-    const asset = _.findWhere(this._assets, { id: assetId });
-    const newAsset = asset.unlock();
+    const index = _.findIndex(this._assets, { id: assetId });
+    if (index === -1) {
+      // Return the original broker, but this is not good.
+      return new Broker(this._assets);
+    }
+    const newAsset = this._assets[index].unlock();
 
-    const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id - 1] = newAsset;
-    return new Broker(arrayCopy);
+    return this._insertIntoNewBroker(newAsset, index);
   }
 
   unlockAssetByName(name) {
-    const asset = _.findWhere(this._assets, { name: name });
-    const newAsset = asset.unlock();
+    const index = _.findIndex(this._assets, { name: name });
+    if (index === -1) {
+      // Return the original broker, but this is not good.
+      return new Broker(this._assets);
+    }
+    const newAsset = this._assets[index].unlock();
 
-    const arrayCopy = this._assets.slice();
-    arrayCopy[asset.id - 1] = newAsset;
-    return new Broker(arrayCopy);
+    return this._insertIntoNewBroker(newAsset, index);
   }
 }
 

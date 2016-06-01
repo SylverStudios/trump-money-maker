@@ -13,7 +13,6 @@ describe('Asset', function () {
   });
 
   it('should be constructed and fill in default values', function () {
-    console.log(asset);
     expect(asset.id).to.equal(assetDefaults[TENEMENT].id);
   });
 
