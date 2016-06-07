@@ -11,13 +11,13 @@ const Shop = React.createClass({
 
   render() {
     return (
-        <div id="store-zone" className="panel panel-primary">
+        <div className="panel panel-primary">
 
           <div className="panel-heading">
             <h3 className="panel-title broker-title text-center">Real Estate</h3>
           </div>
 
-          <div id="item-menu" className="panel-body">
+          <div className="panel-body">
             {this.props.assets.map((asset) => {
               return (
                 <KeyBoundShopItem
