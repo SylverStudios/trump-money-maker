@@ -9,6 +9,7 @@ var uglify = require('gulp-uglify');
 var eslint = require('gulp-eslint');
 var scsslint = require('gulp-scss-lint');
 var rimraf = require('rimraf');
+var autoprefixer = require('gulp-autoprefixer');
 
 
 var generateWebpackConfig = require('./generateWebpackConfig.js');
@@ -99,9 +100,9 @@ var buildTasks = {
     return gulp.src(scssEntryFull)
         .pipe(sass().on('error', sass.logError))
         .pipe(rename(scssArtifact))
+        .pipe(autoprefixer())
         .pipe(gulp.dest(buildDir))
-        .pipe(size({title: 'css'}))
-        ;
+        .pipe(size({title: 'css'}));
   },
   'build-images': function () {
     return gulp.src([srcDir + imagesDir + '/*'])

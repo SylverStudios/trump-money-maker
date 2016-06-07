@@ -4,9 +4,6 @@
 // This adds the background
 html::after {
   background: url('images/rwb.svg') no-repeat center center fixed;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
   background-size: cover;
   bottom: 0;
   content: '';
