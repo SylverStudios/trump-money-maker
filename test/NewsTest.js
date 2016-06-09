@@ -11,7 +11,7 @@ describe('News', function () {
     NewsCopy = new News(articles);
   });
 
-  describe('makeWithArticle()', function () {
+  describe('addArticle()', function () {
     it('should return a new News and leave the original unmodified', function () {
       const newArticle = 'An article about cats';
       const newNews = news.addArticle(newArticle);
