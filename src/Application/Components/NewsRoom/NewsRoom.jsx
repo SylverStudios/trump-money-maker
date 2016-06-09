@@ -10,7 +10,7 @@ const NewsRoom = React.createClass({
     const oldNews = this.props.articles.slice(1);
 
     return (
-      <div id="news-queue">
+      <div className="news-queue">
         <ul>
           <Headline content={this.props.articles[0]}/>
           {oldNews.map((article, index) => {
@@ -25,7 +25,7 @@ const NewsRoom = React.createClass({
 
   render() {
     return (
-      <div id="news-zone" className="panel panel-primary">
+      <div className="panel panel-primary">
         <div className="panel-heading">
           <h3 className="panel-title news-title text-center">Breaking News</h3>
         </div>

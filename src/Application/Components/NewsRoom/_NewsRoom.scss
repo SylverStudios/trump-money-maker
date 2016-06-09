@@ -2,25 +2,25 @@
   line-height: normal;
 }
 
-#news-queue ul {
+.news-queue ul {
   list-style-type: none;
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 .news-title {
   font-family: 'Playfair Display', serif;
-  font-weight: 900;
   font-size: 40px;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
 hr {
+  border: 0;
+  border-top: 1px solid $news-room-divider;
   display: block;
   height: 1px;
-  border: 0;
-  padding-bottom: 1em;
-  border-top: 1px solid #ccc;
   margin-bottom: 1px;
-  width: 50%;
+  padding-bottom: 1em;
   vertical-align: middle;
+  width: 50%;
 }
