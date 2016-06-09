@@ -51,7 +51,7 @@
     "eslint-plugin-no-console-log": "1.0.0",
     "eslint-plugin-react": "3.9.0",
     "gulp": "3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
+    "gulp-autoprefixer": "3.1.0",
     "gulp-copy": "0.0.2",
     "gulp-eslint": "1.1.0",
     "gulp-print": "2.0.1",
