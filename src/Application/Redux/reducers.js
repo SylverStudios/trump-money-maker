@@ -1,4 +1,4 @@
-import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, BROADCAST_NEWS } from './actions';
+import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, BROADCAST_NEWS, DEPOSIT } from './actions';
 import StateUtils from './StateUtils';
 
 const BASE_CLICK_INCOME = 1;
@@ -9,6 +9,11 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
     case CLICK_MONEY:
       return Object.assign({}, state,
         { bank: state.bank.deposit(BASE_CLICK_INCOME) }
+      );
+
+    case DEPOSIT:
+      return Object.assign({}, state,
+          { bank: state.bank.deposit(action.amount) }
       );
 
     case COLLECT_INCOME:

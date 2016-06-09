@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import trumpMM from './Application/Redux/reducers';
 import createActions from './Application/Redux/actions';
 import _ from 'underscore';
+import Mousetrap from 'mousetrap';
 
 import App from './Application/app';
 
@@ -53,3 +54,5 @@ setInterval(() => {
 
   store.dispatch(createActions.broadcastNews(quote));
 }, ONE_MINUTE);
+
+Mousetrap.bind(['space'], () => { store.dispatch(createActions.deposit(500)) });
