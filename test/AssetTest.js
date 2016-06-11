@@ -1,4 +1,4 @@
-import Asset from '../src/Application/Models/Asset';
+import StateUtils from'../src/Application/Redux/StateUtils';
 import { assetDefaults, TENEMENT } from './../src/util/constants';
 import { expect } from 'chai';
 
@@ -8,8 +8,8 @@ let identicalAsset;
 
 describe('Asset', function () {
   beforeEach(function () {
-    asset = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false);
-    identicalAsset = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false);
+    asset = StateUtils.defaultTenement();
+    identicalAsset = StateUtils.defaultTenement();
   });
 
   it('should be constructed and fill in default values', function () {
@@ -35,4 +35,14 @@ describe('Asset', function () {
       expect(newAsset).to.have.property('unlocked').that.equals(true);
     });
   });
+
+  describe('addRevenue()', function() {
+    it('should return a new Asset with increased Revenue, and original unmodified', function() {
+      const newAsset = asset.addRevenue(50);
+
+      expect(asset).to.deep.equal(identicalAsset);
+      expect(asset).to.have.property('revenue').that.equals(identicalAsset.revenue);
+      expect(newAsset).to.have.property('revenue').that.equals(identicalAsset.revenue + 50);
+    })
+  })
 });

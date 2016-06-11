@@ -10,7 +10,7 @@ class Broker {
 
   get netIncome() {
     return this._assets
-        .map((asset) => asset.baseIncome * asset.owned)
+        .map((asset) => asset.income)
         .reduce((previous, current) => previous + current);
   }
 

@@ -24,7 +24,7 @@ describe('Broker', function () {
       modifiedAssets[2] = modifiedAssets[2].buy();
       broker = new Broker(modifiedAssets);
 
-      assert(broker.netIncome === 9);
+      assert(broker.netIncome === modifiedAssets[2].income);
     });
   });
 
