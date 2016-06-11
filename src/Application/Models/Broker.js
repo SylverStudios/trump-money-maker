@@ -90,6 +90,16 @@ class Broker {
 
     return this._insertIntoNewBroker(newAsset, index);
   }
+
+  updateRevenue(timeDifferenceInSeconds) {
+    const newAssets = [];
+    this._assets.forEach(function (asset) {
+      const income = asset.income * timeDifferenceInSeconds;
+      newAssets.push(asset.addRevenue(income));
+    });
+    return new Broker(newAssets);
+  }
+
 }
 
 export default Broker;

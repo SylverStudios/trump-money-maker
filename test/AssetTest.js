@@ -44,13 +44,13 @@ describe('Asset', function () {
     });
   });
 
-  describe('addRevenue()', function() {
-    it('should return a new Asset with increased Revenue, and original unmodified', function() {
+  describe('addRevenue()', function () {
+    it('should return a new Asset with increased Revenue, and original unmodified', function () {
       const newAsset = asset.addRevenue(50);
 
       expect(asset).to.deep.equal(identicalAsset);
       expect(asset).to.have.property('revenue').that.equals(identicalAsset.revenue);
       expect(newAsset).to.have.property('revenue').that.equals(identicalAsset.revenue + 50);
-    })
-  })
+    });
+  });
 });
