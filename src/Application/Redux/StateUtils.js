@@ -8,39 +8,39 @@ import { List } from 'immutable';
 
 const StateUtils = {
   defaultTenement: function () {
-    return new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false, 0, 0);
+    return new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice);
   },
 
   defaultHotel: function () {
-    return new Asset(HOTEL, assetDefaults[HOTEL].basePrice, 1, 0, false, 0, 0);
+    return new Asset(HOTEL, assetDefaults[HOTEL].basePrice);
   },
 
   defaultGolfCourse: function () {
-    return new Asset(GOLF_COURSE, assetDefaults[GOLF_COURSE].basePrice, 1, 0, false, 0, 0);
+    return new Asset(GOLF_COURSE, assetDefaults[GOLF_COURSE].basePrice);
   },
 
   defaultCasino: function () {
-    return new Asset(CASINO, assetDefaults[CASINO].basePrice, 1, 0, false, 0, 0);
+    return new Asset(CASINO, assetDefaults[CASINO].basePrice);
   },
 
   defaultTower: function () {
-    return new Asset(TOWER, assetDefaults[TOWER].basePrice, 1, 0, false, 0, 0);
+    return new Asset(TOWER, assetDefaults[TOWER].basePrice);
   },
 
   defaultTown: function () {
-    return new Asset(TOWN, assetDefaults[TOWN].basePrice, 1, 0, false, 0, 0);
+    return new Asset(TOWN, assetDefaults[TOWN].basePrice);
   },
 
   defaultCity: function () {
-    return new Asset(CITY, assetDefaults[CITY].basePrice, 1, 0, false, 0, 0);
+    return new Asset(CITY, assetDefaults[CITY].basePrice);
   },
 
   defaultGov: function () {
-    return new Asset(GOV, assetDefaults[GOV].basePrice, 1, 0, false, 0, 0);
+    return new Asset(GOV, assetDefaults[GOV].basePrice);
   },
 
   defaultIss: function () {
-    return new Asset(ISS, assetDefaults[ISS].basePrice, 1, 0, false, 0, 0);
+    return new Asset(ISS, assetDefaults[ISS].basePrice);
   },
 
   getBaseAssets: function () {
