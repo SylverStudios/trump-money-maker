@@ -102,4 +102,18 @@ describe('Broker', function () {
       expect(newBroker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(true);
     });
   });
+
+  describe('updateRevenue()', function () {
+    it('should return a new Broker with updated Assets, original is unmodifed', function () {
+      let newBroker = broker.buyAsset(1);
+      newBroker = broker.updateRevenue(2);
+
+      expect(broker).to.deep.equal(brokerCopy);
+
+      const oldAsset = broker.getAssetById(1);
+      const asset = newBroker.getAssetById(1);
+      expect(asset).to.have.deep.property('revenue').that.equals(asset.income * 2);
+      expect(oldAsset).to.have.deep.property('revenue').that.equals(0);
+    });
+  });
 });
