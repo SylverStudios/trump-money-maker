@@ -1,7 +1,7 @@
 import { assetDefaults } from './../../util/constants';
 
 class Asset {
-  constructor(name, price, multiplier, owned, unlocked, investment, revenue) {
+  constructor(name, price, multiplier = 1, owned = 0, unlocked = false, investment = 0, revenue = 0) {
     this._name = name;
     this._price = price;
     this._multiplier = multiplier;
