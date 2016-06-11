@@ -17,12 +17,20 @@ describe('Asset', function () {
   });
 
   describe('buy()', function () {
-    it('should return a new Asset with increased price and owned, and leave the original unmodified', function () {
+    it('should return a new Asset and leave the original unmodified', function () {
+      const newAsset = asset.buy();
+
+      expect(asset).to.deep.equal(identicalAsset);
+      expect(newAsset).to.not.deep.equal(identicalAsset);
+    });
+
+    it('should return a new Asset and leave the original unmodified', function () {
       const newAsset = asset.buy();
 
       expect(asset).to.deep.equal(identicalAsset);
       expect(newAsset).to.have.property('price').that.equals(asset.price * INCREASE_RATIO);
       expect(newAsset).to.have.property('owned').that.equals(asset.owned + 1);
+      expect(newAsset).to.have.property('investment').that.equals(asset.price);
     });
   });
 
