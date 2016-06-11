@@ -4,8 +4,13 @@ export const BUY_ASSET = 'BUY_ASSET';
 export const UNLOCK_ASSET = 'UNLOCK_ASSET';
 export const UPGRADE_CURRENCY = 'UPGRADE_CURRENCY';
 export const BROADCAST_NEWS = 'BROADCAST_NEWS';
+export const DEPOSIT = 'DEPOSIT';
 
 const createAction = {
+  deposit: (amount) => {
+    return { type: DEPOSIT, amount: amount };
+  },
+
   clickMoney: () => {
     return { type: CLICK_MONEY };
   },

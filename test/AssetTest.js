@@ -16,7 +16,7 @@ describe('Asset', function () {
     expect(asset.id).to.equal(assetDefaults[TENEMENT].id);
   });
 
-  describe('makeBuy()', function () {
+  describe('buy()', function () {
     it('should return a new Asset with increased price and owned, and leave the original unmodified', function () {
       const newAsset = asset.buy();
 
@@ -26,7 +26,7 @@ describe('Asset', function () {
     });
   });
 
-  describe('makeUnlock()', function () {
+  describe('unlock()', function () {
     it('should return a new Asset with unlocked = true, and leave the original unmodified', function () {
       const newAsset = asset.unlock();
 
