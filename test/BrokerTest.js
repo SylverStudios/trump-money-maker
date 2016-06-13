@@ -3,28 +3,28 @@ import StateUtils from '../src/Application/Redux/StateUtils';
 import { TENEMENT, TOWER } from './../src/util/constants';
 import { expect, assert } from 'chai';
 
-const assets = StateUtils.getBaseAssets();
+const propertyTypes = StateUtils.getBasePropertyTypes();
 
 let broker;
 let brokerCopy;
 
 describe('Broker', function () {
   beforeEach(function () {
-    broker = new Broker(assets);
-    brokerCopy = new Broker(assets);
+    broker = new Broker(propertyTypes);
+    brokerCopy = new Broker(propertyTypes);
   });
 
   describe('netIncome', function () {
-    it('should return zero income for zero assets', function () {
+    it('should return zero income for zero propertyTypes', function () {
       assert(broker.netIncome === 0);
     });
 
-    it('should return income based on assets', function () {
-      const modifiedAssets = assets.slice();
+    it('should return income based on propertyTypes', function () {
+      const modifiedAssets = propertyTypes.slice();
       modifiedAssets[2] = modifiedAssets[2].buy();
       broker = new Broker(modifiedAssets);
 
-      assert(broker.netIncome === 9);
+      assert(broker.netIncome === modifiedAssets[2].income);
     });
   });
 
@@ -34,7 +34,7 @@ describe('Broker', function () {
     });
 
     it('should return the second asset if the first is unlocked', function () {
-      const modifiedAssets = assets.slice();
+      const modifiedAssets = propertyTypes.slice();
       modifiedAssets[0] = modifiedAssets[0].unlock();
       broker = new Broker(modifiedAssets);
 
@@ -44,12 +44,12 @@ describe('Broker', function () {
 
   describe('unlockGoal', function () {
     it('should return the unlock target for next asset', function () {
-      const expected = assets[0].price * 0.77;
+      const expected = propertyTypes[0].price * 0.77;
       assert.equal(broker.unlockGoal, expected);
     });
 
-    it('should return the unlock target for different assets', function () {
-      const modifiedAssets = assets.slice();
+    it('should return the unlock target for different propertyTypes', function () {
+      const modifiedAssets = propertyTypes.slice();
       modifiedAssets[0] = modifiedAssets[0].unlock();
       broker = new Broker(modifiedAssets);
 
@@ -71,8 +71,8 @@ describe('Broker', function () {
   });
 
   describe('unlockedAssets', function () {
-    it('should return only the unlocked assets', function () {
-      const modifiedAssets = assets.slice();
+    it('should return only the unlocked propertyTypes', function () {
+      const modifiedAssets = propertyTypes.slice();
       modifiedAssets[0] = modifiedAssets[0].unlock();
       modifiedAssets[1] = modifiedAssets[1].unlock();
       broker = new Broker(modifiedAssets);
@@ -87,9 +87,9 @@ describe('Broker', function () {
     it('should return a new Broker with 1 owned asset, original is unmodifed', function () {
       const newBroker = broker.buyAsset(1);
 
-      expect(broker).to.deep.equal(brokerCopy);
-      expect(broker.getAssetById(1)).to.have.deep.property('owned').that.equals(0);
-      expect(newBroker.getAssetById(1)).to.have.deep.property('owned').that.equals(1);
+      assert.deepEqual(broker, brokerCopy);
+      assert.equal(broker.getAssetById(1).numOwned, 0);
+      assert.equal(newBroker.getAssetById(1).numOwned, 1);
     });
   });
 
@@ -100,6 +100,20 @@ describe('Broker', function () {
       expect(broker).to.deep.equal(brokerCopy);
       expect(broker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(false);
       expect(newBroker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(true);
+    });
+  });
+
+  describe('updateRevenue()', function () {
+    it('should return a new Broker with updated Assets, original is unmodifed', function () {
+      let newBroker = broker.buyAsset(1);
+      newBroker = broker.updateRevenue(2);
+
+      expect(broker).to.deep.equal(brokerCopy);
+
+      const oldAsset = broker.getAssetById(1);
+      const asset = newBroker.getAssetById(1);
+      expect(asset).to.have.deep.property('revenue').that.equals(asset.income * 2);
+      expect(oldAsset).to.have.deep.property('revenue').that.equals(0);
     });
   });
 });

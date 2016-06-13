@@ -19,10 +19,14 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
     case COLLECT_INCOME:
       const newBank = state.bank.collectIncome(action.currentTime);
 
+      const lastIncomeCheck = state.bank.lastRent;
+      const secondDiff = (action.currentTime - lastIncomeCheck) / 1000;
+      let newBroker = state.broker.updateRevenue(secondDiff);
+
       // Unlock if you can
       if (newBank.cash >= state.broker.unlockGoal) {
         const assetToUnlock = state.broker.nextAssetToUnlock;
-        const newBroker = state.broker.unlockAsset(assetToUnlock.id);
+        newBroker = state.broker.unlockAsset(assetToUnlock.id);
         const unlockArticle = `Trump rumored to be interested in the ${assetToUnlock.name} market.`;
 
         return Object.assign({}, state,
@@ -35,7 +39,7 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       }
 
       // Else just update money and time
-      return Object.assign({}, state, { bank: newBank });
+      return Object.assign({}, state, { bank: newBank, broker: newBroker });
 
     case BROADCAST_NEWS:
       return Object.assign({}, state, { news: state.news.addArticle(action.article) });
@@ -45,12 +49,12 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
 
       if (state.bank.cash >= assetToBuy.price) {
         const buyArticle = `Trump bought a ${assetToBuy.name} today.`;
-        const newBroker = state.broker.buyAsset(action.id);
-        const bankAfterBuy = state.bank.withdraw(assetToBuy.price, newBroker.netIncome);
+        const newBuyBroker = state.broker.buyAsset(action.id);
+        const bankAfterBuy = state.bank.withdraw(assetToBuy.price, newBuyBroker.netIncome);
 
         return Object.assign({}, state,
           {
-            broker: newBroker,
+            broker: newBuyBroker,
             bank: bankAfterBuy,
             news: state.news.addArticle(buyArticle),
           }
