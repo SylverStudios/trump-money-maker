@@ -8,7 +8,7 @@ export const CITY = 'Trump City';
 export const GOV = 'Governership';
 export const ISS = 'Trump ISS';
 
-export const assetDefaults = {
+export const propertyDefaults = {
   'Tenement': {
     id: 1,
     keyCode: '1',

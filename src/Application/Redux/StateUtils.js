@@ -1,49 +1,49 @@
-import Asset from './../Models/Asset';
+import PropertyType from './../Models/PropertyType';
 import Broker from './../Models/Broker';
 import News from './../Models/News';
 import Bank from './../Models/Bank';
-import { TENEMENT, HOTEL, GOLF_COURSE, CASINO, TOWER, TOWN, CITY, GOV, ISS, assetDefaults } from './../../util/constants';
+import { TENEMENT, HOTEL, GOLF_COURSE, CASINO, TOWER, TOWN, CITY, GOV, ISS, propertyDefaults } from './../../util/constants';
 
 import { List } from 'immutable';
 
 const StateUtils = {
   defaultTenement: function () {
-    return new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice);
+    return new PropertyType(TENEMENT, propertyDefaults[TENEMENT].basePrice);
   },
 
   defaultHotel: function () {
-    return new Asset(HOTEL, assetDefaults[HOTEL].basePrice);
+    return new PropertyType(HOTEL, propertyDefaults[HOTEL].basePrice);
   },
 
   defaultGolfCourse: function () {
-    return new Asset(GOLF_COURSE, assetDefaults[GOLF_COURSE].basePrice);
+    return new PropertyType(GOLF_COURSE, propertyDefaults[GOLF_COURSE].basePrice);
   },
 
   defaultCasino: function () {
-    return new Asset(CASINO, assetDefaults[CASINO].basePrice);
+    return new PropertyType(CASINO, propertyDefaults[CASINO].basePrice);
   },
 
   defaultTower: function () {
-    return new Asset(TOWER, assetDefaults[TOWER].basePrice);
+    return new PropertyType(TOWER, propertyDefaults[TOWER].basePrice);
   },
 
   defaultTown: function () {
-    return new Asset(TOWN, assetDefaults[TOWN].basePrice);
+    return new PropertyType(TOWN, propertyDefaults[TOWN].basePrice);
   },
 
   defaultCity: function () {
-    return new Asset(CITY, assetDefaults[CITY].basePrice);
+    return new PropertyType(CITY, propertyDefaults[CITY].basePrice);
   },
 
   defaultGov: function () {
-    return new Asset(GOV, assetDefaults[GOV].basePrice);
+    return new PropertyType(GOV, propertyDefaults[GOV].basePrice);
   },
 
   defaultIss: function () {
-    return new Asset(ISS, assetDefaults[ISS].basePrice);
+    return new PropertyType(ISS, propertyDefaults[ISS].basePrice);
   },
 
-  getBaseAssets: function () {
+  getBasePropertyTypes: function () {
     return [
       this.defaultTenement(),
       this.defaultHotel(),
@@ -60,7 +60,7 @@ const StateUtils = {
   getInitialState: function () {
     return {
       bank: new Bank(0, 0, 0, 1462641080306),
-      broker: new Broker(this.getBaseAssets()),
+      broker: new Broker(this.getBasePropertyTypes()),
       news: new News([]),
       mint: [],
       map: new List(),

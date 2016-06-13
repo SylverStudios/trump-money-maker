@@ -1,14 +1,14 @@
-import { assetDefaults } from './../../util/constants';
+import { propertyDefaults } from './../../util/constants';
 
-class Asset {
-  constructor(name, price, multiplier = 1, owned = 0, unlocked = false, investment = 0, revenue = 0) {
+class PropertyType {
+  constructor(name, price, multiplier = 1, owned = 0, unlocked = false, totalInvestment = 0, revenue = 0) {
     this._name = name;
     this._price = price;
     this._multiplier = multiplier;
-    this._owned = owned;
+    this._numOwned = owned;
     this._unlocked = unlocked;
-    this._defaults = assetDefaults[name];
-    this._investment = investment;
+    this._defaults = propertyDefaults[name];
+    this._totalInvestment = totalInvestment;
     this._revenue = revenue;
   }
 
@@ -27,57 +27,57 @@ class Asset {
   get multiplier() {
     return this._multiplier;
   }
-  get owned() {
-    return this._owned;
+  get numOwned() {
+    return this._numOwned;
   }
   get unlocked() {
     return this._unlocked;
   }
   get income() {
-    return this._owned * this._defaults.baseIncome * this._multiplier;
+    return this._numOwned * this._defaults.baseIncome * this._multiplier;
   }
-  get investment() {
-    return this._investment;
+  get totalInvestment() {
+    return this._totalInvestment;
   }
   get revenue() {
     return this._revenue;
   }
 
   buy() {
-    return new Asset(
+    return new PropertyType(
         this._name,
         this._price * this._defaults.increaseRatio,
         this._multiplier,
-        this._owned + 1,
+        this._numOwned + 1,
         this._unlocked,
-        this._investment + this._price,
+        this._totalInvestment + this._price,
         this._revenue
     );
   }
 
   unlock() {
-    return new Asset(
+    return new PropertyType(
         this._name,
         this._price,
         this._multiplier,
-        this._owned,
+        this._numOwned,
         true,
-        this._investment,
+        this._totalInvestment,
         this._revenue
     );
   }
 
   addRevenue(recentIncome) {
-    return new Asset(
+    return new PropertyType(
         this._name,
         this._price,
         this._multiplier,
-        this._owned,
+        this._numOwned,
         this._unlocked,
-        this._investment,
+        this._totalInvestment,
         this._revenue + recentIncome
     );
   }
 }
 
-export default Asset;
+export default PropertyType;
