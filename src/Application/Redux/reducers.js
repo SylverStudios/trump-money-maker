@@ -5,6 +5,7 @@ import {
   UPGRADE_DENOMINATION,
   BROADCAST_NEWS,
   DEPOSIT,
+  TOGGLE_STATS_VISIBILITY,
 } from './actions';
 import StateUtils from './StateUtils';
 
@@ -87,6 +88,10 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({}, state,
         successfulTransactionStateDelta,
         { news: state.news.addArticle(newsArticle) }
+
+    case TOGGLE_STATS_VISIBILITY:
+      return Object.assign({}, state,
+          { broker: state.broker.toggleStatsVisibility() }
       );
 
     default:

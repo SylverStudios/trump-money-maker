@@ -1,6 +1,8 @@
 import React from 'react';
 import Mousetrap from 'mousetrap';
 
+import ShopItemStats from './ShopItemStats';
+
 class KeyBoundShopItem extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +18,10 @@ class KeyBoundShopItem extends React.Component {
 
   render() {
     const imgSrc = `images/${this.props.name}.png`;
+    let itemDetails = false;
+    if (this.props.areStatsVisible) {
+      itemDetails = <ShopItemStats key={this.props.name} name={this.props.name} />;
+    }
 
     return (
       <div className="shop-item panel panel-default" onClick={this.props.onClick}>
@@ -27,12 +33,15 @@ class KeyBoundShopItem extends React.Component {
           </div>
           <div className="shop-item-number col-md-2">{this.props.numOwned}</div>
         </div>
+
+        {itemDetails}
       </div>
     );
   }
 }
 
 KeyBoundShopItem.propTypes = {
+  areStatsVisible: React.PropTypes.bool.isRequired,
   keyCode: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
   numOwned: React.PropTypes.number.isRequired,
