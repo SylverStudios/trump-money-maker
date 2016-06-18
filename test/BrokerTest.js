@@ -58,7 +58,7 @@ describe('Broker', function () {
     });
   });
 
-  describe('getAsset', function () {
+  describe('getAsset()', function () {
     it('should return the asset with the corresponding id', function () {
       assert(broker.getAssetById(1).id === 1);
       assert(broker.getAssetById(2).id === 2);
@@ -88,8 +88,8 @@ describe('Broker', function () {
       const newBroker = broker.buyAsset(1);
 
       expect(broker).to.deep.equal(brokerCopy);
-      expect(broker.getAssetById(1)).to.have.deep.property('owned').that.equals(0);
-      expect(newBroker.getAssetById(1)).to.have.deep.property('owned').that.equals(1);
+      expect(broker.getAssetById(1)).to.have.deep.property('numOwned').that.equals(0);
+      expect(newBroker.getAssetById(1)).to.have.deep.property('numOwned').that.equals(1);
     });
   });
 

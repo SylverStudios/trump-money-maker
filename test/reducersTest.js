@@ -3,7 +3,7 @@ import StateUtils from '../src/Application/Redux/StateUtils';
 import createAction from '../src/Application/Redux/actions';
 import { COLLECT_INCOME } from '../src/Application/Redux/actions';
 import Bank from '../src/Application/Models/Bank';
-import { expect } from 'chai';
+import { assert } from 'chai';
 
 describe('reducers', function () {
   let initialState;
@@ -17,21 +17,21 @@ describe('reducers', function () {
 
   it('should return the initial state given no input state and no action', function () {
     const returnedState = trumpMM(undefined, '');
-    expect(returnedState).to.deep.equal(initialState);
+    assert.deepEqual(returnedState, initialState);
   });
 
   describe('Action: CLICK_MONEY', function () {
     it('should leave the original state unmodified', function () {
       trumpMM(initialState, createAction.clickMoney());
 
-      expect(initialState).to.deep.equal(copyOfOriginalState);
-      expect(initialState).to.have.deep.property('bank.cash').that.equals(copyOfOriginalState.bank.cash);
+      assert.deepEqual(initialState, copyOfOriginalState);
+      assert.equal(initialState.bank.cash, copyOfOriginalState.bank.cash);
     });
 
     it('should return a state with 1 more money after a CLICK_MONEY action', function () {
       const returnedState = trumpMM(initialState, createAction.clickMoney());
 
-      expect(returnedState).to.have.deep.property('bank.cash').that.equals(initialState.bank.cash + 1);
+      assert.equal(returnedState.bank.cash, initialState.bank.cash + 1);
     });
   });
 
@@ -42,8 +42,8 @@ describe('reducers', function () {
 
       trumpMM(initialState, collectIncomeAction);
 
-      expect(initialState).to.deep.equal(copyOfOriginalState);
-      expect(initialState).to.have.deep.property('bank.cash').that.equals(copyOfOriginalState.bank.cash);
+      assert.deepEqual(initialState, copyOfOriginalState);
+      assert.equal(initialState.bank.cash, copyOfOriginalState.bank.cash);
     });
 
     it('should return a state with updated bank.lastRent field', function () {
@@ -52,8 +52,8 @@ describe('reducers', function () {
 
       const returnedState = trumpMM(initialState, collectIncomeAction);
 
-      expect(returnedState).to.have.deep.property('bank.cash').that.equals(initialState.bank.cash);
-      expect(returnedState).to.have.deep.property('bank.lastRent').that.equals(oneSecondLater);
+      assert.equal(returnedState.bank.cash, initialState.bank.cash);
+      assert.equal(returnedState.bank.lastRent, oneSecondLater);
     });
 
     it('should return a state with updated cash and total fields', function () {
@@ -71,8 +71,8 @@ describe('reducers', function () {
 
       const returnedState = trumpMM(initialState, collectIncomeAction);
 
-      expect(returnedState).to.have.deep.property('bank.cash', initialState.bank.cash + expectedIncome);
-      expect(returnedState).to.have.deep.property('bank.total', initialState.bank.total + expectedIncome);
+      assert(returnedState.bank.cash, initialState.bank.cash + expectedIncome);
+      assert(returnedState.bank.total, initialState.bank.total + expectedIncome);
     });
   });
 
@@ -80,8 +80,8 @@ describe('reducers', function () {
     it('should leave the original state unmodified', function () {
       trumpMM(initialState, createAction.buyAsset(2));
 
-      expect(initialState).to.deep.equal(copyOfOriginalState);
-      expect(initialState.broker.getAssetById(2)).to.have.deep.property('owned').that.equals(0);
+      assert.deepEqual(initialState, copyOfOriginalState);
+      assert.equal(initialState.broker.getAssetById(2).numOwned, 0);
     });
 
     it('should return a new state with updated asset list', function () {
@@ -89,7 +89,7 @@ describe('reducers', function () {
 
       const returnedState = trumpMM(initialState, createAction.buyAsset(2));
 
-      expect(returnedState.broker.getAssetById(2)).to.have.property('owned').that.equals(1);
+      assert.equal(returnedState.broker.getAssetById(2).numOwned, 1);
     });
   });
 });
