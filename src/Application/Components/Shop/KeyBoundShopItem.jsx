@@ -25,7 +25,7 @@ class KeyBoundShopItem extends React.Component {
             <div className="shop-item-title">{this.props.name}</div>
             <div className="shop-item-cost">${this.props.price.toFixed(2)}</div>
           </div>
-          <div className="shop-item-number col-md-2">{this.props.owned}</div>
+          <div className="shop-item-number col-md-2">{this.props.numOwned}</div>
         </div>
       </div>
     );
@@ -35,8 +35,8 @@ class KeyBoundShopItem extends React.Component {
 KeyBoundShopItem.propTypes = {
   keyCode: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
+  numOwned: React.PropTypes.number.isRequired,
   onClick: React.PropTypes.func.isRequired,
-  owned: React.PropTypes.number.isRequired,
   price: React.PropTypes.number.isRequired,
 };
 

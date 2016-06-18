@@ -24,7 +24,7 @@ const Shop = React.createClass({
                   key={asset.name}
                   name={asset.name}
                   price={asset.price}
-                  owned={asset.owned}
+                  numOwned={asset.numOwned}
                   keyCode={assetDefaults[asset.name].keyCode}
                   onClick={_.partial(this.props.onItemClick, asset.id)}
                 />
