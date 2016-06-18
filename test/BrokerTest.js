@@ -24,7 +24,7 @@ describe('Broker', function () {
       modifiedAssets[2] = modifiedAssets[2].buy();
       broker = new Broker(modifiedAssets);
 
-      assert(broker.netIncome === 9);
+      assert(broker.netIncome === modifiedAssets[2].income);
     });
   });
 
@@ -58,7 +58,7 @@ describe('Broker', function () {
     });
   });
 
-  describe('getAsset', function () {
+  describe('getAsset()', function () {
     it('should return the asset with the corresponding id', function () {
       assert(broker.getAssetById(1).id === 1);
       assert(broker.getAssetById(2).id === 2);
@@ -88,8 +88,8 @@ describe('Broker', function () {
       const newBroker = broker.buyAsset(1);
 
       expect(broker).to.deep.equal(brokerCopy);
-      expect(broker.getAssetById(1)).to.have.deep.property('owned').that.equals(0);
-      expect(newBroker.getAssetById(1)).to.have.deep.property('owned').that.equals(1);
+      expect(broker.getAssetById(1)).to.have.deep.property('numOwned').that.equals(0);
+      expect(newBroker.getAssetById(1)).to.have.deep.property('numOwned').that.equals(1);
     });
   });
 
@@ -100,6 +100,20 @@ describe('Broker', function () {
       expect(broker).to.deep.equal(brokerCopy);
       expect(broker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(false);
       expect(newBroker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(true);
+    });
+  });
+
+  describe('updateRevenue()', function () {
+    it('should return a new Broker with updated Assets, original is unmodifed', function () {
+      let newBroker = broker.buyAsset(1);
+      newBroker = broker.updateRevenue(2);
+
+      expect(broker).to.deep.equal(brokerCopy);
+
+      const oldAsset = broker.getAssetById(1);
+      const asset = newBroker.getAssetById(1);
+      expect(asset).to.have.deep.property('revenue').that.equals(asset.income * 2);
+      expect(oldAsset).to.have.deep.property('revenue').that.equals(0);
     });
   });
 });

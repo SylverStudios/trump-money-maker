@@ -10,7 +10,7 @@ class Broker {
 
   get netIncome() {
     return this._assets
-        .map((asset) => asset.baseIncome * asset.owned)
+        .map((asset) => asset.income)
         .reduce((previous, current) => previous + current);
   }
 
@@ -90,6 +90,15 @@ class Broker {
 
     return this._insertIntoNewBroker(newAsset, index);
   }
+
+  updateRevenue(timeDifferenceInSeconds) {
+    const newAssets = this._assets.map(asset => {
+      const income = asset.income * timeDifferenceInSeconds;
+      return asset.addRevenue(income);
+    });
+    return new Broker(newAssets);
+  }
+
 }
 
 export default Broker;

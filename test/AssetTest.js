@@ -1,6 +1,6 @@
-import Asset from '../src/Application/Models/Asset';
+import StateUtils from'../src/Application/Redux/StateUtils';
 import { assetDefaults, TENEMENT } from './../src/util/constants';
-import { expect } from 'chai';
+import { assert } from 'chai';
 
 const INCREASE_RATIO = assetDefaults[TENEMENT].increaseRatio;
 let asset;
@@ -8,21 +8,29 @@ let identicalAsset;
 
 describe('Asset', function () {
   beforeEach(function () {
-    asset = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false);
-    identicalAsset = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice, 1, 0, false);
+    asset = StateUtils.defaultTenement();
+    identicalAsset = StateUtils.defaultTenement();
   });
 
   it('should be constructed and fill in default values', function () {
-    expect(asset.id).to.equal(assetDefaults[TENEMENT].id);
+    assert.equal(asset.id, assetDefaults[TENEMENT].id);
   });
 
   describe('buy()', function () {
-    it('should return a new Asset with increased price and owned, and leave the original unmodified', function () {
+    it('should return a new Asset and leave the original unmodified', function () {
       const newAsset = asset.buy();
 
-      expect(asset).to.deep.equal(identicalAsset);
-      expect(newAsset).to.have.property('price').that.equals(asset.price * INCREASE_RATIO);
-      expect(newAsset).to.have.property('owned').that.equals(asset.owned + 1);
+      assert.deepEqual(asset, identicalAsset);
+      assert.notDeepEqual(newAsset, identicalAsset);
+    });
+
+    it('should return a new Asset and leave the original unmodified', function () {
+      const newAsset = asset.buy();
+
+      assert.deepEqual(asset, identicalAsset);
+      assert.equal(newAsset.price, asset.price * INCREASE_RATIO);
+      assert.equal(newAsset.numOwned, asset.numOwned + 1);
+      assert.equal(newAsset.totalInvestment, asset.price);
     });
   });
 
@@ -30,9 +38,19 @@ describe('Asset', function () {
     it('should return a new Asset with unlocked = true, and leave the original unmodified', function () {
       const newAsset = asset.unlock();
 
-      expect(asset).to.deep.equal(identicalAsset);
-      expect(asset).to.have.property('unlocked').that.equals(false);
-      expect(newAsset).to.have.property('unlocked').that.equals(true);
+      assert.deepEqual(asset, identicalAsset);
+      assert.equal(asset.unlocked, false);
+      assert(newAsset.unlocked);
+    });
+  });
+
+  describe('addRevenue()', function () {
+    it('should return a new Asset with increased Revenue, and original unmodified', function () {
+      const newAsset = asset.addRevenue(50);
+
+      assert.deepEqual(asset, identicalAsset);
+      assert.equal(asset.revenue, identicalAsset.revenue);
+      assert.equal(newAsset.revenue, identicalAsset.revenue + 50);
     });
   });
 });
