@@ -92,10 +92,9 @@ class Broker {
   }
 
   updateRevenue(timeDifferenceInSeconds) {
-    const newAssets = [];
-    this._assets.forEach(function (asset) {
+    const newAssets = this._assets.map(asset => {
       const income = asset.income * timeDifferenceInSeconds;
-      newAssets.push(asset.addRevenue(income));
+      return asset.addRevenue(income);
     });
     return new Broker(newAssets);
   }
