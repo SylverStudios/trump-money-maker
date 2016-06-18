@@ -88,6 +88,7 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({}, state,
         successfulTransactionStateDelta,
         { news: state.news.addArticle(newsArticle) }
+      );
 
     case TOGGLE_STATS_VISIBILITY:
       return Object.assign({}, state,
