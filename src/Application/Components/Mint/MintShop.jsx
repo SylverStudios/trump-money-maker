@@ -11,18 +11,15 @@ const MintShop = React.createClass({
     let message;
     let onUpgrade;
     if (nextDenomination) {
-      message =
-        `next denomination: ${nextDenomination.id}, ` +
-        `income per click: ${nextDenomination.incomePerClick}, ` +
-        `price to unlock: ${nextDenomination.priceToUnlock}`;
+      message = `Upgrade Denomination for $${nextDenomination.priceToUnlock}`;
       onUpgrade = this.props.onUpgrade;
     } else {
       message = 'Nein more upgrades';
     }
     return (
-      <div className="mint-shop" onClick={onUpgrade}>
+      <button className="btn mint-shop" onClick={onUpgrade} disabled={!nextDenomination}>
         {message}
-      </div>
+      </button>
     );
   },
 });
