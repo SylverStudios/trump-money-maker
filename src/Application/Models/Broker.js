@@ -101,7 +101,7 @@ class Broker {
       const income = asset.income * timeDifferenceInSeconds;
       return asset.addRevenue(income);
     });
-    return new Broker(newAssets);
+    return new Broker(newAssets, this._areStatsVisible);
   }
 
   toggleStatsVisibility() {
