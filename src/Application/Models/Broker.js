@@ -49,7 +49,7 @@ class Broker {
   _insertIntoNewBroker(newAsset, index) {
     const arrayCopy = this._assets.slice();
     arrayCopy[index] = newAsset;
-    return new Broker(arrayCopy);
+    return new Broker(arrayCopy, this._areStatsVisible);
   }
 
   buyAsset(assetId) {

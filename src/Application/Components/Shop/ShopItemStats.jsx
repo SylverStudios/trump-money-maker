@@ -1,4 +1,5 @@
 import React from 'react';
+import numeral from 'numeral';
 
 class ShopItemStats extends React.Component {
   constructor(props) {
@@ -8,7 +9,9 @@ class ShopItemStats extends React.Component {
   render() {
     return (
       <div className="panel-footer">
-        <div>All this info about {this.props.name}!</div>
+        Revenue Earned: {numeral(this.props.revenue).format('($0.00 a)')}
+        <br />
+        Total Investment: {numeral(this.props.totalInvestment).format('($0.00 a)')}
       </div>
     );
   }
@@ -16,6 +19,8 @@ class ShopItemStats extends React.Component {
 
 ShopItemStats.propTypes = {
   name: React.PropTypes.string.isRequired,
+  revenue: React.PropTypes.number.isRequired,
+  totalInvestment: React.PropTypes.number.isRequired,
 };
 
 export default ShopItemStats;

@@ -28,13 +28,15 @@ const Shop = React.createClass({
             {this.props.assets.map((asset) => {
               return (
                 <KeyBoundShopItem
-                  key={asset.name}
-                  name={asset.name}
-                  price={asset.price}
-                  numOwned={asset.numOwned}
-                  keyCode={assetDefaults[asset.name].keyCode}
-                  onClick={_.partial(this.props.onItemClick, asset.id)}
                   areStatsVisible={this.props.areStatsVisible}
+                  key={asset.name}
+                  keyCode={assetDefaults[asset.name].keyCode}
+                  name={asset.name}
+                  numOwned={asset.numOwned}
+                  onClick={_.partial(this.props.onItemClick, asset.id)}
+                  price={asset.price}
+                  revenue={asset.revenue}
+                  totalInvestment={asset.totalInvestment}
                 />
               );
             })}

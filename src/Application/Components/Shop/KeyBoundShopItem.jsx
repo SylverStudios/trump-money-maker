@@ -20,7 +20,13 @@ class KeyBoundShopItem extends React.Component {
     const imgSrc = `images/${this.props.name}.png`;
     let itemDetails = false;
     if (this.props.areStatsVisible) {
-      itemDetails = <ShopItemStats key={this.props.name} name={this.props.name} />;
+      itemDetails =
+        (<ShopItemStats
+          key={this.props.name}
+          name={this.props.name}
+          revenue={this.props.revenue}
+          totalInvestment={this.props.totalInvestment}
+         />);
     }
 
     return (
@@ -47,6 +53,8 @@ KeyBoundShopItem.propTypes = {
   numOwned: React.PropTypes.number.isRequired,
   onClick: React.PropTypes.func.isRequired,
   price: React.PropTypes.number.isRequired,
+  revenue: React.PropTypes.number.isRequired,
+  totalInvestment: React.PropTypes.number.isRequired,
 };
 
 export default KeyBoundShopItem;
