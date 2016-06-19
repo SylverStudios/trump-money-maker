@@ -1,5 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
+
 import Asset from '../../Models/Asset';
 
 class ShopItemStats extends React.Component {
