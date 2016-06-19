@@ -2,7 +2,7 @@ export const CLICK_MONEY = 'CLICK_MONEY';
 export const COLLECT_INCOME = 'COLLECT_INCOME';
 export const BUY_ASSET = 'BUY_ASSET';
 export const UNLOCK_ASSET = 'UNLOCK_ASSET';
-export const UPGRADE_CURRENCY = 'UPGRADE_CURRENCY';
+export const UPGRADE_DENOMINATION = 'UPGRADE_DENOMINATION';
 export const BROADCAST_NEWS = 'BROADCAST_NEWS';
 export const DEPOSIT = 'DEPOSIT';
 
@@ -27,8 +27,8 @@ const createAction = {
     return { type: BUY_ASSET, id: assetId };
   },
 
-  upgradeCurrency: (currencyId) => {
-    return { type: UPGRADE_CURRENCY, id: currencyId };
+  upgradeDenomination: () => {
+    return { type: UPGRADE_DENOMINATION };
   },
 
   broadcastNews: (article) => {

@@ -1,4 +1,11 @@
-import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, BROADCAST_NEWS, DEPOSIT } from './actions';
+import {
+  CLICK_MONEY,
+  COLLECT_INCOME,
+  BUY_ASSET,
+  UPGRADE_DENOMINATION,
+  BROADCAST_NEWS,
+  DEPOSIT,
+} from './actions';
 import StateUtils from './StateUtils';
 
 const BASE_CLICK_INCOME = 1;
@@ -64,12 +71,8 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       const bounceArticle = `Trump bounced a check for a ${assetToBuy.name} today.`;
       return Object.assign({}, state, { news: state.news.addArticle(bounceArticle) });
 
-    // TODO: Actually make this work
-    case UPGRADE_CURRENCY:
-      // Same as above for currency
-      return Object.assign({},
-          state
-      );
+    case UPGRADE_DENOMINATION:
+      return Object.assign({}, state, { mint: state.mint.toNextDenomination });
 
     default:
       return state;
