@@ -28,12 +28,28 @@ class Bank {
     );
   }
 
-  withdraw(cost, newIncome) {
+  withdraw(amountToWithdraw) {
+    if (amountToWithdraw > this._cash) {
+      console.warn(new Error(
+        'amountToWithdraw high than current cash.',
+        'amountToWithdraw:', amountToWithdraw,
+        'this: ', this
+      ));
+    }
     return new Bank(
-        this._cash - cost,
-        newIncome,
+        this._cash - amountToWithdraw,
+        this._income,
         this._total,
         this._lastRentTime
+    );
+  }
+
+  updateIncome(newIncome) {
+    return new Bank(
+      this._cash,
+      newIncome,
+      this._total,
+      this._lastRentTime
     );
   }
 

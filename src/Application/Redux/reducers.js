@@ -55,7 +55,9 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       if (state.bank.cash >= assetToBuy.price) {
         const buyArticle = `Trump bought a ${assetToBuy.name} today.`;
         const newBuyBroker = state.broker.buyAsset(action.id);
-        const bankAfterBuy = state.bank.withdraw(assetToBuy.price, newBuyBroker.netIncome);
+        const bankAfterBuy = state.bank
+          .withdraw(assetToBuy.price)
+          .updateIncome(newBuyBroker.netIncome);
 
         return Object.assign({}, state,
           {
@@ -70,15 +72,22 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({}, state, { news: state.news.addArticle(bounceArticle) });
 
     case UPGRADE_DENOMINATION:
-      let mintDelta;
+      let successfulTransactionStateDelta;
       let newsArticle;
-      if (state.bank.cash >= state.mint.nextDenomination.priceToUnlock) {
-        mintDelta = { mint: state.mint.toNextDenomination };
+      const priceToUnlock = state.mint.nextDenomination.priceToUnlock;
+      if (state.bank.cash >= priceToUnlock) {
+        successfulTransactionStateDelta = {
+          mint: state.mint.toNextDenomination,
+          bank: state.bank.withdraw(priceToUnlock),
+        };
         newsArticle = `Trump's greatness has improved the value of US currency!`;
       } else {
         newsArticle = `Trump's experiments in alchemy have failed to produce results`;
       }
-      return Object.assign({}, state, mintDelta, { news: state.news.addArticle(newsArticle) });
+      return Object.assign({}, state,
+        successfulTransactionStateDelta,
+        { news: state.news.addArticle(newsArticle) }
+      );
 
     default:
       return state;
