@@ -51,13 +51,26 @@ describe('Bank', function () {
     });
   });
 
-  describe('buy()', function () {
-    it('should return a new Bank (updated cash and income only) and leave the original unmodified', function () {
-      const newBank = bank.withdraw(10, 4);
+  describe('withdraw()', function () {
+    it('should return a new Bank (updated cash only) and leave the original unmodified', function () {
+      const newBank = bank.withdraw(10);
 
       expect(bank).to.deep.equal(bankCopy);
 
       expect(newBank).to.have.property('cash').that.equals(bank.cash - 10);
+      expect(newBank).to.have.property('total').that.equals(bank.cash);
+      expect(newBank).to.have.property('income').that.equals(bank.income);
+      expect(newBank).to.have.property('lastRent').that.equals(bank.lastRent);
+    });
+  });
+
+  describe('updateIncome()', function () {
+    it('should return a new Bank (updated income only) and leave the original unmodified', function () {
+      const newBank = bank.updateIncome(4);
+
+      expect(bank).to.deep.equal(bankCopy);
+
+      expect(newBank).to.have.property('cash').that.equals(bank.cash);
       expect(newBank).to.have.property('total').that.equals(bank.cash);
       expect(newBank).to.have.property('income').that.equals(4);
       expect(newBank).to.have.property('lastRent').that.equals(bank.lastRent);

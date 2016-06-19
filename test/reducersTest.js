@@ -28,10 +28,11 @@ describe('reducers', function () {
       assert.equal(initialState.bank.cash, copyOfOriginalState.bank.cash);
     });
 
-    it('should return a state with 1 more money after a CLICK_MONEY action', function () {
+    it('should return a state with correctly increased cash after a CLICK_MONEY action', function () {
       const returnedState = trumpMM(initialState, createAction.clickMoney());
 
-      assert.equal(returnedState.bank.cash, initialState.bank.cash + 1);
+      assert.equal(returnedState.bank.cash,
+        initialState.bank.cash + initialState.mint.currentDenomination.incomePerClick);
     });
   });
 
@@ -90,6 +91,34 @@ describe('reducers', function () {
       const returnedState = trumpMM(initialState, createAction.buyAsset(2));
 
       assert.equal(returnedState.broker.getAssetById(2).numOwned, 1);
+    });
+  });
+
+  describe('Action: UPGRADE_DENOMINATION', function () {
+    it('adds a news article', function () {
+      const returnedState = trumpMM(initialState, createAction.upgradeDenomination());
+      assert.equal(returnedState.news.articles.length, initialState.news.articles.length + 1);
+    });
+    describe('if there is insufficient cash', function () {
+      it('leaves original mint and bank in place', function () {
+        initialState.bank._cash = 0;
+        const returnedState = trumpMM(initialState, createAction.upgradeDenomination());
+        assert.equal(returnedState.bank, initialState.bank);
+        assert.equal(returnedState.mint, initialState.mint);
+      });
+    });
+    describe('if there is enough cash', function () {
+      let returnedState;
+      beforeEach(function () {
+        initialState.bank._cash = 10;
+        returnedState = trumpMM(initialState, createAction.upgradeDenomination());
+      });
+      it('removes the cost of mint next denomination from bank cash', function () {
+        assert.equal(returnedState.bank.cash, 10 - initialState.mint.nextDenomination.priceToUnlock);
+      });
+      it('updates the mint current denomination to next denomination', function () {
+        assert.equal(returnedState.mint.currentDenomination, initialState.mint.nextDenomination);
+      });
     });
   });
 });
