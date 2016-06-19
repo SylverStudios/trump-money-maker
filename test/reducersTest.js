@@ -3,6 +3,7 @@ import StateUtils from '../src/Application/Redux/StateUtils';
 import createAction from '../src/Application/Redux/actions';
 import { COLLECT_INCOME } from '../src/Application/Redux/actions';
 import Bank from '../src/Application/Models/Bank';
+import Broker from '../src/Application/Models/Broker';
 import { assert } from 'chai';
 
 describe('reducers', function () {
@@ -119,6 +120,17 @@ describe('reducers', function () {
       it('updates the mint current denomination to next denomination', function () {
         assert.equal(returnedState.mint.currentDenomination, initialState.mint.nextDenomination);
       });
+    });
+  });
+
+  describe('Action: TOGGLE_STATS_VISIBILITY', function() {
+    it('should return a new state with areStatsVisible bool reversed', function() {
+      // areStatsVisible is initially set to false
+      initialState.broker = new Broker(StateUtils.getBaseAssets());
+
+      const returnedState = trumpMM(initialState, createAction.toggleStatsVisibility());
+
+      assert.equal(returnedState.broker.areStatsVisible, true)
     });
   });
 });

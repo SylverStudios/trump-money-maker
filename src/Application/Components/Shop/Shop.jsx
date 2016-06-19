@@ -13,13 +13,15 @@ const Shop = React.createClass({
   },
 
   render() {
+    const toggleText = this.props.areStatsVisible ? 'Collapse Property Stats' : 'Expand Property Stats';
+
     return (
         <div className="panel panel-primary">
 
           <div className="panel-heading text-center">
             <h3 className="panel-title broker-title">Real Estate</h3>
             <br />
-            <button className="btn btn-default" onClick={this.props.onToggle}>View Property Stats</button>
+            <button className="btn btn-default" onClick={this.props.onToggle}>{toggleText}</button>
           </div>
 
           <div className="panel-body">
