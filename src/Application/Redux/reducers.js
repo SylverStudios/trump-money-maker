@@ -70,7 +70,15 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({}, state, { news: state.news.addArticle(bounceArticle) });
 
     case UPGRADE_DENOMINATION:
-      return Object.assign({}, state, { mint: state.mint.toNextDenomination });
+      let mintDelta;
+      let newsArticle;
+      if (state.bank.cash >= state.mint.nextDenomination.priceToUnlock) {
+        mintDelta = { mint: state.mint.toNextDenomination };
+        newsArticle = `Trump's greatness has improved the value of US currency!`;
+      } else {
+        newsArticle = `Trump's experiments in alchemy have failed to produce results`;
+      }
+      return Object.assign({}, state, mintDelta, { news: state.news.addArticle(newsArticle) });
 
     default:
       return state;
