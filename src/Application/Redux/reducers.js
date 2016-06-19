@@ -8,14 +8,12 @@ import {
 } from './actions';
 import StateUtils from './StateUtils';
 
-const BASE_CLICK_INCOME = 1;
-
 function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
 
     case CLICK_MONEY:
       return Object.assign({}, state,
-        { bank: state.bank.deposit(BASE_CLICK_INCOME) }
+        { bank: state.bank.deposit(state.mint.currentDenomination.incomePerClick) }
       );
 
     case DEPOSIT:
