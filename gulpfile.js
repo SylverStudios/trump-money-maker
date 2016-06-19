@@ -111,8 +111,7 @@ var buildTasks = {
         .pipe(size({title: 'css'}));
   },
   'build-images': function () {
-    return gulp.src([srcDir + imagesDir + '/*'])
-        .pipe(rename({ dirname: '' }))
+    return gulp.src([srcDir + imagesDir + '/**'])
         .pipe(gulp.dest(buildDir + imagesDir));
   },
 };
@@ -155,10 +154,10 @@ gulp.task('build-scss', buildTasks['build-scss']);
 gulp.task('build-images', buildTasks['build-images']);
 
 // Watch
-gulp.task('watch-js', watchTasks['watch-js']);
-gulp.task('watch-scss', watchTasks['watch-scss']);
-gulp.task('watch-html', watchTasks['watch-html']);
-gulp.task('watch-images', watchTasks['watch-images']);
+gulp.task('watch-js', ['build-js'], watchTasks['watch-js']);
+gulp.task('watch-scss', ['build-scss'], watchTasks['watch-scss']);
+gulp.task('watch-html', ['build-html'], watchTasks['watch-html']);
+gulp.task('watch-images', ['build-images'], watchTasks['watch-images']);
 
 // Serve
 gulp.task('serve', serveTasks['serve']);

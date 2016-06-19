@@ -8,13 +8,9 @@ const BLACK = '#000';
 const ClickCanvas = React.createClass({
   propTypes: {
     cash: React.PropTypes.number.isRequired,
-    image: React.PropTypes.string.isRequired,
+    imageUrl: React.PropTypes.string.isRequired,
     income: React.PropTypes.number.isRequired,
     onClick: React.PropTypes.func.isRequired,
-  },
-
-  images: {
-    penny: 'images/penny.png',
   },
 
   _createText(x, y, color, text) {
@@ -29,13 +25,11 @@ const ClickCanvas = React.createClass({
   },
 
   setClickableImage() {
-    fabric.Image.fromURL(this.images[this.props.image], img => {
+    fabric.Image.fromURL(this.props.imageUrl, img => {
       img.set({
         left: this.imgPosX,
         top: this.imgPosY,
         selectable: false,
-        scaleX: 0.20,
-        scaleY: 0.20,
       });
       if (this.clickable) {
         this.canvas.remove(this.clickable);
@@ -80,7 +74,7 @@ const ClickCanvas = React.createClass({
   },
 
   componentDidUpdate(prevProps) {
-    if (prevProps.image !== this.props.image) {
+    if (prevProps.imageUrl !== this.props.imageUrl) {
       this.setClickableImage();
     }
     if (prevProps.cash !== this.props.cash || prevProps.income !== this.props.income) {
