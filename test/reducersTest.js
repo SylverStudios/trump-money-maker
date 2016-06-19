@@ -3,6 +3,7 @@ import StateUtils from '../src/Application/Redux/StateUtils';
 import createAction from '../src/Application/Redux/actions';
 import { COLLECT_INCOME } from '../src/Application/Redux/actions';
 import Bank from '../src/Application/Models/Bank';
+import Broker from '../src/Application/Models/Broker';
 import { assert } from 'chai';
 
 describe('reducers', function () {
