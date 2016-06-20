@@ -51,7 +51,7 @@ module.exports = function(entry, artifact) {
       };
 
       if (isDev) {
-        // config.devtool = 'eval';
+        config.devtool = 'eval';
       }
 
       return config;

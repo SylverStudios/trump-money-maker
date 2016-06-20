@@ -1,14 +1,19 @@
-import { CLICK_MONEY, COLLECT_INCOME, BUY_ASSET, UPGRADE_CURRENCY, BROADCAST_NEWS, DEPOSIT } from './actions';
+import {
+  CLICK_MONEY,
+  COLLECT_INCOME,
+  BUY_ASSET,
+  UPGRADE_DENOMINATION,
+  BROADCAST_NEWS,
+  DEPOSIT,
+} from './actions';
 import StateUtils from './StateUtils';
-
-const BASE_CLICK_INCOME = 1;
 
 function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
 
     case CLICK_MONEY:
       return Object.assign({}, state,
-        { bank: state.bank.deposit(BASE_CLICK_INCOME) }
+        { bank: state.bank.deposit(state.mint.currentDenomination.incomePerClick) }
       );
 
     case DEPOSIT:
@@ -50,7 +55,9 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       if (state.bank.cash >= assetToBuy.price) {
         const buyArticle = `Trump bought a ${assetToBuy.name} today.`;
         const newBuyBroker = state.broker.buyAsset(action.id);
-        const bankAfterBuy = state.bank.withdraw(assetToBuy.price, newBuyBroker.netIncome);
+        const bankAfterBuy = state.bank
+          .withdraw(assetToBuy.price)
+          .updateIncome(newBuyBroker.netIncome);
 
         return Object.assign({}, state,
           {
@@ -64,11 +71,22 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       const bounceArticle = `Trump bounced a check for a ${assetToBuy.name} today.`;
       return Object.assign({}, state, { news: state.news.addArticle(bounceArticle) });
 
-    // TODO: Actually make this work
-    case UPGRADE_CURRENCY:
-      // Same as above for currency
-      return Object.assign({},
-          state
+    case UPGRADE_DENOMINATION:
+      let successfulTransactionStateDelta;
+      let newsArticle;
+      const priceToUnlock = state.mint.nextDenomination.priceToUnlock;
+      if (state.bank.cash >= priceToUnlock) {
+        successfulTransactionStateDelta = {
+          mint: state.mint.toNextDenomination,
+          bank: state.bank.withdraw(priceToUnlock),
+        };
+        newsArticle = `Trump's greatness has improved the value of US currency!`;
+      } else {
+        newsArticle = `Trump's experiments in alchemy have failed to produce results`;
+      }
+      return Object.assign({}, state,
+        successfulTransactionStateDelta,
+        { news: state.news.addArticle(newsArticle) }
       );
 
     default:

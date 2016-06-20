@@ -2,6 +2,7 @@ import Asset from './../Models/Asset';
 import Broker from './../Models/Broker';
 import News from './../Models/News';
 import Bank from './../Models/Bank';
+import Mint from './../Models/Mint';
 import { TENEMENT, HOTEL, GOLF_COURSE, CASINO, TOWER, TOWN, CITY, GOV, ISS, assetDefaults } from './../../util/constants';
 
 import { List } from 'immutable';
@@ -62,7 +63,7 @@ const StateUtils = {
       bank: new Bank(0, 0, 0, 1462641080306),
       broker: new Broker(this.getBaseAssets()),
       news: new News([]),
-      mint: [],
+      mint: new Mint(),
       map: new List(),
     };
   },

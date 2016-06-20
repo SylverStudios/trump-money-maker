@@ -7,6 +7,8 @@ var sass = require('gulp-sass');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var eslint = require('gulp-eslint');
+var connect = require('gulp-connect');
+var liveReload = require('gulp-livereload');
 var scsslint = require('gulp-scss-lint');
 var rimraf = require('rimraf');
 var autoprefixer = require('gulp-autoprefixer');
@@ -35,13 +37,17 @@ var scssEntry = 'entrypoint.scss';
 var scssEntryFull = srcDir + scssEntry;
 var scssArtifact = 'app.css';
 
+// connect config: the port that you'd like to run your dev server on
+var servePort = 1337;
+
 function doWebpack(config) {
   return gulp.src(config.entry)
-      .pipe(webpackStream(config))
-      .pipe(environment === 'production' ? uglify() : util.noop())
-      .pipe(gulp.dest(buildDir))
-      .pipe(size({ title: 'js' }))
-      ;
+    .pipe(webpackStream(config))
+    .pipe(environment === 'production' ? uglify() : util.noop())
+    .pipe(gulp.dest(buildDir))
+    .pipe(size({ title: 'js' }))
+    .pipe(connect.reload())
+    .pipe(liveReload());
 }
 
 function fsExistsSync(filePath) {
@@ -105,8 +111,7 @@ var buildTasks = {
         .pipe(size({title: 'css'}));
   },
   'build-images': function () {
-    return gulp.src([srcDir + imagesDir + '/*'])
-        .pipe(rename({ dirname: '' }))
+    return gulp.src([srcDir + imagesDir + '/**'])
         .pipe(gulp.dest(buildDir + imagesDir));
   },
 };
@@ -128,6 +133,18 @@ var watchTasks = {
   },
 };
 
+var serveTasks = {
+  'serve': function () {
+    connect.server({
+      root: buildDir,
+      port: servePort,
+      livereload: {
+        port: 35729,
+      },
+    });
+  },
+};
+
 gulp.task('setup-build', utilTasks['setup-build']);
 
 // Build
@@ -137,10 +154,13 @@ gulp.task('build-scss', buildTasks['build-scss']);
 gulp.task('build-images', buildTasks['build-images']);
 
 // Watch
-gulp.task('watch-js', watchTasks['watch-js']);
-gulp.task('watch-scss', watchTasks['watch-scss']);
-gulp.task('watch-html', watchTasks['watch-html']);
-gulp.task('watch-images', watchTasks['watch-images']);
+gulp.task('watch-js', ['build-js'], watchTasks['watch-js']);
+gulp.task('watch-scss', ['build-scss'], watchTasks['watch-scss']);
+gulp.task('watch-html', ['build-html'], watchTasks['watch-html']);
+gulp.task('watch-images', ['build-images'], watchTasks['watch-images']);
+
+// Serve
+gulp.task('serve', serveTasks['serve']);
 
 // Lint
 gulp.task('lint-js', utilTasks['lint-js']);
@@ -150,4 +170,4 @@ gulp.task('lint-scss', utilTasks['lint-scss']);
 gulp.task('clean', utilTasks.clean);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('build', ['setup-build', 'build-js', 'build-html', 'build-scss', 'build-images']);
-gulp.task('watch', ['setup-build', 'watch-js', 'watch-scss', 'watch-html', 'watch-images']);
+gulp.task('watch', ['setup-build', 'serve', 'watch-js', 'watch-scss', 'watch-html', 'watch-images']);
