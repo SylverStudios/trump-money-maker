@@ -1,17 +1,22 @@
 .shop-item {
   margin-bottom: 5px;
-}
 
-.shop-item:hover {
-  cursor: pointer;
-}
+  .shop-item-body:hover {
+    cursor: pointer;
+  }
 
-.shop-item-content {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 16px;
-}
+  .shop-item-text {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+  }
 
-.shop-item-number {
-  font-family: "Arial", Sans-serif;
-  font-size: 30px;
+  .shop-item-number {
+    font-family: "Arial", Sans-serif;
+    font-size: 30px;
+  }
+
+  .shop-item-image {
+    float: left;
+    margin-right: 16px;
+  }
 }
