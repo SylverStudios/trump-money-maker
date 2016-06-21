@@ -92,7 +92,7 @@ const ClickCanvas = React.createClass({
 
   componentDidMount() {
     this.canvas = new fabric.Canvas('click-canvas');
-    this.clickSound = new Audio('sounds/coin-long.mp3');
+    this.clickSound = new Audio('sounds/clink.mp3');
     this.setupDefaults();
   },
 
