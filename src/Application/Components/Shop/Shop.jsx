@@ -10,6 +10,7 @@ const Shop = React.createClass({
     assets: React.PropTypes.array.isRequired,
     onItemClick: React.PropTypes.func.isRequired,
     onToggle: React.PropTypes.func.isRequired,
+    totalRevenueEverEarned: React.PropTypes.number.isRequired,
   },
 
   render() {
@@ -29,14 +30,11 @@ const Shop = React.createClass({
               return (
                 <KeyBoundShopItem
                   areStatsVisible={this.props.areStatsVisible}
+                  asset={asset}
                   key={asset.name}
                   keyCode={assetDefaults[asset.name].keyCode}
-                  name={asset.name}
-                  numOwned={asset.numOwned}
                   onClick={_.partial(this.props.onItemClick, asset.id)}
-                  price={asset.price}
-                  revenue={asset.revenue}
-                  totalInvestment={asset.totalInvestment}
+                  totalRevenueEverEarned={this.props.totalRevenueEverEarned}
                 />
               );
             })}

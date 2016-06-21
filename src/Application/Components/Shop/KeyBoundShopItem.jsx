@@ -1,6 +1,8 @@
 import React from 'react';
 import Mousetrap from 'mousetrap';
 
+import Asset from '../../Models/Asset';
+
 import ShopItemStats from './ShopItemStats';
 
 class KeyBoundShopItem extends React.Component {
@@ -17,27 +19,28 @@ class KeyBoundShopItem extends React.Component {
   }
 
   render() {
-    const imgSrc = `images/${this.props.name}.png`;
+    const imgSrc = `images/${this.props.asset.name}.png`;
     let itemDetails = false;
     if (this.props.areStatsVisible) {
       itemDetails =
         (<ShopItemStats
-          key={this.props.name}
-          name={this.props.name}
-          revenue={this.props.revenue}
-          totalInvestment={this.props.totalInvestment}
+          key={this.props.asset.name}
+          asset={this.props.asset}
+          totalRevenueEverEarned={this.props.totalRevenueEverEarned}
          />);
     }
 
     return (
-      <div className="shop-item panel panel-default" onClick={this.props.onClick}>
-        <div className="panel-body">
-          <img className="col-md-2" src={imgSrc}/>
-          <div className="shop-item-content col-md-8">
-            <div className="shop-item-title">{this.props.name}</div>
-            <div className="shop-item-cost">${this.props.price.toFixed(2)}</div>
+      <div className="shop-item panel panel-default">
+        <div className="shop-item-body panel-body" onClick={this.props.onClick}>
+          <div className="col-md-10">
+            <img className="shop-item-image" src={imgSrc}/>
+            <div className="shop-item-text">
+              <div className="shop-item-title">{this.props.asset.name}</div>
+              <div className="shop-item-cost">${this.props.asset.price.toFixed(2)}</div>
+            </div>
           </div>
-          <div className="shop-item-number col-md-2">{this.props.numOwned}</div>
+          <div className="shop-item-number col-md-2">{this.props.asset.numOwned}</div>
         </div>
 
         {itemDetails}
@@ -48,13 +51,10 @@ class KeyBoundShopItem extends React.Component {
 
 KeyBoundShopItem.propTypes = {
   areStatsVisible: React.PropTypes.bool.isRequired,
+  asset: React.PropTypes.instanceOf(Asset).isRequired,
   keyCode: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  numOwned: React.PropTypes.number.isRequired,
   onClick: React.PropTypes.func.isRequired,
-  price: React.PropTypes.number.isRequired,
-  revenue: React.PropTypes.number.isRequired,
-  totalInvestment: React.PropTypes.number.isRequired,
+  totalRevenueEverEarned: React.PropTypes.number.isRequired,
 };
 
 export default KeyBoundShopItem;

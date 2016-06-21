@@ -1,5 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
+import Asset from '../../Models/Asset';
 
 class ShopItemStats extends React.Component {
   constructor(props) {
@@ -7,20 +8,31 @@ class ShopItemStats extends React.Component {
   }
 
   render() {
+    const asset = this.props.asset;
+
+    const ReturnOnInvestment = asset.totalInvestment ? ((asset.revenue - asset.totalInvestment) / asset.totalInvestment) : 0
+
     return (
-      <div className="panel-footer">
-        Revenue Earned: {numeral(this.props.revenue).format('($0.00 a)')}
+      <div className="shop-item-stats panel-footer">
+        <i>Flavor text here</i>
         <br />
-        Total Investment: {numeral(this.props.totalInvestment).format('($0.00 a)')}
+        Income per second: {numeral(asset.baseIncome * asset.numOwned).format('($0.00 a)')}
+        <br />
+        Revenue: {numeral(asset.revenue).format('($0.00 a)')}
+        <br />
+        Investment: {numeral(asset.totalInvestment).format('($0.00 a)')}
+        <br />
+        Percent of total revenue: {numeral(asset.revenue / this.props.totalRevenueEverEarned).format('0.00%')}
+        <br />
+        Return on investment: {numeral(ReturnOnInvestment).format('0,0.00%')}
       </div>
     );
   }
 }
 
 ShopItemStats.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  revenue: React.PropTypes.number.isRequired,
-  totalInvestment: React.PropTypes.number.isRequired,
+  asset: React.PropTypes.instanceOf(Asset).isRequired,
+  totalRevenueEverEarned: React.PropTypes.number.isRequired,
 };
 
 export default ShopItemStats;

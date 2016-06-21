@@ -4,8 +4,9 @@ import createAction from '../../Redux/actions';
 
 const mapStateToProps = (state) => {
   return {
-    assets: state.broker.unlockedAssets,
     areStatsVisible: state.broker.areStatsVisible,
+    assets: state.broker.unlockedAssets,
+    totalRevenueEverEarned: state.bank.total,
   };
 };
 
