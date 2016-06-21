@@ -1,5 +1,6 @@
 import React from 'react';
-import { fabric } from 'fabric-webpack';
+import { fabric } from 'fabric';
+
 import OrderedPair from './OrderedPair';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import ImmutablePropTypes from 'react-immutable-proptypes';

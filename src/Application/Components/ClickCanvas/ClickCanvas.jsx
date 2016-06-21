@@ -1,5 +1,5 @@
 import React from 'react';
-import { fabric } from 'fabric-webpack';
+import { fabric } from 'fabric';
 import numeral from 'numeral';
 
 const GREEN = '#00b200';
@@ -30,6 +30,11 @@ const ClickCanvas = React.createClass({
         left: this.imgPosX,
         top: this.imgPosY,
         selectable: false,
+        hoverCursor: 'pointer',
+        perPixelTargetFind: true,
+        targetFindTolerance: 4,
+        hasControls: false,
+        hasBorders: false,
       });
       if (this.clickable) {
         this.canvas.remove(this.clickable);
