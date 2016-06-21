@@ -10,7 +10,7 @@ class ShopItemStats extends React.Component {
   render() {
     const asset = this.props.asset;
 
-    const ReturnOnInvestment = asset.totalInvestment ? ((asset.revenue - asset.totalInvestment) / asset.totalInvestment) : 0
+    const returnOnInvestment = asset.totalInvestment ? ((asset.revenue - asset.totalInvestment) / asset.totalInvestment) : 0;
 
     return (
       <div className="shop-item-stats panel-footer">
@@ -24,7 +24,7 @@ class ShopItemStats extends React.Component {
         <br />
         Percent of total revenue: {numeral(asset.revenue / this.props.totalRevenueEverEarned).format('0.00%')}
         <br />
-        Return on investment: {numeral(ReturnOnInvestment).format('0,0.00%')}
+        Return on investment: {numeral(returnOnInvestment).format('0,0.00%')}
       </div>
     );
   }
