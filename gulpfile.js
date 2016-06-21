@@ -23,6 +23,8 @@ var environment = util.env.type || 'development';
 var srcDir = './src/';
 var buildDir = './build/';
 var imagesDir = 'images/';
+var mediaDir = 'media/';
+var soundsDir = 'sounds/';
 
 var htmlEntry = 'index.html';
 var htmlEntryFull = srcDir + htmlEntry;
@@ -114,6 +116,10 @@ var buildTasks = {
     return gulp.src([srcDir + imagesDir + '/**'])
         .pipe(gulp.dest(buildDir + imagesDir));
   },
+  'build-sounds': function () {
+    return gulp.src([srcDir + mediaDir + soundsDir + '/**'])
+        .pipe(gulp.dest(buildDir + soundsDir));
+  },
 };
 
 var watchTasks = {
@@ -130,6 +136,9 @@ var watchTasks = {
   },
   'watch-images': function () {
     return gulp.watch([srcDir + imagesDir + '/*'], ['build-images']);
+  },
+  'watch-sounds': function () {
+    return gulp.watch([srcDir + mediaDir + soundsDir + '/*'], ['build-sounds']);
   },
 };
 
@@ -152,12 +161,14 @@ gulp.task('build-js', buildTasks['build-js']);
 gulp.task('build-html', buildTasks['build-html']);
 gulp.task('build-scss', buildTasks['build-scss']);
 gulp.task('build-images', buildTasks['build-images']);
+gulp.task('build-sounds', buildTasks['build-sounds']);
 
 // Watch
 gulp.task('watch-js', ['build-js'], watchTasks['watch-js']);
 gulp.task('watch-scss', ['build-scss'], watchTasks['watch-scss']);
 gulp.task('watch-html', ['build-html'], watchTasks['watch-html']);
 gulp.task('watch-images', ['build-images'], watchTasks['watch-images']);
+gulp.task('watch-sounds', ['build-sounds'], watchTasks['watch-sounds']);
 
 // Serve
 gulp.task('serve', serveTasks['serve']);
@@ -170,4 +181,4 @@ gulp.task('lint-scss', utilTasks['lint-scss']);
 gulp.task('clean', utilTasks.clean);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('build', ['setup-build', 'build-js', 'build-html', 'build-scss', 'build-images']);
-gulp.task('watch', ['setup-build', 'serve', 'watch-js', 'watch-scss', 'watch-html', 'watch-images']);
+gulp.task('watch', ['setup-build', 'serve', 'watch-js', 'watch-scss', 'watch-html', 'watch-images', 'watch-sounds']);

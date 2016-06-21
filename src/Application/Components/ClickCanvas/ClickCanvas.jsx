@@ -40,7 +40,10 @@ const ClickCanvas = React.createClass({
         this.canvas.remove(this.clickable);
       }
       this.clickable = img;
-      this.clickable.on('mousedown', this.props.onClick);
+      this.clickable.on('mousedown', () => {
+        this.clickSound.play();
+        this.props.onClick();
+      });
 
       this.canvas.add(this.clickable).renderAll();
     });
@@ -89,6 +92,7 @@ const ClickCanvas = React.createClass({
 
   componentDidMount() {
     this.canvas = new fabric.Canvas('click-canvas');
+    this.clickSound = new Audio('sounds/coin-long.mp3');
     this.setupDefaults();
   },
 
