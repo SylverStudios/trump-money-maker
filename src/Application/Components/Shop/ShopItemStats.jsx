@@ -1,6 +1,5 @@
 import React from 'react';
 import numeral from 'numeral';
-import Asset from '../../Models/Asset';
 
 import Asset from '../../Models/Asset';
 
