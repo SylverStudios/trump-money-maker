@@ -105,7 +105,7 @@ class Broker {
   }
 
   toggleStatsVisibility() {
-    const areStatsVisible = this._areStatsVisible ? false : true;
+    const areStatsVisible = !this._areStatsVisible;
     return new Broker(this._assets, areStatsVisible);
   }
 }

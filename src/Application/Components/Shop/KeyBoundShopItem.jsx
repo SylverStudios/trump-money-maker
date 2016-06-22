@@ -19,30 +19,31 @@ class KeyBoundShopItem extends React.Component {
   }
 
   render() {
-    const imgSrc = `images/${this.props.asset.name}.png`;
-    let itemDetails = false;
-    if (this.props.areStatsVisible) {
+    const { areStatsVisible, asset, onClick, totalRevenueEverEarned } = this.props;
+    const imgSrc = `images/${asset.name}.png`;
+
+    let itemDetails;
+    if (areStatsVisible) {
       itemDetails =
         (<ShopItemStats
-          key={this.props.asset.name}
-          asset={this.props.asset}
-          totalRevenueEverEarned={this.props.totalRevenueEverEarned}
+          key={asset.name}
+          asset={asset}
+          totalRevenueEverEarned={totalRevenueEverEarned}
          />);
     }
 
     return (
       <div className="shop-item panel panel-default">
-        <div className="shop-item-body panel-body" onClick={this.props.onClick}>
+        <div className="shop-item-body panel-body" onClick={onClick}>
           <div className="col-md-10">
             <img className="shop-item-image" src={imgSrc}/>
             <div className="shop-item-text">
-              <div className="shop-item-title">{this.props.asset.name}</div>
-              <div className="shop-item-cost">${this.props.asset.price.toFixed(2)}</div>
+              <div className="shop-item-title">{asset.name}</div>
+              <div className="shop-item-cost">${asset.price.toFixed(2)}</div>
             </div>
           </div>
-          <div className="shop-item-number col-md-2">{this.props.asset.numOwned}</div>
+          <div className="shop-item-number col-md-2">{asset.numOwned}</div>
         </div>
-
         {itemDetails}
       </div>
     );
