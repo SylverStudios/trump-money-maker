@@ -56,7 +56,7 @@ class Broker {
     const index = _.findIndex(this._assets, { id: assetId });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets, this._areStatsVisible);
+      return this;
     }
     const newAsset = this._assets[index].buy();
 
@@ -67,7 +67,7 @@ class Broker {
     const index = _.findIndex(this._assets, { name: name });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets, this._areStatsVisible);
+      return this;
     }
     const newAsset = this._assets[index].buy();
 
@@ -78,7 +78,7 @@ class Broker {
     const index = _.findIndex(this._assets, { id: assetId });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets, this._areStatsVisible);
+      return this;
     }
     const newAsset = this._assets[index].unlock();
 
@@ -89,7 +89,7 @@ class Broker {
     const index = _.findIndex(this._assets, { name: name });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets, this._areStatsVisible);
+      return this;
     }
     const newAsset = this._assets[index].unlock();
 
