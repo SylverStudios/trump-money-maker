@@ -121,4 +121,13 @@ describe('reducers', function () {
       });
     });
   });
+
+  describe('Action: TOGGLE_STATS_VISIBILITY', function () {
+    it('should return a new state with areStatsVisible bool reversed', function () {
+      // areStatsVisible is initially set to false
+      const returnedState = trumpMM(initialState, createAction.toggleStatsVisibility());
+
+      assert.equal(returnedState.broker.areStatsVisible, true);
+    });
+  });
 });

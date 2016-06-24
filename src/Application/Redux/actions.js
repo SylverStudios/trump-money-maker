@@ -5,6 +5,7 @@ export const UNLOCK_ASSET = 'UNLOCK_ASSET';
 export const UPGRADE_DENOMINATION = 'UPGRADE_DENOMINATION';
 export const BROADCAST_NEWS = 'BROADCAST_NEWS';
 export const DEPOSIT = 'DEPOSIT';
+export const TOGGLE_STATS_VISIBILITY = 'TOGGLE_STATS_VISIBILITY';
 
 const createAction = {
   deposit: (amount) => {
@@ -33,6 +34,10 @@ const createAction = {
 
   broadcastNews: (article) => {
     return { type: BROADCAST_NEWS, article: article };
+  },
+
+  toggleStatsVisibility: () => {
+    return { type: TOGGLE_STATS_VISIBILITY };
   },
 };
 

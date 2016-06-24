@@ -1,25 +1,29 @@
 import { connect } from 'react-redux';
-import Store from './Shop';
-import createActions from '../../Redux/actions';
+import Shop from './Shop';
+import createAction from '../../Redux/actions';
 
 const mapStateToProps = (state) => {
   return {
+    areStatsVisible: state.broker.areStatsVisible,
     assets: state.broker.unlockedAssets,
+    totalRevenueEverEarned: state.bank.total,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onItemClick: (id) => {
-      dispatch(createActions.buyAsset(id));
+      dispatch(createAction.buyAsset(id));
+    },
+    onToggle: () => {
+      dispatch(createAction.toggleStatsVisibility());
     },
   };
 };
 
-
-const StoreContainer = connect(
+const ShopContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Store);
+)(Shop);
 
-export default StoreContainer;
+export default ShopContainer;

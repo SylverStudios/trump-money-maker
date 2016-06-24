@@ -1,5 +1,5 @@
 import React from 'react';
-import StoreContainer from './Components/Shop/ShopContainer';
+import ShopContainer from './Components/Shop/ShopContainer';
 import NewsRoomContainer from './Components/NewsRoom/NewsRoomContainer';
 import MapCanvasContainer from './Components/MapCanvas/MapCanvasContainer';
 import ClickCanvasContainer from './Components/ClickCanvas/ClickCanvasContainer';
@@ -18,7 +18,7 @@ const App = () => (
       </div>
 
       <div className="side-panel col-md-3">
-          <StoreContainer />
+          <ShopContainer />
       </div>
     </div>
 );

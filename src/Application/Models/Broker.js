@@ -3,9 +3,10 @@ import _ from 'underscore';
 const UNLOCK_RATIO = 0.77;
 
 class Broker {
-  constructor(assets) {
+  constructor(assets, areStatsVisible = false) {
     this._assets = assets;
     this._unlockGoal = this._calculateUnlock();
+    this._areStatsVisible = areStatsVisible;
   }
 
   get netIncome() {
@@ -22,6 +23,10 @@ class Broker {
     const lockedAssets = this._assets.filter((asset) => !asset.unlocked);
     const sortedById = _.sortBy(lockedAssets, 'id');
     return sortedById[0];
+  }
+
+  get areStatsVisible() {
+    return this._areStatsVisible;
   }
 
   _calculateUnlock() {
@@ -44,14 +49,14 @@ class Broker {
   _insertIntoNewBroker(newAsset, index) {
     const arrayCopy = this._assets.slice();
     arrayCopy[index] = newAsset;
-    return new Broker(arrayCopy);
+    return new Broker(arrayCopy, this._areStatsVisible);
   }
 
   buyAsset(assetId) {
     const index = _.findIndex(this._assets, { id: assetId });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets);
+      return this;
     }
     const newAsset = this._assets[index].buy();
 
@@ -62,7 +67,7 @@ class Broker {
     const index = _.findIndex(this._assets, { name: name });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets);
+      return this;
     }
     const newAsset = this._assets[index].buy();
 
@@ -73,7 +78,7 @@ class Broker {
     const index = _.findIndex(this._assets, { id: assetId });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets);
+      return this;
     }
     const newAsset = this._assets[index].unlock();
 
@@ -84,7 +89,7 @@ class Broker {
     const index = _.findIndex(this._assets, { name: name });
     if (index === -1) {
       // Return the original broker, but this is not good.
-      return new Broker(this._assets);
+      return this;
     }
     const newAsset = this._assets[index].unlock();
 
@@ -96,9 +101,13 @@ class Broker {
       const income = asset.income * timeDifferenceInSeconds;
       return asset.addRevenue(income);
     });
-    return new Broker(newAssets);
+    return new Broker(newAssets, this._areStatsVisible);
   }
 
+  toggleStatsVisibility() {
+    const areStatsVisible = !this._areStatsVisible;
+    return new Broker(this._assets, areStatsVisible);
+  }
 }
 
 export default Broker;
