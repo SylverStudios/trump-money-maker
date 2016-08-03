@@ -5,14 +5,14 @@ You have already checked it out or cloned it and you're looking at the
 code like wtf, I need to change all of this.
 
 
-*Pop over to gulp.js and readup bro!*
+**Pop over to gulp.js and readup bro!**
 
 
 
 ## Getting it Running
 
 
-The *watch* task will probably handle everything you need as it is a live reloading server.
+The **watch** task will probably handle everything you need as it is a live reloading server.
 If for some reason you needed the base tasks, go for it!
 The common situation that might require some actual fiddling would be if you are adding media for
 the resources directory or actually changing some directory structure.
@@ -36,7 +36,7 @@ Starting with 'entrypoint.jsx' everything involved will be grabbed and transpile
 Redux has some good docs if you don't know how it works, but a unfairly simply flow would be:
  State (made of models) -> Reducers -> Containers -> Components
 
- Actions will trigger the change in state and start the process over again.
+Actions will trigger the change in state and start the process over again.
 
 
 ## Development

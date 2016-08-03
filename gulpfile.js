@@ -180,5 +180,5 @@ gulp.task('lint-scss', utilTasks['lint-scss']);
 // USE THESE!!
 gulp.task('clean', utilTasks.clean);
 gulp.task('lint', ['lint-js', 'lint-scss']);
-gulp.task('build', ['setup-build', 'build-js', 'build-html', 'build-scss', 'build-images']);
+gulp.task('build', ['setup-build', 'build-js', 'build-html', 'build-scss', 'build-images', 'build-sounds']);
 gulp.task('watch', ['setup-build', 'serve', 'watch-js', 'watch-scss', 'watch-html', 'watch-images', 'watch-sounds']);
