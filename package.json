@@ -16,7 +16,8 @@
   "scripts": {
     "test": "mocha --compilers js:babel/register",
     "build": "gulp build",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "watch": "gulp watch"
   },
   "dependencies": {
     "bootstrap": "3.3.6",
