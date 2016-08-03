@@ -1,5 +1,5 @@
 import React from 'react';
-import { fabric } from 'fabric-webpack';
+import { fabric } from 'fabric';
 import numeral from 'numeral';
 
 const GREEN = '#00b200';
@@ -30,12 +30,21 @@ const ClickCanvas = React.createClass({
         left: this.imgPosX,
         top: this.imgPosY,
         selectable: false,
+        hoverCursor: 'pointer',
+        perPixelTargetFind: true,
+        targetFindTolerance: 4,
+        hasControls: false,
+        hasBorders: false,
       });
       if (this.clickable) {
         this.canvas.remove(this.clickable);
       }
       this.clickable = img;
-      this.clickable.on('mousedown', this.props.onClick);
+      this.clickable.on('mousedown', () => {
+        this.clickSound.currentTime = 0;
+        this.clickSound.play();
+        this.props.onClick();
+      });
 
       this.canvas.add(this.clickable).renderAll();
     });
@@ -84,6 +93,8 @@ const ClickCanvas = React.createClass({
 
   componentDidMount() {
     this.canvas = new fabric.Canvas('click-canvas');
+    this.clickSound = new Audio('sounds/clink.mp3');
+    this.clickSound.volume = 0.3;
     this.setupDefaults();
   },
 
