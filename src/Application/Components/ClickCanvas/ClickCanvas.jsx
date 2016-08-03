@@ -41,6 +41,7 @@ const ClickCanvas = React.createClass({
       }
       this.clickable = img;
       this.clickable.on('mousedown', () => {
+        this.clickSound.currentTime = 0;
         this.clickSound.play();
         this.props.onClick();
       });
@@ -93,6 +94,7 @@ const ClickCanvas = React.createClass({
   componentDidMount() {
     this.canvas = new fabric.Canvas('click-canvas');
     this.clickSound = new Audio('sounds/clink.mp3');
+    this.clickSound.volume = 0.3;
     this.setupDefaults();
   },
 

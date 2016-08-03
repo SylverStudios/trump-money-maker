@@ -26,6 +26,9 @@ const MapCanvas = React.createClass({
         selectable: false,
         scaleX: 0.25,
         scaleY: 0.25,
+        hasControls: false,
+        hasBorders: false,
+        hoverCursor: 'cursor',
       });
       this.canvas.add(img).renderAll();
     });
