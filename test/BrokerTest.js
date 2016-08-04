@@ -29,8 +29,8 @@ describe('Broker', function () {
   });
 
   describe('nextAssetToUnlock', function () {
-    it('should return the first asset if none are unlocked', function () {
-      assert(broker.nextAssetToUnlock.id === 1);
+    it('should return the second asset since the first starts unlocked', function () {
+      assert(broker.nextAssetToUnlock.id === 2);
     });
 
     it('should return the second asset if the first is unlocked', function () {
@@ -44,7 +44,7 @@ describe('Broker', function () {
 
   describe('unlockGoal', function () {
     it('should return the unlock target for next asset', function () {
-      const expected = assets[0].price * 0.77;
+      const expected = assets[1].price * 0.77;
       assert.equal(broker.unlockGoal, expected);
     });
 
@@ -98,7 +98,7 @@ describe('Broker', function () {
       const newBroker = broker.unlockAsset(1);
 
       expect(broker).to.deep.equal(brokerCopy);
-      expect(broker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(false);
+      expect(broker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(true);
       expect(newBroker.getAssetById(1)).to.have.deep.property('unlocked').that.equals(true);
     });
   });

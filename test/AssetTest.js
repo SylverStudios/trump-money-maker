@@ -1,19 +1,19 @@
 import StateUtils from'../src/Application/Redux/StateUtils';
-import { assetDefaults, TENEMENT } from './../src/util/constants';
+import { assetDefaults, HOTEL } from './../src/util/constants';
 import { assert } from 'chai';
 
-const INCREASE_RATIO = assetDefaults[TENEMENT].increaseRatio;
+const INCREASE_RATIO = assetDefaults[HOTEL].increaseRatio;
 let asset;
 let identicalAsset;
 
 describe('Asset', function () {
   beforeEach(function () {
-    asset = StateUtils.defaultTenement();
-    identicalAsset = StateUtils.defaultTenement();
+    asset = StateUtils.defaultHotel();
+    identicalAsset = StateUtils.defaultHotel();
   });
 
   it('should be constructed and fill in default values', function () {
-    assert.equal(asset.id, assetDefaults[TENEMENT].id);
+    assert.equal(asset.id, assetDefaults[HOTEL].id);
   });
 
   describe('buy()', function () {
