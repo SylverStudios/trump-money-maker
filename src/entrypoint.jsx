@@ -55,4 +55,4 @@ setInterval(() => {
   store.dispatch(createActions.broadcastNews(quote));
 }, ONE_MINUTE);
 
-Mousetrap.bind(['space'], () => { store.dispatch(createActions.deposit(500)); });
+Mousetrap.bind(['space'], (e) => { store.dispatch(createActions.deposit(500)); e.preventDefault(); });
