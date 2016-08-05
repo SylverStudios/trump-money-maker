@@ -9,7 +9,8 @@ import { List } from 'immutable';
 
 const StateUtils = {
   defaultTenement: function () {
-    return new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice);
+    const ten = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice);
+    return ten.unlock();
   },
 
   defaultHotel: function () {
@@ -58,11 +59,20 @@ const StateUtils = {
     ];
   },
 
+  getInstructions: function () {
+    return [
+      'Your mission: Become the Real Estate Mogul this country deserves.',
+      'Click on the coin in the center to begin collecting rent!',
+      'New real estate propositions will show up in the right menu.',
+      'News of your achievements and failures will show up here.',
+    ];
+  },
+
   getInitialState: function () {
     return {
       bank: new Bank(0, 0, 0, 1462641080306),
       broker: new Broker(this.getBaseAssets()),
-      news: new News([]),
+      news: new News(this.getInstructions()),
       mint: new Mint(),
       map: new List(),
     };

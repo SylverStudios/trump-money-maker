@@ -11,11 +11,12 @@ class ShopItemStats extends React.Component {
   render() {
     const asset = this.props.asset;
 
+    const revenue = this.props.totalRevenueEverEarned !== 0 ? asset.revenue / this.props.totalRevenueEverEarned : 0;
     const returnOnInvestment = asset.totalInvestment ? ((asset.revenue - asset.totalInvestment) / asset.totalInvestment) : 0;
 
     return (
       <div className="shop-item-stats panel-footer">
-        <i>Flavor text here</i>
+        <i>{asset.flavor}</i>
         <br />
         Income per second: {numeral(asset.baseIncome * asset.numOwned).format('($0.00 a)')}
         <br />
@@ -23,7 +24,7 @@ class ShopItemStats extends React.Component {
         <br />
         Investment: {numeral(asset.totalInvestment).format('($0.00 a)')}
         <br />
-        Percent of total revenue: {numeral(asset.revenue / this.props.totalRevenueEverEarned).format('0.00%')}
+        Percent of total revenue: {numeral(revenue).format('0.00%')}
         <br />
         Return on investment: {numeral(returnOnInvestment).format('0,0.00%')}
       </div>

@@ -42,6 +42,9 @@ class Asset {
   get revenue() {
     return this._revenue;
   }
+  get flavor() {
+    return this._defaults.flavor;
+  }
 
   buy() {
     return new Asset(

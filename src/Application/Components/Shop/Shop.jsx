@@ -27,7 +27,7 @@ const Shop = React.createClass({
 
   renderShopBody() {
     return (
-      <div className="panel-body">
+      <div className="panel-body broker-body">
         {this.props.assets.map((asset) => {
           return (
             <KeyBoundShopItem
