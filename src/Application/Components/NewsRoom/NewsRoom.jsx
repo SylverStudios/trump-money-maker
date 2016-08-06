@@ -3,19 +3,19 @@ import Headline from './Headline';
 
 const NewsRoom = React.createClass({
   propTypes: {
-    articles: React.PropTypes.array.isRequired,
+    broadcasts: React.PropTypes.array.isRequired,
   },
 
   renderNewsQueue() {
-    const oldNews = this.props.articles.slice(1);
+    const oldNews = this.props.broadcasts.slice(1);
 
     return (
       <div className="news-queue">
         <ul>
-          <Headline content={this.props.articles[0]}/>
-          {oldNews.map((article, index) => {
+          <Headline content={this.props.broadcasts[0].content}/>
+          {oldNews.map((broadcast, index) => {
             return (
-              <li className="news-text" key={index}><hr/>{article}</li>
+              <li className="news-text" key={index}><hr/>{broadcast.content}</li>
             );
           })}
         </ul>

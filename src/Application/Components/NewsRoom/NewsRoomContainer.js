@@ -3,7 +3,7 @@ import NewsRoom from './NewsRoom';
 
 const mapStateToProps = (state) => {
   return {
-    articles: state.news.articles,
+    broadcasts: state.news.broadcasts,
   };
 };
 

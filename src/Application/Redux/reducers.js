@@ -8,6 +8,7 @@ import {
   TOGGLE_STATS_VISIBILITY,
 } from './actions';
 import StateUtils from './StateUtils';
+import broadcastManager from '../../util/broadcastManager';
 
 function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
@@ -33,12 +34,12 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       if (newBank.cash >= state.broker.unlockGoal) {
         const assetToUnlock = state.broker.nextAssetToUnlock;
         newBroker = state.broker.unlockAsset(assetToUnlock.id);
-        const unlockArticle = `Trump rumored to be interested in the ${assetToUnlock.name} market.`;
+        const unlockBroadcast = broadcastManager.unlock(assetToUnlock);
 
         return Object.assign({}, state,
           {
             bank: newBank,
-            news: state.news.addArticle(unlockArticle),
+            news: state.news.addBroadcast(unlockBroadcast),
             broker: newBroker,
           },
         );
@@ -48,13 +49,13 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({}, state, { bank: newBank, broker: newBroker });
 
     case BROADCAST_NEWS:
-      return Object.assign({}, state, { news: state.news.addArticle(action.article) });
+      return Object.assign({}, state, { news: state.news.addBroadcast(action.article) });
 
     case BUY_ASSET:
       const assetToBuy = state.broker.getAssetById(action.id);
 
       if (state.bank.cash >= assetToBuy.price) {
-        const buyArticle = `Trump bought a ${assetToBuy.name} today.`;
+        const buyBroadcast = broadcastManager.buySuccess(assetToBuy);
         const newBuyBroker = state.broker.buyAsset(action.id);
         const bankAfterBuy = state.bank
           .withdraw(assetToBuy.price)
@@ -64,30 +65,30 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
           {
             broker: newBuyBroker,
             bank: bankAfterBuy,
-            news: state.news.addArticle(buyArticle),
+            news: state.news.addBroadcast(buyBroadcast),
           }
         );
       }
 
-      const bounceArticle = `Trump bounced a check for a ${assetToBuy.name} today.`;
-      return Object.assign({}, state, { news: state.news.addArticle(bounceArticle) });
+      const bounceBroadcast = broadcastManager.buyFail(assetToBuy);
+      return Object.assign({}, state, { news: state.news.addBroadcast(bounceBroadcast) });
 
     case UPGRADE_DENOMINATION:
       let successfulTransactionStateDelta;
-      let newsArticle;
+      let upgradeBroadcast;
       const priceToUnlock = state.mint.nextDenomination.priceToUnlock;
       if (state.bank.cash >= priceToUnlock) {
         successfulTransactionStateDelta = {
           mint: state.mint.toNextDenomination,
           bank: state.bank.withdraw(priceToUnlock),
         };
-        newsArticle = `Trump's greatness has improved the value of US currency!`;
+        upgradeBroadcast = broadcastManager.upgradeDenomSuccess();
       } else {
-        newsArticle = `Trump's experiments in alchemy have failed to produce results`;
+        upgradeBroadcast = broadcastManager.upgradeDenomFail();
       }
       return Object.assign({}, state,
         successfulTransactionStateDelta,
-        { news: state.news.addArticle(newsArticle) }
+        { news: state.news.addBroadcast(upgradeBroadcast) }
       );
 
     case TOGGLE_STATS_VISIBILITY:

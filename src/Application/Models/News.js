@@ -1,20 +1,20 @@
 class News {
-  constructor(articles) {
-    this._articles = articles;
+  constructor(broadcasts) {
+    this._broadcasts = broadcasts;
   }
 
-  get articles() {
-    return this._articles;
+  get broadcasts() {
+    return this._broadcasts;
   }
 
-  addArticle(article) {
-    const copyOfArticles = this.articles.slice();
-    copyOfArticles.unshift(article);
+  addBroadcast(article) {
+    const copyOfBroadcasts = this.broadcasts.slice();
+    copyOfBroadcasts.unshift(article);
 
-    if (copyOfArticles.length > 10) {
-      copyOfArticles.pop();
+    if (copyOfBroadcasts.length > 10) {
+      copyOfBroadcasts.pop();
     }
-    return new News(copyOfArticles);
+    return new News(copyOfBroadcasts);
   }
 }
 
