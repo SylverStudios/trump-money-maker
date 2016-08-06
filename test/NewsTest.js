@@ -1,43 +1,44 @@
 import News from '../src/Application/Models/News';
+import broadcastManager from '../src/util/broadcastManager';
 import { assert } from 'chai';
 
 describe('News', function () {
-  const articles = ['an article', 'and another'];
+  const broadcasts = broadcastManager.getInstructions();
+  const newBroadcast = broadcastManager.upgradeDenomFail();
   let news;
   let NewsCopy;
 
   beforeEach(function () {
-    news = new News(articles);
-    NewsCopy = new News(articles);
+    news = new News(broadcasts);
+    NewsCopy = new News(broadcasts);
   });
 
-  describe('addArticle()', function () {
+  describe('addBroadcast()', function () {
     it('should return a new News and leave the original unmodified', function () {
-      const newArticle = 'An article about cats';
-      const newNews = news.addArticle(newArticle);
+      const newNews = news.addBroadcast(newBroadcast);
 
-      assert.equal(news.articles[0], NewsCopy.articles[0]);
-      assert.equal(news.articles.length, 2);
-      assert.equal(newNews.articles.length, 3);
+      assert.equal(news.broadcasts[0], NewsCopy.broadcasts[0]);
+      assert.equal(news.broadcasts.length, 4);
+      assert.equal(newNews.broadcasts.length, 5);
     });
 
     it('should add new articles to the start of the array', function () {
-      const newArticle = 'This should come first';
-      const newNews = news.addArticle(newArticle);
+      const newNews = news.addBroadcast(newBroadcast);
 
-      assert.equal(newNews.articles[0], newArticle);
-      assert.equal(newNews.articles.length, 3);
+      assert.equal(newNews.broadcasts[0], newBroadcast);
+      assert.equal(newNews.broadcasts.length, 5);
     });
 
     it('should remove the oldest article with max 10 articles', function () {
-      const myArticles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-      const newArticle = 'eleven';
+      const myBroadcasts = [];
+      for (const i of Array(9).keys()) {
+        myBroadcasts.push(broadcastManager.createFlavor(i));
+      }
+      news = new News(myBroadcasts);
+      const newNews = news.addBroadcast(newBroadcast);
 
-      news = new News(myArticles);
-      const newNews = news.addArticle(newArticle);
-
-      assert.equal(newNews.articles[0], newArticle);
-      assert.equal(newNews.articles.length, 10);
+      assert.equal(newNews.broadcasts[0], newBroadcast);
+      assert.equal(newNews.broadcasts.length, 10);
     });
   });
 });
