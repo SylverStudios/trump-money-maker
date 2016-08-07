@@ -4,6 +4,7 @@ import News from './../Models/News';
 import Bank from './../Models/Bank';
 import Mint from './../Models/Mint';
 import { TENEMENT, HOTEL, GOLF_COURSE, CASINO, TOWER, TOWN, CITY, GOV, ISS, assetDefaults } from './../../util/constants';
+import broadcastManager from '../../util/broadcastManager';
 
 import { List } from 'immutable';
 
@@ -59,20 +60,11 @@ const StateUtils = {
     ];
   },
 
-  getInstructions: function () {
-    return [
-      'Your mission: Become the Real Estate Mogul this country deserves.',
-      'Click on the coin in the center to begin collecting rent!',
-      'New real estate propositions will show up in the right menu.',
-      'News of your achievements and failures will show up here.',
-    ];
-  },
-
   getInitialState: function () {
     return {
       bank: new Bank(0, 0, 0, 1462641080306),
       broker: new Broker(this.getBaseAssets()),
-      news: new News(this.getInstructions()),
+      news: new News(broadcastManager.getInstructions()),
       mint: new Mint(),
       map: new List(),
     };

@@ -97,7 +97,7 @@ describe('reducers', function () {
   describe('Action: UPGRADE_DENOMINATION', function () {
     it('adds a news article', function () {
       const returnedState = trumpMM(initialState, createAction.upgradeDenomination());
-      assert.equal(returnedState.news.articles.length, initialState.news.articles.length + 1);
+      assert.equal(returnedState.news.broadcasts.length, initialState.news.broadcasts.length + 1);
     });
     describe('if there is insufficient cash', function () {
       it('leaves original mint and bank in place', function () {
