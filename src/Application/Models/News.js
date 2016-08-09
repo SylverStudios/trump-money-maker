@@ -11,7 +11,7 @@ class News {
     const copyOfBroadcasts = this.broadcasts.slice();
     copyOfBroadcasts.unshift(article);
 
-    if (copyOfBroadcasts.length > 10) {
+    if (copyOfBroadcasts.length > 5) {
       copyOfBroadcasts.pop();
     }
     return new News(copyOfBroadcasts);
