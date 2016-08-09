@@ -2,25 +2,56 @@ import React from 'react';
 import ShopContainer from './Components/Shop/ShopContainer';
 import NewsRoomContainer from './Components/NewsRoom/NewsRoomContainer';
 import MapCanvasContainer from './Components/MapCanvas/MapCanvasContainer';
-import ClickCanvasContainer from './Components/ClickCanvas/ClickCanvasContainer';
+import SimpleClickCanvasContainer from './Components/SimpleClickCanvas/SimpleClickCanvasContainer';
 import MintShopContainer from './Components/Mint/MintShopContainer';
+import ScoreRollupContainer from './Components/ScoreRollup/ScoreRollupContainer';
+import Logo from './Components/Logo/Logo';
 
 const App = () => (
-    <div>
-      <div className="side-panel col-md-3">
-          <NewsRoomContainer />
+  <div className="app-container">
+
+    <div className="header-row col-md-12">
+      <div className="col-md-3">
+        <ScoreRollupContainer />
       </div>
 
-      <div className="center-panel col-md-6">
-          <ClickCanvasContainer />
-          <MintShopContainer />
-          <MapCanvasContainer />
+      <div className="col-md-2">
       </div>
 
-      <div className="side-panel col-md-3">
-          <ShopContainer />
+      <div className="col-md-2">
+        <SimpleClickCanvasContainer />
+      </div>
+
+      <div className="col-md-2">
+        <MintShopContainer />
+      </div>
+
+      <div className="col-md-3">
+        <Logo />
       </div>
     </div>
+
+    <div className="body-row col-md-12">
+      <div className="col-md-9">
+        <div className="feedbackZone">
+
+          <div className="mapZone">
+            <MapCanvasContainer />
+          </div>
+
+          <div className="newsRoom">
+            <NewsRoomContainer />
+          </div>
+        </div>
+      </div>
+
+      <div className="col-md-3">
+        <ShopContainer />
+      </div>
+    </div>
+
+  </div>
 );
+
 
 export default App;

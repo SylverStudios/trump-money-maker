@@ -4,7 +4,26 @@
 @import 'Components/Shop/Shop';
 @import 'Components/Shop/KeyBoundShopItem';
 @import 'Components/Shop/ShopItemStats';
+@import 'Components/Logo/Logo';
+@import 'Components/ScoreRollup/ScoreRollup';
+@import 'Components/MapCanvas/MapCanvas';
 
 .side-panel {
   padding-top: 3em;
+}
+
+.header-row {
+  padding-bottom: 1em;
+}
+
+.feedbackZone {
+  margin: auto;
+}
+
+.mapZone {
+  margin: auto;
+}
+
+.newsRoom {
+  margin: auto;
 }
