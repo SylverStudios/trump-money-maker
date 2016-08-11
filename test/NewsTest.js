@@ -29,16 +29,14 @@ describe('News', function () {
       assert.equal(newNews.broadcasts.length, 5);
     });
 
-    it('should remove the oldest article with max 10 articles', function () {
-      const myBroadcasts = [];
+    it('should remove the oldest article with max 5 articles', function () {
       for (const i of Array(9).keys()) {
-        myBroadcasts.push(broadcastManager.createFlavor(i));
+        news.addBroadcast(broadcastManager.createFlavor(i));
       }
-      news = new News(myBroadcasts);
       const newNews = news.addBroadcast(newBroadcast);
 
       assert.equal(newNews.broadcasts[0], newBroadcast);
-      assert.equal(newNews.broadcasts.length, 10);
+      assert.equal(newNews.broadcasts.length, 5);
     });
   });
 });

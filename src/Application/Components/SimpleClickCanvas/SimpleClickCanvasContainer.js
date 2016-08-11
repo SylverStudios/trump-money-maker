@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
-import ClickCanvas from './ClickCanvas';
+import SimpleClickCanvas from './SimpleClickCanvas';
 import createAction from '../../Redux/actions';
 
 const mapStateToProps = (state) => {
   return {
-    cash: state.bank.cash,
     imageUrl: `images/denominations/${state.mint.currentDenomination.id}.png`,
-    income: state.bank.income,
   };
 };
 
@@ -18,9 +16,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const ClickCanvasContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ClickCanvas);
+const SimpleClickCanvasContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SimpleClickCanvas);
 
-export default ClickCanvasContainer;
+export default SimpleClickCanvasContainer;
