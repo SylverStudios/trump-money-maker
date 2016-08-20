@@ -1,3 +1,6 @@
+@import '../../variables';
+
+
 .news-text {
   line-height: normal;
 }
@@ -25,15 +28,11 @@ hr {
   width: 50%;
 }
 
-.broadcast-news {
-
-}
-
 .broadcast-flavor {
+  color: $news-room-grey;
   font-style: italic;
-  color: #767676;
 }
 
 .broadcast-instruction {
-  color: #767676;
+  color: $news-room-grey;
 }
