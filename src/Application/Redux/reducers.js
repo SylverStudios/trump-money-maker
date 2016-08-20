@@ -60,12 +60,15 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
         const bankAfterBuy = state.bank
           .withdraw(assetToBuy.price)
           .updateIncome(newBuyBroker.netIncome);
+        const newMapArray = Array.from(state.map);
+        newMapArray.push(assetToBuy.name);
 
         return Object.assign({}, state,
           {
             broker: newBuyBroker,
             bank: bankAfterBuy,
             news: state.news.addBroadcast(buyBroadcast),
+            map: newMapArray,
           }
         );
       }

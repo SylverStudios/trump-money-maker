@@ -6,8 +6,6 @@ import Mint from './../Models/Mint';
 import { TENEMENT, HOTEL, GOLF_COURSE, CASINO, TOWER, TOWN, CITY, GOV, ISS, assetDefaults } from './../../util/constants';
 import broadcastManager from '../../util/broadcastManager';
 
-import { List } from 'immutable';
-
 const StateUtils = {
   defaultTenement: function () {
     const ten = new Asset(TENEMENT, assetDefaults[TENEMENT].basePrice);
@@ -66,7 +64,7 @@ const StateUtils = {
       broker: new Broker(this.getBaseAssets()),
       news: new News(broadcastManager.getInstructions()),
       mint: new Mint(),
-      map: new List(),
+      map: [],
     };
   },
 };
