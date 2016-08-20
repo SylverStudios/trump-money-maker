@@ -6,7 +6,7 @@
 @import 'Components/Shop/ShopItemStats';
 @import 'Components/Logo/Logo';
 @import 'Components/ScoreRollup/ScoreRollup';
-@import 'Components/MapCanvas/MapCanvas';
+@import 'Components/RealEstateMap/RealEstateMap';
 
 .side-panel {
   padding-top: 3em;
@@ -16,14 +16,14 @@
   padding-bottom: 1em;
 }
 
-.feedbackZone {
+.feedback-zone {
   margin: auto;
 }
 
-.mapZone {
+.map-zone {
   margin: auto;
 }
 
-.newsRoom {
+.news-room {
   margin: auto;
 }

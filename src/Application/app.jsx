@@ -1,7 +1,7 @@
 import React from 'react';
 import ShopContainer from './Components/Shop/ShopContainer';
 import NewsRoomContainer from './Components/NewsRoom/NewsRoomContainer';
-import MapCanvasContainer from './Components/MapCanvas/MapCanvasContainer';
+import RealEstateMapContainer from './Components/RealEstateMap/RealEstateMapContainer';
 import SimpleClickCanvasContainer from './Components/SimpleClickCanvas/SimpleClickCanvasContainer';
 import MintShopContainer from './Components/Mint/MintShopContainer';
 import ScoreRollupContainer from './Components/ScoreRollup/ScoreRollupContainer';
@@ -33,13 +33,13 @@ const App = () => (
 
     <div className="body-row col-md-12">
       <div className="col-md-9">
-        <div className="feedbackZone">
+        <div className="feedback-zone">
 
-          <div className="mapZone">
-            <MapCanvasContainer />
+          <div className="map-zone">
+            <RealEstateMapContainer />
           </div>
 
-          <div className="newsRoom">
+          <div className="news-zoom">
             <NewsRoomContainer />
           </div>
         </div>
