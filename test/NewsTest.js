@@ -19,14 +19,14 @@ describe('News', function () {
 
       assert.equal(news.broadcasts[0], NewsCopy.broadcasts[0]);
       assert.equal(news.broadcasts.length, 4);
-      assert.equal(newNews.broadcasts.length, 5);
+      assert.equal(newNews.broadcasts.length, 4);
     });
 
     it('should add new articles to the start of the array', function () {
       const newNews = news.addBroadcast(newBroadcast);
 
       assert.equal(newNews.broadcasts[0], newBroadcast);
-      assert.equal(newNews.broadcasts.length, 5);
+      assert.equal(newNews.broadcasts.length, 4);
     });
 
     it('should remove the oldest article with max 5 articles', function () {
@@ -36,7 +36,7 @@ describe('News', function () {
       const newNews = news.addBroadcast(newBroadcast);
 
       assert.equal(newNews.broadcasts[0], newBroadcast);
-      assert.equal(newNews.broadcasts.length, 5);
+      assert.equal(newNews.broadcasts.length, 4);
     });
   });
 });
