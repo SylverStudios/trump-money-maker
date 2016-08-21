@@ -70,7 +70,7 @@ export const assetDefaults = {
     baseIncome: 3500,
     basePrice: 100000,
     increaseRatio: 1.07,
-    flavor: 'They aren\'t cute, they are are very profitable.',
+    flavor: 'They aren\'t cute, they are very profitable.',
   },
   // Return is 3%
   'Governership': {
