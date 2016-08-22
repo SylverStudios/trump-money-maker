@@ -1,6 +1,8 @@
 import React from 'react';
 import Denomination from '../../Models/Denomination';
 
+const upgradeImage = 'images/up_arrow.svg';
+
 const MintShop = React.createClass({
   propTypes: {
     nextDenomination: React.PropTypes.instanceOf(Denomination),
@@ -11,15 +13,20 @@ const MintShop = React.createClass({
     let message;
     let onUpgrade;
     if (nextDenomination) {
-      message = `Upgrade Denomination for $${nextDenomination.priceToUnlock}`;
+      message = `Price of limit increase: $${nextDenomination.priceToUnlock}`;
       onUpgrade = this.props.onUpgrade;
     } else {
-      message = 'Nein more upgrades';
+      message = 'Credit Limit maxed!';
     }
     return (
-      <button className="btn mint-shop" onClick={onUpgrade} disabled={!nextDenomination}>
+      <div className="mint-shop">
         {message}
-      </button>
+
+        <button className="btn btn-success mint-upgrade-button" onClick={onUpgrade} disabled={!nextDenomination}>
+          <img className="mint-upgrade-svg" src={upgradeImage}/>
+          Increase Credit Limit
+        </button>
+      </div>
     );
   },
 });

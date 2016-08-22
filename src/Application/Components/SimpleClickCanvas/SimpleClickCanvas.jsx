@@ -13,6 +13,8 @@ class SimpleClickCanvas extends React.Component {
       img.set({
         left: this.imgPosX,
         top: this.imgPosY,
+        originX: 'center',
+        originY: 'center',
         selectable: false,
         hoverCursor: 'pointer',
         perPixelTargetFind: true,
@@ -27,6 +29,22 @@ class SimpleClickCanvas extends React.Component {
       this.clickable.on('mousedown', () => {
         this.clickSound.currentTime = 0;
         this.clickSound.play();
+
+        const startWidth = this.clickable.width;
+        this.clickable.animate('width', startWidth + 10, {
+          onChange: this.canvas.renderAll.bind(this.canvas),
+          duration: 25,
+          easing: fabric.util.ease.easeOutElastic,
+
+          onComplete: () => {
+            this.clickable.animate('width', startWidth, {
+              onChange: this.canvas.renderAll.bind(this.canvas),
+              duration: 25,
+              easing: fabric.util.ease.easeOutElastic,
+            });
+          },
+        });
+
         this.props.onClick();
       });
 
@@ -36,8 +54,8 @@ class SimpleClickCanvas extends React.Component {
 
 
   setupDefaults() {
-    this.imgPosX = 20;
-    this.imgPosY = 20;
+    this.imgPosX = 80;
+    this.imgPosY = 80;
     this.clickable = undefined;
 
     this.setClickableImage();

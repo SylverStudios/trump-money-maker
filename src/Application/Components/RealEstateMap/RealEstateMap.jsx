@@ -20,6 +20,7 @@ class RealEstateMap extends React.Component {
       selectable: false,
       hasControls: false,
       hasBorders: false,
+      hoverCursor: 'cursor',
       originX: 'center',
       originY: 'center',
       fill: 'blue',
@@ -30,12 +31,12 @@ class RealEstateMap extends React.Component {
 
   setMap() {
     fabric.Image.fromURL(MAP_IMAGE_ADDRESS, img => {
-      img.scale(1.4).set({
+      img.set({
         left: 50,
         top: 0,
         selectable: false,
-        scaleX: 0.25,
-        scaleY: 0.25,
+        scaleX: 0.32,
+        scaleY: 0.32,
         hasControls: false,
         hasBorders: false,
         hoverCursor: 'cursor',
@@ -80,7 +81,7 @@ class RealEstateMap extends React.Component {
 
   render() {
     return (
-      <canvas id="map-canvas" className="map-canvas" width="600" height="300"/>
+      <canvas id="map-canvas" className="map-canvas" width="800" height="400"/>
     );
   }
 }

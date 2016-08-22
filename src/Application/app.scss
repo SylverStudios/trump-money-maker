@@ -7,6 +7,7 @@
 @import 'Components/Logo/Logo';
 @import 'Components/ScoreRollup/ScoreRollup';
 @import 'Components/RealEstateMap/RealEstateMap';
+@import 'Components/Mint/MintShop';
 
 .side-panel {
   padding-top: 3em;
@@ -21,7 +22,8 @@
 }
 
 .map-zone {
-  margin: auto;
+  margin-bottom: 2em;
+  margin-top: 2em;
 }
 
 .news-room {
