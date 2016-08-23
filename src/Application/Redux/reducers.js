@@ -116,7 +116,6 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
         }
       );
 
-
     case HIDE_MODAL:
       return Object.assign({}, state,
         {

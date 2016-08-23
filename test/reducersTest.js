@@ -133,4 +133,28 @@ describe('reducers', function () {
       assert.equal(returnedState.broker.areStatsVisible, true);
     });
   });
+
+  describe('Action: SHOW_MODAL', function () {
+    it('should return a new state with modal show set to yes and fields set appropriately', function () {
+      const title = 'The title';
+      const body = 'Tons of Content!';
+      const onClose = () => { return 'text'; };
+
+      const returnedState = trumpMM(initialState, createAction.showModal(title, body, onClose));
+
+      assert.equal(returnedState.modal.show, true);
+      assert.equal(returnedState.modal.title, title);
+      assert.equal(returnedState.modal.body, body);
+      assert.equal(returnedState.modal.onClose(), 'text');
+    });
+  });
+
+  describe('Action: HIDE_MODAL', function () {
+    it('should return a new state with areStatsVisible bool reversed', function () {
+      // areStatsVisible is initially set to false
+      const returnedState = trumpMM(initialState, createAction.hideModal());
+
+      assert.equal(returnedState.modal.show, false);
+    });
+  });
 });
