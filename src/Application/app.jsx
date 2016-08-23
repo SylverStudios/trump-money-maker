@@ -6,9 +6,12 @@ import SimpleClickCanvasContainer from './Components/SimpleClickCanvas/SimpleCli
 import MintShopContainer from './Components/Mint/MintShopContainer';
 import ScoreRollupContainer from './Components/ScoreRollup/ScoreRollupContainer';
 import Logo from './Components/Logo/Logo';
+import ModalContainer from './Components/Modal/ModalContainer';
 
 const App = () => (
   <div className="app-container">
+
+    <ModalContainer />
 
     <div className="header-row col-md-12">
       <div className="col-md-3">

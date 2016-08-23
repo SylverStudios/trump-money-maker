@@ -6,6 +6,8 @@ import {
   BROADCAST_NEWS,
   DEPOSIT,
   TOGGLE_STATS_VISIBILITY,
+  SHOW_MODAL,
+  HIDE_MODAL,
 } from './actions';
 import StateUtils from './StateUtils';
 import broadcastManager from '../../util/broadcastManager';
@@ -98,6 +100,35 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({}, state,
           { broker: state.broker.toggleStatsVisibility() }
       );
+
+    case SHOW_MODAL:
+      // show, title, body, onClose
+      const { title, body, onClose } = action;
+
+      return Object.assign({}, state,
+        {
+          modal: {
+            show: true,
+            title: title,
+            body: body,
+            onClose: onClose,
+          },
+        }
+      );
+
+
+    case HIDE_MODAL:
+      return Object.assign({}, state,
+        {
+          modal: {
+            show: false,
+            title: null,
+            body: null,
+            onClose: null,
+          },
+        }
+      );
+
 
     default:
       return state;

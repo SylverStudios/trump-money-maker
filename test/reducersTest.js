@@ -17,7 +17,8 @@ describe('reducers', function () {
 
   it('should return the initial state given no input state and no action', function () {
     const returnedState = trumpMM(undefined, '');
-    assert.deepEqual(returnedState, initialState);
+
+    assert.deepEqual(returnedState.bank, initialState.bank);
   });
 
   describe('Action: CLICK_MONEY', function () {

@@ -58,6 +58,14 @@ const StateUtils = {
     ];
   },
 
+  getInitialModal: function () {
+    return {
+      show: true,
+      title: 'Welcome to Trump Money Maker',
+      body: 'You are Donald Trump and you are a real estate mogul, or you will be.',
+    };
+  },
+
   getInitialState: function () {
     return {
       bank: new Bank(0, 0, 0, 1462641080306),
@@ -65,6 +73,7 @@ const StateUtils = {
       news: new News(broadcastManager.getInstructions()),
       mint: new Mint(),
       map: [],
+      modal: this.getInitialModal(),
     };
   },
 };
