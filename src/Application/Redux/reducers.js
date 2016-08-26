@@ -6,8 +6,8 @@ import {
   BROADCAST_NEWS,
   DEPOSIT,
   TOGGLE_STATS_VISIBILITY,
+  START_GAME,
   SHOW_MODAL,
-  HIDE_MODAL,
 } from './actions';
 import StateUtils from './StateUtils';
 import broadcastManager from '../../util/broadcastManager';
@@ -102,8 +102,7 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       );
 
     case SHOW_MODAL:
-      // show, title, body, onClose
-      const { title, body, onClose } = action;
+      const { title, body } = action;
 
       return Object.assign({}, state,
         {
@@ -111,12 +110,11 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
             show: true,
             title: title,
             body: body,
-            onClose: onClose,
           },
         }
       );
 
-    case HIDE_MODAL:
+    case START_GAME:
       return Object.assign({}, state,
         {
           modal: {
@@ -125,9 +123,10 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
             body: null,
             onClose: null,
           },
+          startTime: new Date().getTime(),
         }
-      );
 
+      );
 
     default:
       return state;

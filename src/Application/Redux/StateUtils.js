@@ -60,7 +60,6 @@ const StateUtils = {
 
   getInitialModal: function () {
     return {
-      show: true,
       title: 'Welcome to Trump Money Maker',
       body: 'You are Donald Trump and you are a real estate mogul, or you will be.',
     };
@@ -74,6 +73,7 @@ const StateUtils = {
       mint: new Mint(),
       map: [],
       modal: this.getInitialModal(),
+      startTime: 1462641080306,
     };
   },
 };

@@ -7,7 +7,7 @@ export const BROADCAST_NEWS = 'BROADCAST_NEWS';
 export const DEPOSIT = 'DEPOSIT';
 export const TOGGLE_STATS_VISIBILITY = 'TOGGLE_STATS_VISIBILITY';
 export const SHOW_MODAL = 'SHOW_MODAL';
-export const HIDE_MODAL = 'HIDE_MODAL';
+export const START_GAME = 'START_GAME';
 
 const createAction = {
   deposit: (amount) => {
@@ -42,13 +42,14 @@ const createAction = {
     return { type: TOGGLE_STATS_VISIBILITY };
   },
 
-  showModal: (title, body, onClose) => {
-    return { type: SHOW_MODAL, title: title, body: body, onClose: onClose };
+  startGame: () => {
+    return { type: START_GAME };
   },
 
-  hideModal: () => {
-    return { type: HIDE_MODAL };
+  showModal: (title, body) => {
+    return { type: SHOW_MODAL, title: title, body: body };
   },
+
 };
 
 export default createAction;

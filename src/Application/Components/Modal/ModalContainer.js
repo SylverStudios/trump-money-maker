@@ -3,9 +3,9 @@ import Modal from './Modal';
 import createAction from '../../Redux/actions';
 
 const mapStateToProps = (state) => {
-  const { show, title, body } = state.modal;
+  const { title, body } = state.modal;
   return {
-    show: show,
+    show: !!title,
     title: title,
     body: body,
   };
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onClose: () => {
-      dispatch(createAction.hideModal());
+      dispatch(createAction.startGame());
     },
   };
 };
