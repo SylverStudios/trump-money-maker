@@ -25,12 +25,20 @@ class Broker {
     return sortedById[0];
   }
 
+  get hasAssetsToUnlock() {
+    const lockedAssets = this._assets.filter((asset) => !asset.unlocked);
+    return lockedAssets.length > 0;
+  }
+
   get areStatsVisible() {
     return this._areStatsVisible;
   }
 
   _calculateUnlock() {
-    return this.nextAssetToUnlock.price * UNLOCK_RATIO;
+    if (this.hasAssetsToUnlock) {
+      return this.nextAssetToUnlock.price * UNLOCK_RATIO;
+    }
+    return false;
   }
 
 // By name or id since I think i'm going to move to id'd by name

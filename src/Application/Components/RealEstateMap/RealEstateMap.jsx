@@ -12,7 +12,6 @@ class RealEstateMap extends React.Component {
   }
 
   addPin(pin) {
-    console.log(pin);
     const fabricPin = new fabric.Circle({
       radius: 3,
       left: pin.x,
