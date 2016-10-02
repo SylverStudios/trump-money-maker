@@ -6,6 +6,8 @@ export const UPGRADE_DENOMINATION = 'UPGRADE_DENOMINATION';
 export const BROADCAST_NEWS = 'BROADCAST_NEWS';
 export const DEPOSIT = 'DEPOSIT';
 export const TOGGLE_STATS_VISIBILITY = 'TOGGLE_STATS_VISIBILITY';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const START_GAME = 'START_GAME';
 
 const createAction = {
   deposit: (amount) => {
@@ -39,6 +41,15 @@ const createAction = {
   toggleStatsVisibility: () => {
     return { type: TOGGLE_STATS_VISIBILITY };
   },
+
+  startGame: () => {
+    return { type: START_GAME };
+  },
+
+  showModal: (title, body) => {
+    return { type: SHOW_MODAL, title: title, body: body };
+  },
+
 };
 
 export default createAction;

@@ -17,7 +17,8 @@ describe('reducers', function () {
 
   it('should return the initial state given no input state and no action', function () {
     const returnedState = trumpMM(undefined, '');
-    assert.deepEqual(returnedState, initialState);
+
+    assert.deepEqual(returnedState.bank, initialState.bank);
   });
 
   describe('Action: CLICK_MONEY', function () {
@@ -130,6 +131,29 @@ describe('reducers', function () {
       const returnedState = trumpMM(initialState, createAction.toggleStatsVisibility());
 
       assert.equal(returnedState.broker.areStatsVisible, true);
+    });
+  });
+
+  describe('Action: SHOW_MODAL', function () {
+    it('should return a new state with modal show set to yes and fields set appropriately', function () {
+      const title = 'The title';
+      const body = 'Tons of Content!';
+
+      const returnedState = trumpMM(initialState, createAction.showModal(title, body));
+
+      assert.equal(returnedState.modal.show, true);
+      assert.equal(returnedState.modal.title, title);
+      assert.equal(returnedState.modal.body, body);
+    });
+  });
+
+  describe('Action: START_GAME', function () {
+    it('should return a new state with closed modal and new start time', function () {
+      const now = new Date().getTime();
+      const returnedState = trumpMM(initialState, createAction.startGame());
+
+      assert.equal(returnedState.modal.show, false);
+      assert.isAtLeast(returnedState.startTime, now, 'Starttime is atleast 1 second ago.');
     });
   });
 });
