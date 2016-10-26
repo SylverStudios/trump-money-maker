@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import trumpMM from './Application/Redux/reducers';
 import createActions from './Application/Redux/actions';
-import Mousetrap from 'mousetrap';
+// import Mousetrap from 'mousetrap';
 import broadcastManager from './util/broadcastManager';
 
 import App from './Application/app';
@@ -33,4 +33,4 @@ setInterval(() => {
 }, ONE_MINUTE);
 
 // Dev backdoor for testing
-// Mousetrap.bind(['space'], (e) => { store.dispatch(createActions.deposit(500)); e.preventDefault(); });
+// Mousetrap.bind(['space'], (e) => { store.dispatch(createActions.deposit(1000)); e.preventDefault(); });
