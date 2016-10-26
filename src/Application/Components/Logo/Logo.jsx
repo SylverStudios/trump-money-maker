@@ -8,6 +8,16 @@ const Logo = () => (
         <span className="studio-name">
           Sylver Studios
         </span>
+        <div className="vert-stack">
+          <span>
+            Real friends send constructive criticism
+          </span>
+        </div>
+        <div className="vert-stack">
+            <span className="email-link">
+              sylverstudiosdev@gmail.com
+            </span>
+        </div>
   </div>
 );
 
