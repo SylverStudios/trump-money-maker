@@ -32,4 +32,5 @@ setInterval(() => {
   store.dispatch(createActions.broadcastNews(quote));
 }, ONE_MINUTE);
 
-Mousetrap.bind(['space'], (e) => { store.dispatch(createActions.deposit(500)); e.preventDefault(); });
+// Dev backdoor for testing
+// Mousetrap.bind(['space'], (e) => { store.dispatch(createActions.deposit(500)); e.preventDefault(); });
