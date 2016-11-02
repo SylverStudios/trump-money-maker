@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
 import TellerSection from './TellerSection';
+import createAction from '../../Redux/actions';
 
-const mapStateToProps = () => {
-  return {
-    numTellers: 2,
-    tellerPrice: 4,
-  };
+const mapStateToProps = state => {
+  const { teller: { numTellers, tellerPrice } } = state;
+  return { numTellers, tellerPrice };
 };
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = dispatch => {
   return {
-    purchaseTeller: () => console.log('purchase clicked!'),
+    purchaseTeller: () => dispatch(createAction.purchaseTeller()),
   };
 };
 

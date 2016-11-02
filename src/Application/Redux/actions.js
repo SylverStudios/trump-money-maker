@@ -8,6 +8,7 @@ export const DEPOSIT = 'DEPOSIT';
 export const TOGGLE_STATS_VISIBILITY = 'TOGGLE_STATS_VISIBILITY';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const START_GAME = 'START_GAME';
+export const PURCHASE_TELLER = 'PURCHASE_TELLER';
 
 const createAction = {
   deposit: (amount) => {
@@ -48,6 +49,10 @@ const createAction = {
 
   showModal: (title, body) => {
     return { type: SHOW_MODAL, title: title, body: body };
+  },
+
+  purchaseTeller: () => {
+    return { type: PURCHASE_TELLER };
   },
 
 };

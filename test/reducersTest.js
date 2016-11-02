@@ -134,6 +134,13 @@ describe('reducers', function () {
     });
   });
 
+  describe('Action: PURCHASE_TELLER', function () {
+    it('should increase the number of tellers by one', function () {
+      const returnedState = trumpMM(initialState, createAction.purchaseTeller());
+      assert.equal(returnedState.teller.numTellers, 1);
+    });
+  });
+
   describe('Action: SHOW_MODAL', function () {
     it('should return a new state with modal show set to yes and fields set appropriately', function () {
       const title = 'The title';

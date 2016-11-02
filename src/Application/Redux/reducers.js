@@ -8,6 +8,7 @@ import {
   TOGGLE_STATS_VISIBILITY,
   START_GAME,
   SHOW_MODAL,
+  PURCHASE_TELLER,
 } from './actions';
 import StateUtils from './StateUtils';
 import broadcastManager from '../../util/broadcastManager';
@@ -123,6 +124,9 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
         successfulTransactionStateDelta,
         { news: state.news.addBroadcast(upgradeBroadcast) }
       );
+
+    case PURCHASE_TELLER:
+      return Object.assign({}, state, { teller: state.teller.withOneMoreTeller() });
 
     case TOGGLE_STATS_VISIBILITY:
       return Object.assign({}, state,
