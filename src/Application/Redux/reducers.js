@@ -12,6 +12,7 @@ import {
 } from './actions';
 import StateUtils from './StateUtils';
 import broadcastManager from '../../util/broadcastManager';
+import purchaseTeller from './reducers/purchaseTeller';
 
 function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
@@ -126,7 +127,7 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       );
 
     case PURCHASE_TELLER:
-      return Object.assign({}, state, { teller: state.teller.withOneMoreTeller() });
+      return purchaseTeller(state);
 
     case TOGGLE_STATS_VISIBILITY:
       return Object.assign({}, state,

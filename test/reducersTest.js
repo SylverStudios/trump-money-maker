@@ -135,9 +135,25 @@ describe('reducers', function () {
   });
 
   describe('Action: PURCHASE_TELLER', function () {
-    it('should increase the number of tellers by one', function () {
-      const returnedState = trumpMM(initialState, createAction.purchaseTeller());
-      assert.equal(returnedState.teller.numTellers, 1);
+    describe('with insufficient cash', function () {
+      it('returns an equal state', function () {
+        assert.isBelow(initialState.bank.cash, initialState.teller.tellerPrice);
+        const returnedState = trumpMM(initialState, createAction.purchaseTeller());
+        assert.deepEqual(returnedState, initialState);
+      });
+    });
+    describe('with sufficient cash', function () {
+      let returnedState;
+      beforeEach(function () {
+        initialState.bank._cash = initialState.teller.tellerPrice + 10;
+        returnedState = trumpMM(initialState, createAction.purchaseTeller());
+      });
+      it('should increase the number of tellers by one', function () {
+        assert.equal(returnedState.teller.numTellers, initialState.teller.numTellers + 1);
+      });
+      it('should reduce the amount of cash by the purchase price', function () {
+        assert.equal(returnedState.bank.cash, initialState.bank.cash - initialState.teller.tellerPrice);
+      });
     });
   });
 
