@@ -1,7 +1,10 @@
 import React from 'react';
 import { fabric } from 'fabric';
+import { assetDefaults } from '../../../util/constants';
+
 const MAP_IMAGE_ADDRESS = 'images/map.png';
 const MAP_CANVAS_DOM_ID = 'map-canvas';
+
 
 class RealEstateMap extends React.Component {
   constructor(props) {
@@ -11,7 +14,7 @@ class RealEstateMap extends React.Component {
     this.randomPointWithinMap = this.randomPointWithinMap.bind(this);
   }
 
-  addPin(pin) {
+  addPin(pin, color = 'blue') {
     const fabricPin = new fabric.Circle({
       radius: 3,
       left: pin.x,
@@ -22,7 +25,9 @@ class RealEstateMap extends React.Component {
       hoverCursor: 'cursor',
       originX: 'center',
       originY: 'center',
-      fill: 'blue',
+      stroke: 'black',
+      strokeWidth: 1,
+      fill: color,
     });
 
     this.canvas.add(fabricPin).renderAll();
@@ -52,7 +57,8 @@ class RealEstateMap extends React.Component {
   componentWillReceiveProps(nextProps) {
     const currentpins = this.props.pins.length || 0;
     if (nextProps.pins.length > currentpins) {
-      this.addPin(this.randomPointWithinMap());
+      const nextColor = assetDefaults[nextProps.pins[currentpins]].color;
+      this.addPin(this.randomPointWithinMap(), nextColor);
     }
   }
 

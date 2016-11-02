@@ -13,10 +13,11 @@ export const assetDefaults = {
   'Tenement': {
     id: 1,
     keyCode: '1',
-    baseIncome: 0.02,
-    basePrice: 1.20,
+    baseIncome: 0.05,
+    basePrice: 0.50,
     increaseRatio: 1.07,
     flavor: 'A small stinky room in a dangerous part of town.',
+    color: '#999966',
   },
   // Return is 2%
   'Hotel': {
@@ -26,6 +27,7 @@ export const assetDefaults = {
     basePrice: 6.50,
     increaseRatio: 1.07,
     flavor: 'A 2 star hotel near an airport.',
+    color: '#ffffff',
   },
   // Return is 5%
   'Golf Course': {
@@ -35,6 +37,7 @@ export const assetDefaults = {
     basePrice: 50,
     increaseRatio: 1.07,
     flavor: 'A acceptable course with a water trap and a fake gator.',
+    color: '#00cc00',
   },
   // Return is 4%
   'Casino': {
@@ -44,6 +47,7 @@ export const assetDefaults = {
     basePrice: 400,
     increaseRatio: 1.07,
     flavor: 'A morally questionable casino on an indian reservation.',
+    color: '#ffcc00',
   },
   // Return is 4%
   'Trump Tower': {
@@ -53,6 +57,7 @@ export const assetDefaults = {
     basePrice: 5000,
     increaseRatio: 1.07,
     flavor: 'Your first classy building, rooms even have their own bidet.',
+    color: '#99ccff',
   },
   // Return is 3.5%
   'Trump Town': {
@@ -62,6 +67,7 @@ export const assetDefaults = {
     basePrice: 20000,
     increaseRatio: 1.07,
     flavor: 'The way of the future, The way of the future, The way of the future.',
+    color: '#00ffcc',
   },
   // Return is 3.5%
   'Trump City': {
@@ -71,6 +77,7 @@ export const assetDefaults = {
     basePrice: 100000,
     increaseRatio: 1.07,
     flavor: 'They aren\'t cute, they are very profitable.',
+    color: '#0000ff',
   },
   // Return is 3%
   'Governership': {
@@ -80,6 +87,7 @@ export const assetDefaults = {
     basePrice: 650000,
     increaseRatio: 1.07,
     flavor: 'Capitalism has defeated the political system, might as well buy it while you can.',
+    color: '#ff0000',
   },
   // Return is 2%
   'Trump ISS': {
@@ -89,5 +97,6 @@ export const assetDefaults = {
     basePrice: 9999999,
     increaseRatio: 1.07,
     flavor: 'This will allow you to finally leave all of the pathetic \'humans\' behind!',
+    color: '#000000',
   },
 };
