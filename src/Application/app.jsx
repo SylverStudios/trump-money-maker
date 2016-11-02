@@ -2,6 +2,7 @@ import React from 'react';
 import ShopContainer from './Components/Shop/ShopContainer';
 import NewsRoomContainer from './Components/NewsRoom/NewsRoomContainer';
 import RealEstateMapContainer from './Components/RealEstateMap/RealEstateMapContainer';
+import TellerSection from './Components/Tellers/TellerSectionContainer';
 import SimpleClickCanvasContainer from './Components/SimpleClickCanvas/SimpleClickCanvasContainer';
 import MintShopContainer from './Components/Mint/MintShopContainer';
 import ScoreRollupContainer from './Components/ScoreRollup/ScoreRollupContainer';
@@ -19,6 +20,7 @@ const App = () => (
       </div>
 
       <div className="col-md-2">
+        <TellerSection />
       </div>
 
       <div className="col-md-2">
