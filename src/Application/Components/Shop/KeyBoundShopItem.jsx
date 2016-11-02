@@ -1,5 +1,6 @@
 import React from 'react';
 import Mousetrap from 'mousetrap';
+import numeral from 'numeral';
 
 import Asset from '../../Models/Asset';
 
@@ -39,7 +40,7 @@ class KeyBoundShopItem extends React.Component {
             <img className="shop-item-image" src={imgSrc}/>
             <div className="shop-item-text">
               <div className="shop-item-title">{asset.name}</div>
-              <div className="shop-item-cost">${asset.price.toFixed(2)}</div>
+              <div className="shop-item-cost">{numeral(asset.price).format('($ 0.00 a)')}</div>
             </div>
           </div>
           <div className="shop-item-number col-md-2">{asset.numOwned}</div>
