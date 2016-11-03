@@ -10,9 +10,10 @@ import {
   SHOW_MODAL,
   PURCHASE_TELLER,
 } from './actions';
-import StateUtils from './StateUtils';
+import StateUtils, { TELLER_COLLECTION_INTERVAL } from './StateUtils';
 import broadcastManager from '../../util/broadcastManager';
 import purchaseTeller from './reducers/purchaseTeller';
+import TellerState from '../Models/TellerState';
 
 function trumpMM(state = StateUtils.getInitialState(), action) {
   switch (action.type) {
@@ -28,7 +29,19 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       );
 
     case COLLECT_INCOME:
-      const newBank = state.bank.collectIncome(action.currentTime);
+      let newBank = state.bank.collectIncome(action.currentTime);
+
+      // check for possible teller income
+      let newTeller = state.teller;
+      if (state.teller.numTellers) {
+        const timeSinceLastTellerCollected = action.currentTime - state.teller.lastCollected;
+        const collectionInterval = TELLER_COLLECTION_INTERVAL / state.teller.numTellers;
+        const numCollections = Math.trunc(timeSinceLastTellerCollected / collectionInterval);
+        if (numCollections >= 1) {
+          newBank = state.bank.deposit(state.mint.currentDenomination.incomePerClick * numCollections);
+          newTeller = new TellerState(newTeller.numTellers, newTeller.tellerPrice, action.currentTime);
+        }
+      }
 
       const lastIncomeCheck = state.bank.lastRent;
       const secondDiff = (action.currentTime - lastIncomeCheck) / 1000;
@@ -45,12 +58,13 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
             bank: newBank,
             news: state.news.addBroadcast(unlockBroadcast),
             broker: newBroker,
+            teller: newTeller,
           },
         );
       }
 
       // Else just update money and time
-      return Object.assign({}, state, { bank: newBank, broker: newBroker });
+      return Object.assign({}, state, { bank: newBank, broker: newBroker, teller: newTeller });
 
     case BROADCAST_NEWS:
       return Object.assign({}, state, { news: state.news.addBroadcast(action.article) });

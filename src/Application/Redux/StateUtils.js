@@ -83,9 +83,11 @@ const StateUtils = {
       map: [],
       modal: this.getInitialModal(),
       startTime: 1462641080306,
-      teller: new TellerState(0, 1),
+      teller: new TellerState(0, 1, Date.now()),
     };
   },
 };
+
+export const TELLER_COLLECTION_INTERVAL = 4000; // every teller collects every 4 seconds
 
 export default StateUtils;
