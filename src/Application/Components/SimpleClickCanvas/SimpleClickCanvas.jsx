@@ -6,7 +6,6 @@ class SimpleClickCanvas extends React.Component {
     super(props);
     this.setClickableImage = this.setClickableImage.bind(this);
     this.setupDefaults = this.setupDefaults.bind(this);
-    this.playUpgradeSound = this.playUpgradeSound.bind(this);
   }
 
   setClickableImage() {
@@ -61,16 +60,13 @@ class SimpleClickCanvas extends React.Component {
 
     this.setClickableImage();
   }
-  
-  playUpgradeSound() {
-    this.upgradeSound.currentTime = 0;
-    this.upgradeSound.play();
-  }
 
   componentDidUpdate(prevProps) {
     if (prevProps.imageUrl !== this.props.imageUrl) {
       this.setClickableImage();
-      this.playUpgradeSound();
+
+      this.upgradeSound.currentTime = 0;
+      this.upgradeSound.play();
     }
   }
 
