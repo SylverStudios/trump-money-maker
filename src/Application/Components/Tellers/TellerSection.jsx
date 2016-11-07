@@ -4,6 +4,20 @@ import Teller from './Teller';
 
 class TellerSection extends Component {
 
+  componentWillMount() {
+    this.lastAnimatedIndex = 0;
+  }
+
+  componentDidUpdate(prevProps) {
+    const { numTellers } = this.props;
+    if (numTellers > 0 && this.props.lastCollected > prevProps.lastCollected) {
+      // increase last animated index
+      const indexToAnimate = (this.lastAnimatedIndex + 1) % numTellers;
+      this.refs[`teller${indexToAnimate}`].animate();
+      this.lastAnimatedIndex = indexToAnimate;
+    }
+  }
+
   renderTellers() {
     const tellers = Array(this.props.numTellers).fill().map((undef, i) => (
       <Teller key={`teller${i}`} ref={`teller${i}`} />
