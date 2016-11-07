@@ -33,6 +33,7 @@ class Mint {
   get toNextDenomination() {
     if (this.canUpgrade) {
       return new Mint(this._currentDenominationIndex + 1);
+      
     }
     console.warn( // warn so program doesn't crash, but useful for debugging
       new Error('attempting to upgrade mint to next denomination, have reached end already')
