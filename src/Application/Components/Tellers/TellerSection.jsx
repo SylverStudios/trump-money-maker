@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import numeral from 'numeral';
+
+const plusIcon = 'images/plus_icon.svg';
 
 import Teller from './Teller';
 
@@ -27,11 +30,23 @@ class TellerSection extends Component {
 
   render() {
     const { numTellers, purchaseTeller, tellerPrice } = this.props;
+    const currentPrice = numeral(tellerPrice).format('($ 0.00 a)');
     return (
       <div className="TellerSection">
-        <div>Number of tellers: {numTellers}</div>
-        <button onClick={purchaseTeller} >Buy a teller ${tellerPrice}</button>
-        {this.renderTellers()}
+        <div className="control-section">
+          <button className="btn btn-success teller-add-button" onClick={purchaseTeller} >
+            <img src={plusIcon}/>
+            Buy Teller
+          </button>
+          
+          <div className="teller-info">
+            <div>Number of tellers: {numTellers}</div>
+            <div>Price of new Teller: {currentPrice}</div>
+          </div>
+        </div>
+        <div className="display-section">
+          {this.renderTellers()}
+        </div>
       </div>
     );
   }
