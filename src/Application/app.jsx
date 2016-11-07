@@ -15,11 +15,11 @@ const App = () => (
     <ModalContainer />
 
     <div className="header-row col-md-12">
-      <div className="col-md-3">
+      <div className="col-md-2">
         <ScoreRollupContainer />
       </div>
 
-      <div className="col-md-2">
+      <div className="col-md-3">
         <TellerSection />
       </div>
 

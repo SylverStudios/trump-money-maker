@@ -21,12 +21,12 @@ const MintShop = React.createClass({
     }
     return (
       <div className="mint-shop">
-        {message}
-
         <button className="btn btn-success mint-upgrade-button" onClick={onUpgrade} disabled={!nextDenomination}>
           <img className="mint-upgrade-svg" src={upgradeImage}/>
           Increase Credit Limit
         </button>
+
+        <div className="mint-info">{message}</div>
       </div>
     );
   },
