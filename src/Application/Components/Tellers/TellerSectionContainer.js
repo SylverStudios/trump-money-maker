@@ -3,8 +3,8 @@ import TellerSection from './TellerSection';
 import createAction from '../../Redux/actions';
 
 const mapStateToProps = state => {
-  const { teller: { numTellers, tellerPrice } } = state;
-  return { numTellers, tellerPrice };
+  const { teller: { lastCollected, numTellers, tellerPrice } } = state;
+  return { lastCollected, numTellers, tellerPrice };
 };
 
 const mapDispatchToProps = dispatch => {
