@@ -11,6 +11,11 @@ class TellerSection extends Component {
     this.lastAnimatedIndex = 0;
   }
 
+  componentDidMount() {
+    this.upgradeSound = new Audio('sounds/voice-yuge.mp3');
+    this.upgradeSound.volume = 1;
+  }
+
   componentDidUpdate(prevProps) {
     const { numTellers } = this.props;
     if (numTellers > 0 && this.props.lastCollected > prevProps.lastCollected) {
@@ -18,6 +23,11 @@ class TellerSection extends Component {
       const indexToAnimate = (this.lastAnimatedIndex + 1) % numTellers;
       this.refs[`teller${indexToAnimate}`].animate();
       this.lastAnimatedIndex = indexToAnimate;
+    }
+
+    if (prevProps.numTellers < this.props.numTellers) {
+      this.upgradeSound.currentTime = 0;
+      this.upgradeSound.play();
     }
   }
 

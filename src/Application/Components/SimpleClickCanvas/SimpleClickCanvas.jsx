@@ -64,13 +64,21 @@ class SimpleClickCanvas extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.imageUrl !== this.props.imageUrl) {
       this.setClickableImage();
+
+      this.upgradeSound.currentTime = 0;
+      this.upgradeSound.play();
     }
   }
 
   componentDidMount() {
     this.canvas = new fabric.Canvas('click-canvas');
+
     this.clickSound = new Audio('sounds/clink.mp3');
     this.clickSound.volume = 0.3;
+
+    this.upgradeSound = new Audio('sounds/voice-ka-ching.mp3');
+    this.upgradeSound.volume = 0.7;
+
     this.setupDefaults();
   }
 
