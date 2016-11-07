@@ -38,7 +38,6 @@ class TellerSection extends Component {
             <img src={plusIcon}/>
             Buy Teller
           </button>
-          
           <div className="teller-info">
             <div>Number of tellers: {numTellers}</div>
             <div>Price of new Teller: {currentPrice}</div>
