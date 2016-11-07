@@ -2,6 +2,7 @@ import React from 'react';
 import ShopContainer from './Components/Shop/ShopContainer';
 import NewsRoomContainer from './Components/NewsRoom/NewsRoomContainer';
 import RealEstateMapContainer from './Components/RealEstateMap/RealEstateMapContainer';
+import TellerSection from './Components/Tellers/TellerSectionContainer';
 import SimpleClickCanvasContainer from './Components/SimpleClickCanvas/SimpleClickCanvasContainer';
 import MintShopContainer from './Components/Mint/MintShopContainer';
 import ScoreRollupContainer from './Components/ScoreRollup/ScoreRollupContainer';
@@ -14,11 +15,12 @@ const App = () => (
     <ModalContainer />
 
     <div className="header-row col-md-12">
-      <div className="col-md-3">
+      <div className="col-md-2">
         <ScoreRollupContainer />
       </div>
 
-      <div className="col-md-2">
+      <div className="col-md-3">
+        <TellerSection />
       </div>
 
       <div className="col-md-2">

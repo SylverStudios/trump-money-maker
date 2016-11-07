@@ -1,5 +1,5 @@
 import trumpMM from '../src/Application/Redux/reducers';
-import StateUtils from '../src/Application/Redux/StateUtils';
+import StateUtils, { TELLER_COLLECTION_INTERVAL } from '../src/Application/Redux/StateUtils';
 import createAction from '../src/Application/Redux/actions';
 import { COLLECT_INCOME } from '../src/Application/Redux/actions';
 import Bank from '../src/Application/Models/Bank';
@@ -38,6 +38,60 @@ describe('reducers', function () {
   });
 
   describe('Action: COLLECT_INCOME', function () {
+    describe('collecting teller income', function () {
+      const currentTime = Date.now();
+      const collectIncomeAction = { type: COLLECT_INCOME, currentTime };
+      beforeEach(function () {
+        initialState.teller._numTellers = 1;
+        initialState.bank._income = 0; // in order to isolate teller income gains
+      });
+      describe('when insufficient time has passed', function () {
+        let returnedState;
+        beforeEach(function () {
+          initialState.teller._lastCollected = currentTime - TELLER_COLLECTION_INTERVAL + 5;
+          returnedState = trumpMM(initialState, collectIncomeAction);
+        });
+        it('does not add teller income to bank', function () {
+          assert.equal(returnedState.bank.cash, initialState.bank.cash);
+        });
+        it('does not reset teller lastCollected', function () {
+          assert.equal(returnedState.teller.lastCollected, initialState.teller.lastCollected);
+        });
+      });
+      describe('when one collection period has passed', function () {
+        let returnedState;
+        beforeEach(function () {
+          initialState.teller._lastCollected = currentTime - TELLER_COLLECTION_INTERVAL - 5;
+          returnedState = trumpMM(initialState, collectIncomeAction);
+        });
+        it('adds current click amount times numTellers to cash', function () {
+          const newCash = initialState.bank.cash
+                        + initialState.mint.currentDenomination.incomePerClick
+                        * initialState.teller.numTellers;
+          assert.equal(returnedState.bank.cash, newCash);
+        });
+        it('resets lastCollected', function () {
+          assert.equal(returnedState.teller.lastCollected, currentTime);
+        });
+      });
+      describe('when 2 collection periods have passed', function () {
+        let returnedState;
+        beforeEach(function () {
+          initialState.teller._lastCollected = currentTime - TELLER_COLLECTION_INTERVAL * 2 - 5;
+          returnedState = trumpMM(initialState, collectIncomeAction);
+        });
+        it('adds current click amount times numTellers to cash, twice', function () {
+          const newCash = initialState.bank.cash
+                        + initialState.mint.currentDenomination.incomePerClick
+                        * initialState.teller.numTellers
+                        * 2;
+          assert.equal(returnedState.bank.cash, newCash);
+        });
+        it('resets lastCollected', function () {
+          assert.equal(returnedState.teller.lastCollected, currentTime);
+        });
+      });
+    });
     it('should leave the original state unmodified', function () {
       const oneSecondLater = initialState.bank.lastRent + 1000;
       const collectIncomeAction = { type: COLLECT_INCOME, currentTime: oneSecondLater };
@@ -131,6 +185,29 @@ describe('reducers', function () {
       const returnedState = trumpMM(initialState, createAction.toggleStatsVisibility());
 
       assert.equal(returnedState.broker.areStatsVisible, true);
+    });
+  });
+
+  describe('Action: PURCHASE_TELLER', function () {
+    describe('with insufficient cash', function () {
+      it('returns an equal state', function () {
+        assert.isBelow(initialState.bank.cash, initialState.teller.tellerPrice);
+        const returnedState = trumpMM(initialState, createAction.purchaseTeller());
+        assert.deepEqual(returnedState, initialState);
+      });
+    });
+    describe('with sufficient cash', function () {
+      let returnedState;
+      beforeEach(function () {
+        initialState.bank._cash = initialState.teller.tellerPrice + 10;
+        returnedState = trumpMM(initialState, createAction.purchaseTeller());
+      });
+      it('should increase the number of tellers by one', function () {
+        assert.equal(returnedState.teller.numTellers, initialState.teller.numTellers + 1);
+      });
+      it('should reduce the amount of cash by the purchase price', function () {
+        assert.equal(returnedState.bank.cash, initialState.bank.cash - initialState.teller.tellerPrice);
+      });
     });
   });
 
