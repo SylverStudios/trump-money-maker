@@ -81,7 +81,7 @@ class SimpleClickCanvas extends React.Component {
     this.clickSound.volume = 0.3;
 
     this.upgradeSound = new Audio('sounds/voice-ka-ching.mp3');
-    this.upgradeSound.volume = 0.3;
+    this.upgradeSound.volume = 0.7;
 
     this.setupDefaults();
   }

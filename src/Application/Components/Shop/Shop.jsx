@@ -13,6 +13,16 @@ const Shop = React.createClass({
     totalRevenueEverEarned: React.PropTypes.number.isRequired,
   },
 
+  componentDidMount() {
+    this.upgradeSound = new Audio('sounds/voice-really-rich.mp3');
+    this.upgradeSound.volume = 0.7;
+  },
+
+  playUpgradeSound() {
+    this.upgradeSound.currentTime = 0;
+    this.upgradeSound.play();
+  },
+
   renderShopHeader() {
     const toggleText = this.props.areStatsVisible ? 'Collapse Property Stats' : 'Expand Property Stats';
 
@@ -42,6 +52,12 @@ const Shop = React.createClass({
         })}
       </div>
     );
+  },
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.assets.length !== this.props.assets.length) {
+      this.playUpgradeSound();
+    }
   },
 
   render() {
