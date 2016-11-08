@@ -1,9 +1,10 @@
 import News from '../src/Application/Models/News';
 import broadcastManager from '../src/util/broadcastManager';
+import { newsConfig } from '../src/util/constants';
 import { assert } from 'chai';
 
 describe('News', function () {
-  const broadcasts = broadcastManager.getInstructions();
+  const broadcasts = [broadcastManager.getQuote()];
   const newBroadcast = broadcastManager.upgradeDenomFail();
   let news;
   let NewsCopy;
@@ -18,25 +19,24 @@ describe('News', function () {
       const newNews = news.addBroadcast(newBroadcast);
 
       assert.equal(news.broadcasts[0], NewsCopy.broadcasts[0]);
-      assert.equal(news.broadcasts.length, 4);
-      assert.equal(newNews.broadcasts.length, 4);
+      assert.equal(news.broadcasts.length, NewsCopy.broadcasts.length);
     });
 
     it('should add new articles to the start of the array', function () {
       const newNews = news.addBroadcast(newBroadcast);
 
       assert.equal(newNews.broadcasts[0], newBroadcast);
-      assert.equal(newNews.broadcasts.length, 4);
     });
 
-    it('should remove the oldest article with max 5 articles', function () {
-      for (const i of Array(9).keys()) {
-        news.addBroadcast(broadcastManager.createFlavor(i));
+    it('should remove the oldest article when the news limit is reached', function () {
+      for (const i of Array(newsConfig.maxBroadcasts + 1).keys()) {
+        news = news.addBroadcast(broadcastManager.createFlavor(i));
+        console.log(i);
       }
       const newNews = news.addBroadcast(newBroadcast);
 
       assert.equal(newNews.broadcasts[0], newBroadcast);
-      assert.equal(newNews.broadcasts.length, 4);
+      assert.equal(newNews.broadcasts.length, newsConfig.maxBroadcasts);
     });
   });
 });

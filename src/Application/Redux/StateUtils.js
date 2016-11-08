@@ -79,7 +79,7 @@ const StateUtils = {
     return {
       bank: new Bank(0, 0, 0, 1462641080306),
       broker: new Broker(this.getBaseAssets()),
-      news: new News(broadcastManager.getInstructions()),
+      news: new News([broadcastManager.getQuote()]),
       mint: new Mint(),
       map: [],
       modal: this.getInitialModal(),

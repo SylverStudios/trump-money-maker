@@ -122,3 +122,8 @@ export const tellerConfig = {
   basePrice: 1,
   priceMultiplier: 1.2,
 };
+
+export const newsConfig = {
+  maxBroadcasts: 3,
+};
+

@@ -1,3 +1,5 @@
+import { newsConfig } from '../../util/constants';
+
 class News {
   constructor(broadcasts) {
     this._broadcasts = broadcasts;
@@ -8,12 +10,13 @@ class News {
   }
 
   addBroadcast(article) {
-    const copyOfBroadcasts = this.broadcasts.slice();
+    let copyOfBroadcasts = this.broadcasts.slice();
     copyOfBroadcasts.unshift(article);
 
-    if (copyOfBroadcasts.length > 3) {
+    while (copyOfBroadcasts.length > newsConfig.maxBroadcasts) {
       copyOfBroadcasts.pop();
     }
+
     return new News(copyOfBroadcasts);
   }
 }

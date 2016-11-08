@@ -1,13 +1,6 @@
 import Broadcast from '../Application/Models/Broadcast';
 import _ from 'underscore';
 
-const INSTRUCTIONS = [
-  Broadcast.instruction('Your mission: Become the Real Estate Mogul this country deserves.'),
-  Broadcast.instruction('Click on the coin in the center to begin collecting rent!'),
-  Broadcast.instruction('New real estate propositions will show up in the right menu.'),
-  Broadcast.instruction('News of your achievements and failures will show up here.'),
-];
-
 let quotes = [
   'I will build a great wall – and nobody builds walls better than me, believe me – and I’ll build them very inexpensively. I will build a great, great wall on our southern border, and I will make Mexico pay for that wall. Mark my words.',
   'If I were running ‘The View’, I’d fire Rosie O’Donnell. I mean, I’d look at her right in that fat, ugly face of hers, I’d say ‘Rosie, you’re fired.',
@@ -35,10 +28,6 @@ const broadcastManager = {
 
   createFlavor: function (content) {
     return Broadcast.flavor(content);
-  },
-
-  getInstructions: function () {
-    return INSTRUCTIONS;
   },
 
   getQuote: function () {
