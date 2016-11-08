@@ -3,11 +3,10 @@ import Modal from './Modal';
 import createAction from '../../Redux/actions';
 
 const mapStateToProps = (state) => {
-  const { title, body } = state.modal;
+  const { modalType } = state.modal;
   return {
-    show: !!title,
-    title: title,
-    body: body,
+    show: !!modalType,
+    modalType: modalType,
   };
 };
 
@@ -15,6 +14,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onClose: () => {
       dispatch(createAction.startGame());
+    },
+
+    next: (modalType) => {
+      dispatch(createAction.showModal(modalType));
     },
   };
 };

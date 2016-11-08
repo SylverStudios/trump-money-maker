@@ -12,6 +12,7 @@ import {
 } from './actions';
 import StateUtils, { TELLER_COLLECTION_INTERVAL } from './StateUtils';
 import broadcastManager from '../../util/broadcastManager';
+import showVictoryModal from './reducers/showVictoryModal';
 import purchaseTeller from './reducers/purchaseTeller';
 import TellerState from '../Models/TellerState';
 
@@ -74,27 +75,10 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
 
       if (state.bank.cash >= assetToBuy.price && assetToBuy.id === 9) {
         // you win.
-        const now = new Date();
-        const devBestTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
-        const gameTime = new Date().getTime() - state.startTime;
-
-        const hours = Math.floor(gameTime / 3600000); // 1 Hour = 36000 Milliseconds
-        const minutes = Math.floor((gameTime % 3600000) / 60000); // 1 Minutes = 60000 Milliseconds
-        const seconds = Math.floor(((gameTime % 360000) % 60000) / 1000);
-        const humanReadable = `${hours}:${minutes}:${seconds}`;
-        const body = `You just completely monopolized the United States!
-                      Who cares about being president when you have your own
-                      fucking ISS!
-                      \n\n
-                      It only took you ${humanReadable}
-                      \n\n
-                      Think you can go faster than the devs? The time to beat is ${devBestTime}`;
         return Object.assign({}, state,
           {
             modal: {
-              show: true,
-              title: 'Congratulations!',
-              body: body,
+              modalType: showVictoryModal(state),
             },
           }
         );
@@ -135,7 +119,9 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       } else {
         upgradeBroadcast = broadcastManager.upgradeDenomFail();
       }
-      return Object.assign({}, state,
+      return Object.assign(
+        {},
+        state,
         successfulTransactionStateDelta,
         { news: state.news.addBroadcast(upgradeBroadcast) }
       );
@@ -149,14 +135,10 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       );
 
     case SHOW_MODAL:
-      const { title, body } = action;
-
       return Object.assign({}, state,
         {
           modal: {
-            show: true,
-            title: title,
-            body: body,
+            modalType: action.modalType,
           },
         }
       );
@@ -165,10 +147,7 @@ function trumpMM(state = StateUtils.getInitialState(), action) {
       return Object.assign({}, StateUtils.getInitialState(),
         {
           modal: {
-            show: false,
-            title: null,
-            body: null,
-            onClose: null,
+            modalType: null,
           },
           startTime: new Date().getTime(),
         }
