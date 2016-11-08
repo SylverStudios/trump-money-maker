@@ -1,4 +1,5 @@
 import Denomination from '../Application/Models/Denomination';
+import React from 'react';
 
 export const TENEMENT = 'Tenement';
 export const HOTEL = 'Hotel';
@@ -127,3 +128,59 @@ export const newsConfig = {
   maxBroadcasts: 3,
 };
 
+export const modals = {
+  WELCOME: {
+    title: 'Trump Money Maker',
+    style: 'welcome-modal',
+    body: <div>
+            You are Donald Trump and you are a real estate mogul, or you will be.
+            <br></br><br></br>
+            <b>Click the Penny</b> above to withdraw from your trust fund.<br></br>
+            You can <b>buy properties in the menu on the right</b> (Open the details stats with the 'Expand Property Stats' Button)
+            <br></br><br></br>
+            This isn't just a something to do with your parent's money, it's a race for the election.
+          </div>,
+    next: 'TRUST',
+  },
+  TRUST: {
+    title: 'Trust Fund',
+    style: 'trust-fund-modal',
+    body: <div>
+            Your Trust Fund is your number one source of Income.
+            <br></br><br></br>
+            Repeatedly request your allowance and your money will increase.
+          </div>,
+    next: 'CREDIT',
+  },
+  CREDIT: {
+    title: 'Credit Union',
+    style: 'credit-modal',
+    body: <div>
+            The Credit Union allows you to increase the amount of money you can withdraw from your trust fund.
+            <br></br><br></br>
+            In other words, every click will get you more money!
+          </div>,
+    next: 'TELLER',
+  },
+  TELLER: {
+    title: 'Tellers',
+    style: 'teller-modal',
+    body: <div>
+            Tellers withdraw from your Trust Fund for you.
+            <br></br><br></br>
+            Every Teller also benefits from your increased Credit Limit.
+          </div>,
+    next: 'BROKER',
+  },
+  BROKER: {
+    title: 'Broker',
+    style: 'broker-modal',
+    body: <div>
+            The broker is your best friend, you will need to buy properties from here to dominate the world.
+            <br></br><br></br>
+            Every property you buy will yield money every second. Once you buy one, it will continue to yield forever.
+            As you gain more money, more properties will become available.
+          </div>,
+    next: null,
+  },
+};
