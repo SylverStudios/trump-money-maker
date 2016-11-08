@@ -10,7 +10,7 @@ const Logo = () => (
         </span>
         <div className="vert-stack">
           <span>
-            Real friends send constructive criticism
+            Friends send constructive criticism
           </span>
         </div>
         <div className="vert-stack">

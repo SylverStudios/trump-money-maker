@@ -47,8 +47,8 @@ const createAction = {
     return { type: START_GAME };
   },
 
-  showModal: (title, body) => {
-    return { type: SHOW_MODAL, title: title, body: body };
+  showModal: (modalType) => {
+    return { type: SHOW_MODAL, modalType: modalType };
   },
 
   purchaseTeller: () => {

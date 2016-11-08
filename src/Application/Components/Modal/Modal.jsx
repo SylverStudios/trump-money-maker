@@ -1,33 +1,51 @@
 import React from 'react';
+import { modals } from '../../../util/constants';
 
 class Modal extends React.Component {
   constructor(props) {
     super(props);
+    this.createFooter = this.createFooter.bind(this);
+  }
+
+  createFooter(modalType, nextPartial, onCloseFxn) {
+    if (modalType.next) {
+      const nextFxn = () => nextPartial(modals[modalType.next]);
+      return (
+        <div className="panel-footer">
+          <button className="btn btn-default left-side" onClick={onCloseFxn}>Skip Tutorial</button>
+          <button className="btn btn-default right-side" onClick={nextFxn}>Next</button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="panel-footer">
+        <button className="btn btn-default center-block" onClick={onCloseFxn}>Start Game</button>
+      </div>
+    );
   }
 
   render() {
-    const { show, title, body, onClose } = this.props;
+    const { show, modalType, next, onClose } = this.props;
 
     if (!show) {
       return null;
     }
+    const modalStyle = modalType.style + ' panel panel-primary';
 
     return (
       <div className="backdrop">
-        <div className="simple-modal panel panel-primary">
+        <div className={modalStyle}>
 
           <div className="panel-heading">
-            <h3 className="panel-title news-title text-center">{title}</h3>
+            <h3 className="panel-title news-title text-center">{modalType.title}</h3>
           </div>
 
           <div className="panel-body">
-            {body}
+            {modalType.body}
           </div>
 
-          <div className="panel-footer">
-            <button className="btn btn-default center-block" onClick={onClose}>Start</button>
-          </div>
-
+          {this.createFooter(modalType, next, onClose)}
         </div>
       </div>
     );
@@ -35,10 +53,10 @@ class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  body: React.PropTypes.object,
+  modalType: React.PropTypes.object,
+  next: React.PropTypes.func,
   onClose: React.PropTypes.func,
   show: React.PropTypes.bool.isRequired,
-  title: React.PropTypes.string,
 };
 
 export default Modal;

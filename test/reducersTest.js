@@ -4,6 +4,7 @@ import createAction from '../src/Application/Redux/actions';
 import { COLLECT_INCOME } from '../src/Application/Redux/actions';
 import Bank from '../src/Application/Models/Bank';
 import { assert } from 'chai';
+import { modals } from '../src/util/constants';
 
 describe('reducers', function () {
   let initialState;
@@ -213,14 +214,9 @@ describe('reducers', function () {
 
   describe('Action: SHOW_MODAL', function () {
     it('should return a new state with modal show set to yes and fields set appropriately', function () {
-      const title = 'The title';
-      const body = 'Tons of Content!';
+      const returnedState = trumpMM(initialState, createAction.showModal(modals.WELCOME));
 
-      const returnedState = trumpMM(initialState, createAction.showModal(title, body));
-
-      assert.equal(returnedState.modal.show, true);
-      assert.equal(returnedState.modal.title, title);
-      assert.equal(returnedState.modal.body, body);
+      assert.deepEqual(returnedState.modal.modalType, modals.WELCOME);
     });
   });
 
@@ -229,7 +225,7 @@ describe('reducers', function () {
       const now = new Date().getTime();
       const returnedState = trumpMM(initialState, createAction.startGame());
 
-      assert.equal(returnedState.modal.show, false);
+      assert.equal(returnedState.modal.modalType, null);
       assert.isAtLeast(returnedState.startTime, now, 'Starttime is atleast 1 second ago.');
     });
   });
