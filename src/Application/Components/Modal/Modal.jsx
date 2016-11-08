@@ -4,6 +4,25 @@ import { modals } from '../../../util/constants';
 class Modal extends React.Component {
   constructor(props) {
     super(props);
+    this.createFooter = this.createFooter.bind(this);
+  }
+
+  createFooter(modalType, nextPartial, onCloseFxn) {
+    if (modalType.next) {
+      const nextFxn = () => nextPartial(modals[modalType.next]);
+      return (
+        <div className="panel-footer">
+          <button className="btn btn-default left-side" onClick={onCloseFxn}>Skip Tutorial</button>
+          <button className="btn btn-default right-side" onClick={nextFxn}>Next</button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="panel-footer">
+        <button className="btn btn-default center-block" onClick={onCloseFxn}>Start Game</button>
+      </div>
+    );
   }
 
   render() {
@@ -12,11 +31,7 @@ class Modal extends React.Component {
     if (!show) {
       return null;
     }
-
     const modalStyle = modalType.style + ' panel panel-primary';
-
-    const onClickFxn = modalType.next ? () => next(modals[modalType.next]) : onClose;
-    const buttonText = modalType.next ? 'Next' : 'Start Game';
 
     return (
       <div className="backdrop">
@@ -30,10 +45,7 @@ class Modal extends React.Component {
             {modalType.body}
           </div>
 
-          <div className="panel-footer">
-            <button className="btn btn-default center-block" onClick={onClickFxn}>{buttonText}</button>
-          </div>
-
+          {this.createFooter(modalType, next, onClose)}
         </div>
       </div>
     );
