@@ -108,14 +108,14 @@ export const assetDefaults = {
 // These are still too good
 export const denominations = [
   new Denomination('penny', 0.01, undefined),
-  new Denomination('nickel', 0.05, 2.50),
+  new Denomination('nickel', 0.05, 2.00),
   new Denomination('dime', 0.10, 8.99),
   new Denomination('quarter', 0.25, 24.99),
   new Denomination('dollar', 1, 75),
   new Denomination('fiveDollar', 5, 450),
-  new Denomination('tenDollar', 10, 825),
-  new Denomination('twentyDollar', 20, 1799.99),
-  new Denomination('fiftyDollar', 50, 4500),
+  new Denomination('tenDollar', 10, 1325),
+  new Denomination('twentyDollar', 20, 3799.99),
+  new Denomination('fiftyDollar', 50, 27000),
   new Denomination('hundredDollar', 100, 70000),
 ];
 
