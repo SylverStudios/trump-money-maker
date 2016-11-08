@@ -6,6 +6,7 @@ import Bank from './../Models/Bank';
 import Mint from './../Models/Mint';
 import TellerState from '../Models/TellerState';
 import { TENEMENT, HOTEL, GOLF_COURSE, CASINO, TOWER, TOWN, CITY, GOV, ISS, assetDefaults } from './../../util/constants';
+import { tellerConfig } from './../../util/constants';
 import broadcastManager from '../../util/broadcastManager';
 
 const StateUtils = {
@@ -83,7 +84,7 @@ const StateUtils = {
       map: [],
       modal: this.getInitialModal(),
       startTime: 1462641080306,
-      teller: new TellerState(0, 1, Date.now()),
+      teller: new TellerState(0, tellerConfig.basePrice, Date.now()),
     };
   },
 };

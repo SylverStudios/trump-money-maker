@@ -1,9 +1,8 @@
 import TellerState from '../../Models/TellerState';
-
-const PRICE_MULTIPLIER = 1.2;
+import { tellerConfig } from '../../../util/constants';
 
 function increasePrice(price) {
-  return parseFloat((price * PRICE_MULTIPLIER).toFixed(2));
+  return parseFloat((price * tellerConfig.priceMultiplier).toFixed(2));
 }
 
 export default function (state) {

@@ -1,3 +1,5 @@
+import Denomination from '../Application/Models/Denomination';
+
 export const TENEMENT = 'Tenement';
 export const HOTEL = 'Hotel';
 export const GOLF_COURSE = 'Golf Course';
@@ -9,11 +11,11 @@ export const GOV = 'Governership';
 export const ISS = 'Trump ISS';
 
 export const assetDefaults = {
-  // Return is 1.6%
+  // Return is 4%
   'Tenement': {
     id: 1,
     keyCode: '1',
-    baseIncome: 0.05,
+    baseIncome: 0.03,
     basePrice: 0.50,
     increaseRatio: 1.07,
     flavor: 'A small stinky room in a dangerous part of town.',
@@ -23,8 +25,8 @@ export const assetDefaults = {
   'Hotel': {
     id: 2,
     keyCode: '2',
-    baseIncome: 0.15,
-    basePrice: 6.50,
+    baseIncome: 0.06,
+    basePrice: 3.00,
     increaseRatio: 1.07,
     flavor: 'A 2 star hotel near an airport.',
     color: '#ffffff',
@@ -99,4 +101,24 @@ export const assetDefaults = {
     flavor: 'This will allow you to finally leave all of the pathetic \'humans\' behind!',
     color: '#000000',
   },
+};
+
+
+// These are still too good
+export const denominations = [
+  new Denomination('penny', 0.01, undefined),
+  new Denomination('nickel', 0.05, 2.50),
+  new Denomination('dime', 0.10, 8.99),
+  new Denomination('quarter', 0.25, 24.99),
+  new Denomination('dollar', 1, 75),
+  new Denomination('fiveDollar', 5, 450),
+  new Denomination('tenDollar', 10, 825),
+  new Denomination('twentyDollar', 20, 1799.99),
+  new Denomination('fiftyDollar', 50, 4500),
+  new Denomination('hundredDollar', 100, 70000),
+];
+
+export const tellerConfig = {
+  basePrice: 1,
+  priceMultiplier: 1.2,
 };
