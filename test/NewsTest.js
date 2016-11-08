@@ -16,7 +16,7 @@ describe('News', function () {
 
   describe('addBroadcast()', function () {
     it('should return a new News and leave the original unmodified', function () {
-      const newNews = news.addBroadcast(newBroadcast);
+      news.addBroadcast(newBroadcast);
 
       assert.equal(news.broadcasts[0], NewsCopy.broadcasts[0]);
       assert.equal(news.broadcasts.length, NewsCopy.broadcasts.length);
@@ -31,7 +31,6 @@ describe('News', function () {
     it('should remove the oldest article when the news limit is reached', function () {
       for (const i of Array(newsConfig.maxBroadcasts + 1).keys()) {
         news = news.addBroadcast(broadcastManager.createFlavor(i));
-        console.log(i);
       }
       const newNews = news.addBroadcast(newBroadcast);
 

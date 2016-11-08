@@ -10,7 +10,7 @@ class News {
   }
 
   addBroadcast(article) {
-    let copyOfBroadcasts = this.broadcasts.slice();
+    const copyOfBroadcasts = this.broadcasts.slice();
     copyOfBroadcasts.unshift(article);
 
     while (copyOfBroadcasts.length > newsConfig.maxBroadcasts) {
