@@ -25,6 +25,7 @@ localhost:LEET
 ## Structural Layout
 
 test - has tests, duh
+
 src - has everything else
 
 Running the server will constantly update the 'build' directory, which is actively being served.
